@@ -1,0 +1,7 @@
+#let us not track the build directories as they contain the compiled stuff wich changes with hardware.
+
+**/build/
+
+*/build/
+
+*/build/*
