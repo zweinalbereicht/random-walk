@@ -16,7 +16,7 @@ DiscreteWalker::DiscreteWalker(){
     m_pos=1;
     m_max=m_pos;
     m_min=m_pos;
-    m_lifetime=1;
+    m_lifetime=0;
     m_seed=1;
     m_rng = gsl_rng_alloc(gsl_rng_mt19937);
     gsl_rng_set(m_rng,m_seed);
