@@ -20,5 +20,5 @@ class LevyWalker : public ContinuousWalker
         //specific move function
         void move(int verbose);
 
-}
+};
 

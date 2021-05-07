@@ -7,6 +7,7 @@
 #include <stdlib.h>
 
 #include "ContinuousWalker.h"
+#include "LevyWalker.h"
 
 using namespace std;
 namespace py = pybind11;
@@ -211,5 +212,13 @@ PYBIND11_MODULE(module_ContinuousWalker,handle){
 
             .def("split_prob",&ContinuousWalker::split_prob,
                     "a function that returns the splitting probability to reach s2 before s1 starting from s0, averaged over n trials.")
+            ;
+
+    py::class_<LevyWalker,ContinuousWalker>(handle, "LevyWalker")
+        .def(py::init<>())
+        .def(py::init<double,double>())
+        .def(py::init<string,double,int,double,double>())
+        .def("move",&LevyWalker::move,"a function that makes the walker perform a single step",py::arg("verbose")=0)
         ;
+
 }
