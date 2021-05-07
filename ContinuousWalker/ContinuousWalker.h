@@ -10,7 +10,7 @@ class ContinuousWalker
 {
 
     //useful attributes for the walker
-    private:
+    protected:
 
     std::string m_name;
     double m_pos;
