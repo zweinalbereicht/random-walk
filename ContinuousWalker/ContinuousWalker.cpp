@@ -162,8 +162,8 @@ PYBIND11_MODULE(module_ContinuousWalker,handle){
     py::class_<ContinuousWalker>(
                 handle, "ContinuousWalker"
             )
-            .def(py::init<>())
-            .def(py::init<string,double,int>())
+            .def(py::init<>(),"default constructor")
+            .def(py::init<string,double,int>(),"takes entry name(string), position(double), random seed(int)")
 
             .def("print_details",&ContinuousWalker::print_details,
                     "a function that prints details on the walker")
@@ -215,9 +215,9 @@ PYBIND11_MODULE(module_ContinuousWalker,handle){
             ;
 
     py::class_<LevyWalker,ContinuousWalker>(handle, "LevyWalker")
-        .def(py::init<>())
-        .def(py::init<double,double>())
-        .def(py::init<string,double,int,double,double>())
+        .def(py::init<>(),"default constructor")
+        .def(py::init<double,double>(),"takes entry c(double), alpha(double)")
+        .def(py::init<string,double,int,double,double>(),"takes entry initial position(double), random seed(int), c(double),alpha(double)")
         .def("move",&LevyWalker::move,"a function that makes the walker perform a single step",py::arg("verbose")=0)
         ;
 
