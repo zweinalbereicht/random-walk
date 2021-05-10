@@ -19,7 +19,7 @@ LaplaceWalker::LaplaceWalker() : ContinuousWalker() ,m_a(1.0)
 LaplaceWalker::LaplaceWalker(double a) : ContinuousWalker(),m_a(a)
 {}
 
-LaplaceWalker::LaplaceWalker(string name, double pos, int seed,double a) : ContinuousWalker(name, pos, seed) ,m_a(1.0)
+LaplaceWalker::LaplaceWalker(string name, double pos, int seed,double a) : ContinuousWalker(name, pos, seed) ,m_a(a)
 {}
 
 void LaplaceWalker::print_details() const
