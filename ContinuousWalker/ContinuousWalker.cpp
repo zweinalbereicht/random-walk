@@ -9,7 +9,7 @@
 #include "ContinuousWalker.h"
 #include "LevyWalker.h"
 #include "LaplaceWalker.h"
-#include "GammaWalker.h""
+#include "GammaWalker.h"
 
 using namespace std;
 namespace py = pybind11;
