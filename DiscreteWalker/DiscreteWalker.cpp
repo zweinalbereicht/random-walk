@@ -9,6 +9,7 @@
 
 #include "DiscreteWalker.h"
 #include "BiasedWalker.h"
+#include "SATWWalker.h"
 //#include "LevyWalker.h"
 //#include "LaplaceWalker.h"
 
@@ -88,6 +89,7 @@ void  DiscreteWalker::set_lifetime(long lifetime){
 
 void  DiscreteWalker::set_seed(long seed){
     m_seed=seed;
+    gsl_rng_set(m_rng,m_seed);
 }
 
 //the basic move function
@@ -168,6 +170,30 @@ double DiscreteWalker::split_prob(long s0, long s1,long s2, long const n)
     return (double)(m/n);
 }
 
+double DiscreteWalker::max_prob(long s0, long s1,long const n)
+{
+    long i;
+    //int result[n];
+    vector<int> result(n); //encore une autre version, ne pas oublier le #include <vector> en haut sinon ça ne marche pas.
+    //result=(int*) malloc(sizeof(int)*n); old C version
+    for(i=0;i<n;i++){
+        m_lifetime=0;
+        m_pos=s0;
+        m_max=m_pos;
+        while(m_pos>0 && m_pos<=s1){ //attention aux inegalités ici, c'est strict, on s'arrete lorsque l'on touche
+            move(0);
+        }
+        result[i]=(int)(m_max==s1); //same thing here, watch the strictness
+    }
+    double m=0;
+    for(i=0;i<n;i++){
+        m+=result[i];
+    }
+    cout << m << endl;
+    //free(result); old C version, using fixed size declaration in the above
+    return (double)(m/n);
+}
+
 
 PYBIND11_MODULE(module_DiscreteWalker,handle){
 
@@ -232,6 +258,9 @@ PYBIND11_MODULE(module_DiscreteWalker,handle){
 
             .def("split_prob",&DiscreteWalker::split_prob,
                     "args : (s0,s1,s2,n) -  a function that returns the splitting probability to reach s2 before s1 starting from s0, averaged over n trials.")
+
+            .def("max_prob",&DiscreteWalker::max_prob,
+                    "args : (s0,s1,n) -  a function that returns the probability that the max is esual to s1, starting from s0, averaged over n trials.")
             ;
 
     //Biased walker bindings
@@ -246,6 +275,20 @@ PYBIND11_MODULE(module_DiscreteWalker,handle){
         .def("set_p",&BiasedWalker::set_p,
                 "a setter function for the  walker's p")
         .def("move",&BiasedWalker::move,"a function that makes the walker perform a single step",py::arg("verbose")=0)
+        ;
+
+    //SATW walker bindings
+    py::class_<SATWWalker,DiscreteWalker>(handle, "SATWWalker")
+        .def(py::init<>(),"default constructor")
+        .def(py::init<double>(),"takes entry beta(double)")
+        .def(py::init<string,long,int,double>(),"takes entry initial position(long), random seed(int), beta(double)")
+        .def("print_details",&SATWWalker::print_details,
+                "a function that prints details on the walker")
+        .def("get_beta",&SATWWalker::get_beta,
+                "a getter function for the  walker's beta")
+        .def("set_beta",&SATWWalker::set_beta,
+                "a setter function for the  walker's beta")
+        .def("move",&SATWWalker::move,"a function that makes the walker perform a single step",py::arg("verbose")=0)
         ;
 
 }

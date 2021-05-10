@@ -55,6 +55,12 @@ void LevyWalker::move(int verbose)
     if(verbose)
         cout << "pos : " << m_pos << endl;
     //cout << "moving this move" << endl; untick this if you want to make sure the right function is called
+    if (m_pos>m_max){
+        m_max=m_pos;
+    }
+    else if (m_pos<m_min){
+        m_min=m_pos;
+    }
 }
 
 

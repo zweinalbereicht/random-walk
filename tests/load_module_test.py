@@ -6,14 +6,12 @@ print(os.getcwd())
 sys.path.append(os.getcwd())
 
 from  DiscreteWalker.build.module_DiscreteWalker import *
-from  SATWWalker.build.module_SATWWalker import *
-from  RiemannWalker.build.module_RiemannWalker  import *
-from  ContinuousWalker.build.module_ContinuousWalker  import *
+from  ContinuousWalker.build.module_ContinuousWalker import *
 
 print("=============================================\n")
 
-print("Let's load a RiemannWalker\n")
-walker=RiemannWalker()
+print("Let's load a BiasedWalker\n")
+walker=BiasedWalker()
 walker.print_details()
 print("\n")
 
@@ -22,13 +20,18 @@ walker=SATWWalker()
 walker.print_details()
 print("\n")
 
-print("Let's load a DiscreteWalker\n")
-walker=pyDiscreteWalker()
+print("Let's load a LevyWalker\n")
+walker=LevyWalker();
 walker.print_details()
 print("\n")
 
-print("Let's load a ContinuousWalker\n")
-walker=ContinuousWalker()
+print("Let's load a LaplaceWalker\n")
+walker=LaplaceWalker();
+walker.print_details()
+print("\n")
+
+print("Let's load a GammaWalker\n")
+walker=GammaWalker();
 walker.print_details()
 print("\n")
 

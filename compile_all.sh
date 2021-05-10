@@ -19,6 +19,6 @@ echo ===============
 
 echo  TESTING THE LOAD
 
-#python tests/load_module_test.py
+python tests/load_module_test.py
 
 echo ===============

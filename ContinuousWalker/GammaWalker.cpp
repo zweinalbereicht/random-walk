@@ -56,6 +56,12 @@ void GammaWalker::move(int verbose)
     m_pos+=(double)(dir*gsl_ran_gamma(m_rng,m_exponent, m_scale));
     if(verbose)
         cout << "pos : " << m_pos << endl;
+    if (m_pos>m_max){
+        m_max=m_pos;
+    }
+    else if (m_pos<m_min){
+        m_min=m_pos;
+    }
 }
 
 

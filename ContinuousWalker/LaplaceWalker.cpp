@@ -44,6 +44,12 @@ void LaplaceWalker::move(int verbose)
     m_pos+=gsl_ran_laplace(m_rng, m_a);
     if(verbose)
         cout << "pos : " << m_pos << endl;
+    if (m_pos>m_max){
+        m_max=m_pos;
+    }
+    else if (m_pos<m_min){
+        m_min=m_pos;
+    }
 }
 
 

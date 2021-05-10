@@ -87,6 +87,7 @@ void  ContinuousWalker::set_lifetime(long lifetime){
 
 void  ContinuousWalker::set_seed(long seed){
     m_seed=seed;
+    gsl_rng_set(m_rng,m_seed);
 }
 
 //the basic move function

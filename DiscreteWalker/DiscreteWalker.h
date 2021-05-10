@@ -54,6 +54,7 @@ class DiscreteWalker
     int move_fixed_max(long borne);
     int move_fixed_time(long time);
     double split_prob(long s0, long s1,long s2, long const n);
+    double max_prob(long s0,long s1, long const n);
 
 };
 
