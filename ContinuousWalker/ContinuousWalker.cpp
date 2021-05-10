@@ -61,6 +61,10 @@ long ContinuousWalker::get_lifetime() const {
     return m_lifetime;
 }
 
+int ContinuousWalker::get_seed() const {
+    return m_seed;
+}
+
 //setters
 void  ContinuousWalker::set_pos(double pos){
      m_pos=pos;
@@ -76,6 +80,10 @@ void  ContinuousWalker::set_min(double min){
 
 void  ContinuousWalker::set_lifetime(long lifetime){
     m_lifetime=lifetime;
+}
+
+void  ContinuousWalker::set_seed(long seed){
+    m_seed=seed;
 }
 
 //the basic move function
@@ -180,6 +188,9 @@ PYBIND11_MODULE(module_ContinuousWalker,handle){
             .def("get_lifetime",&ContinuousWalker::get_lifetime,
                     "a getter function for the  walker's lifetime")
 
+            .def("get_seed",&ContinuousWalker::get_seed,
+                    "a getter function for the  walker's seed")
+
             .def("set_pos",&ContinuousWalker::set_pos,
                     "a setter function for the  walker's positonn")
 
@@ -191,6 +202,9 @@ PYBIND11_MODULE(module_ContinuousWalker,handle){
 
             .def("set_lifetime",&ContinuousWalker::set_lifetime,
                     "a setter function for the  walker's lifetime")
+
+            .def("set_seed",&ContinuousWalker::set_seed,
+                    "a setter function for the  walker's seed")
 
             .def("move",
                     &ContinuousWalker::move,
@@ -218,6 +232,15 @@ PYBIND11_MODULE(module_ContinuousWalker,handle){
         .def(py::init<>(),"default constructor")
         .def(py::init<double,double>(),"takes entry c(double), alpha(double)")
         .def(py::init<string,double,int,double,double>(),"takes entry initial position(double), random seed(int), c(double),alpha(double)")
+        .def("get_alpha",&LevyWalker::get_alpha,
+                "a getter function for the  walker's alpha")
+        .def("get_c",&LevyWalker::get_c,
+                "a getter function for the  walker's c parameter")
+        .def("set_alpha",&LevyWalker::set_alpha,
+                "a setter function for the  walker's alpha")
+        .def("set_c",&LevyWalker::set_c,
+                "a setter function for the  walker's c parameter")
+
         .def("move",&LevyWalker::move,"a function that makes the walker perform a single step",py::arg("verbose")=0)
         ;
 

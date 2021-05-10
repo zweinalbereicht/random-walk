@@ -39,12 +39,14 @@ class ContinuousWalker
     double get_max() const ;
     double get_min() const ;
     long get_lifetime() const ;
+    int get_seed() const ;
 
     //fonctions setters
     void set_pos(double pos);
     void set_max(double max);
     void set_min(double min);
     void set_lifetime(long lifetime);
+    void set_seed(long seed);
 
     void move(int verbose);
     bool isAlive() const;

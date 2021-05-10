@@ -22,9 +22,29 @@ LevyWalker::LevyWalker(double c, double alpha) : ContinuousWalker() ,m_c(c) ,m_a
 LevyWalker::LevyWalker(string name, double pos, int seed, double c, double alpha) : ContinuousWalker(name, pos, seed) ,m_c(1.0) ,m_alpha(2.0)
 {}
 
+double  LevyWalker::get_alpha() const
+{
+    return m_alpha;
+}
+
+double  LevyWalker::get_c() const
+{
+    return m_c;
+}
+
+void LevyWalker::set_alpha(double alpha)
+{
+    m_alpha=alpha;
+}
+
+void LevyWalker::set_c(double c)
+{
+    m_c=c;
+}
+
 void LevyWalker::move(int verbose)
 {
-    m_pos+=1;
+    m_pos+=gsl_ran_levy(m_rng, m_c, m_alpha);
     if(verbose)
         cout << "pos : " << m_pos << endl;
 }

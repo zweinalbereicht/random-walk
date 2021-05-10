@@ -17,6 +17,13 @@ class LevyWalker : public ContinuousWalker
         LevyWalker(double c, double alpha);
         LevyWalker(std::string name, double pos, int seed, double c, double alpha);
 
+        //setters and getters
+        double  get_alpha() const;
+        double  get_c() const;
+
+        void set_alpha(double alpha);
+        void set_c(double c);
+
         //specific move function
         void move(int verbose);
 
