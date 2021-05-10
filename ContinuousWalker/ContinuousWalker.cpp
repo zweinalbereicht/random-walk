@@ -143,11 +143,12 @@ int  ContinuousWalker::move_fixed_time(long time)
 }
 
 
-double ContinuousWalker::split_prob(double s0, double s1,double s2, int n)
+double ContinuousWalker::split_prob(double s0, double s1,double s2, int const n)
 {
     int i;
-    int* result;
-    result=(int*) malloc(sizeof(int)*n);
+    int* result[n];
+    //vector<int> result(n); //encore une autre version, ne pas oublier le #include <vector> en haut sinon ça ne marche pas.
+    //result=(int*) malloc(sizeof(int)*n); old C version
     for(i=0;i<n;i++){
         m_lifetime=0;
         m_pos=s0;
