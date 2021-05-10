@@ -28,7 +28,7 @@ class LevyWalker : public ContinuousWalker
         void set_c(double c);
 
         //specific move function
-        void move(int verbose);
+        virtual void move(int verbose);
 
 };
 

@@ -26,7 +26,7 @@ class LaplaceWalker : public ContinuousWalker
         void set_a(double a);
 
         //specific move function
-        void move(int verbose);
+        virtual void move(int verbose);
 
 };
 
