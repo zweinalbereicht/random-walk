@@ -22,6 +22,13 @@ LevyWalker::LevyWalker(double c, double alpha) : ContinuousWalker() ,m_c(c) ,m_a
 LevyWalker::LevyWalker(string name, double pos, int seed, double c, double alpha) : ContinuousWalker(name, pos, seed) ,m_c(1.0) ,m_alpha(2.0)
 {}
 
+void LevyWalker::print_details() const
+{
+    ContinuousWalker::print_details();
+    cout << "c param : " << m_c << endl;
+    cout << "alpha param : " << m_alpha << endl;
+}
+
 double  LevyWalker::get_alpha() const
 {
     return m_alpha;
@@ -47,6 +54,7 @@ void LevyWalker::move(int verbose)
     m_pos+=gsl_ran_levy(m_rng, m_c, m_alpha);
     if(verbose)
         cout << "pos : " << m_pos << endl;
+    cout << "moving this move" << endl;
 }
 
 

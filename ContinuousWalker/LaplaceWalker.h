@@ -2,30 +2,28 @@
 #include <iostream>
 #include "ContinuousWalker.h"
 
-class LevyWalker : public ContinuousWalker
+class LaplaceWalker : public ContinuousWalker
 //should inherit most continuous walker methods
 {
     protected :
 
         //we will use the standart GSL library and prepare for this
-        double m_c,m_alpha;
+        double m_a;
 
     public :
 
         //constructors
-        LevyWalker();
-        LevyWalker(double c, double alpha);
-        LevyWalker(std::string name, double pos, int seed, double c, double alpha);
+        LaplaceWalker();
+        LaplaceWalker(double a);
+        LaplaceWalker(std::string name, double pos, int seed ,double a);
 
         //print functions
         void print_details() const;
 
         //setters and getters
-        double  get_alpha() const;
-        double  get_c() const;
+        double  get_a() const;
 
-        void set_alpha(double alpha);
-        void set_c(double c);
+        void set_a(double a);
 
         //specific move function
         void move(int verbose);

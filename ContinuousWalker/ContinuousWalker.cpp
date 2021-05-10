@@ -8,6 +8,7 @@
 
 #include "ContinuousWalker.h"
 #include "LevyWalker.h"
+#include "LaplaceWalker.h"
 
 using namespace std;
 namespace py = pybind11;
@@ -42,6 +43,7 @@ void ContinuousWalker::print_details() const
     cout << "maximum : " << m_max << endl;
     cout << "minimum : " << m_min << endl;
     cout << "age : " << m_lifetime << endl;
+    cout << "seed : " << m_seed << endl;
 }
 
 //getters
@@ -149,10 +151,11 @@ double ContinuousWalker::split_prob(double s0, double s1,double s2, int n)
     for(i=0;i<n;i++){
         m_lifetime=0;
         m_pos=s0;
-        while(m_pos>s1 && m_pos<s2){
-            move();
+        while(m_pos>=s1 && m_pos<=s2){ //attentionn aux inegalités ici
+            //cout << "in here" << endl;
+            move(0);
         }
-        result[i]=(int)(m_pos>=s2);
+        result[i]=(int)(m_pos>s2);
     }
     double m=0;
     for(i=0;i<n;i++){
@@ -225,13 +228,16 @@ PYBIND11_MODULE(module_ContinuousWalker,handle){
                     "a function that makes the walker for a fixed time period. The function returns 0 if the walker died exactly on its nth step, 1 else.")
 
             .def("split_prob",&ContinuousWalker::split_prob,
-                    "a function that returns the splitting probability to reach s2 before s1 starting from s0, averaged over n trials.")
+                    "args : (s0,s1,s2,n) -  a function that returns the splitting probability to reach s2 before s1 starting from s0, averaged over n trials.")
             ;
 
+    //Levy walker bindings
     py::class_<LevyWalker,ContinuousWalker>(handle, "LevyWalker")
         .def(py::init<>(),"default constructor")
         .def(py::init<double,double>(),"takes entry c(double), alpha(double)")
         .def(py::init<string,double,int,double,double>(),"takes entry initial position(double), random seed(int), c(double),alpha(double)")
+        .def("print_details",&LevyWalker::print_details,
+                "a function that prints details on the walker")
         .def("get_alpha",&LevyWalker::get_alpha,
                 "a getter function for the  walker's alpha")
         .def("get_c",&LevyWalker::get_c,
@@ -242,6 +248,21 @@ PYBIND11_MODULE(module_ContinuousWalker,handle){
                 "a setter function for the  walker's c parameter")
 
         .def("move",&LevyWalker::move,"a function that makes the walker perform a single step",py::arg("verbose")=0)
+        ;
+
+    //Laplace walker bindings
+    py::class_<LaplaceWalker,ContinuousWalker>(handle, "LaplaceWalker")
+        .def(py::init<>(),"default constructor")
+        .def(py::init<double>(),"takes entry a(double)")
+        .def(py::init<string,double,int,double>(),"takes entry initial position(double), random seed(int), a(double)")
+        .def("print_details",&LaplaceWalker::print_details,
+                "a function that prints details on the walker")
+        .def("get_a",&LaplaceWalker::get_a,
+                "a getter function for the  walker's a parameter")
+        .def("set_a",&LaplaceWalker::set_a,
+                "a setter function for the  walker's a parameter")
+
+        .def("move",&LaplaceWalker::move,"a function that makes the walker perform a single step",py::arg("verbose")=0)
         ;
 
 }
