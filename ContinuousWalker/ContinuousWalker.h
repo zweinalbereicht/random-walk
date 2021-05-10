@@ -48,7 +48,7 @@ class ContinuousWalker
     void set_lifetime(long lifetime);
     void set_seed(long seed);
 
-    virtual void move(int verbose);
+    virtual void move(int verbose); //only virtual function a priori
     bool isAlive() const;
     void move_til_death(int verbose);
     int move_fixed_max(double borne);

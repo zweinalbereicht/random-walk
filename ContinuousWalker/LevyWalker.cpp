@@ -54,7 +54,7 @@ void LevyWalker::move(int verbose)
     m_pos+=gsl_ran_levy(m_rng, m_c, m_alpha);
     if(verbose)
         cout << "pos : " << m_pos << endl;
-    cout << "moving this move" << endl;
+    //cout << "moving this move" << endl; untick this if you want to make sure the right function is called
 }
 
 
