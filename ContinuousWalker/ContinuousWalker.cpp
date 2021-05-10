@@ -9,6 +9,7 @@
 #include "ContinuousWalker.h"
 #include "LevyWalker.h"
 #include "LaplaceWalker.h"
+#include "GammaWalker.h""
 
 using namespace std;
 namespace py = pybind11;
@@ -247,7 +248,6 @@ PYBIND11_MODULE(module_ContinuousWalker,handle){
                 "a setter function for the  walker's alpha")
         .def("set_c",&LevyWalker::set_c,
                 "a setter function for the  walker's c parameter")
-
         .def("move",&LevyWalker::move,"a function that makes the walker perform a single step",py::arg("verbose")=0)
         ;
 
@@ -262,8 +262,25 @@ PYBIND11_MODULE(module_ContinuousWalker,handle){
                 "a getter function for the  walker's a parameter")
         .def("set_a",&LaplaceWalker::set_a,
                 "a setter function for the  walker's a parameter")
-
         .def("move",&LaplaceWalker::move,"a function that makes the walker perform a single step",py::arg("verbose")=0)
+        ;
+
+    //Gamma walker bindings
+    py::class_<GammaWalker,ContinuousWalker>(handle, "GammaWalker")
+        .def(py::init<>(),"default constructor")
+        .def(py::init<double,double>(),"takes entry scale(double), exponent(double) as defined in the GSL library")
+        .def(py::init<string,double,int,double,double>(),"takes entry initial position(double), random seed(int), scale(double),exponent(double), as defined in the GSL library")
+        .def("print_details",&GammaWalker::print_details,
+                "a function that prints details on the walker")
+        .def("get_scale",&GammaWalker::get_scale,
+                "a getter function for the  walker's scale parameter")
+        .def("get_exponent",&GammaWalker::get_exponent,
+                "a getter function for the  walker's exponent parameter")
+        .def("set_scale",&GammaWalker::set_scale,
+                "a setter function for the  walker's scale parameter")
+        .def("set_exponent",&GammaWalker::set_exponent,
+                "a setter function for the  walker's exponent parameter")
+        .def("move",&GammaWalker::move,"a function that makes the walker perform a single step",py::arg("verbose")=0)
         ;
 
 }
