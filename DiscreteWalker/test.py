@@ -1,31 +1,38 @@
+### Just another python script
+
 from tqdm import tqdm
-import os
-import time
-a=time.time()
 import numpy as np
+import os
+import matplotlib.pyplot as plt
 
-def simu(x0):
-    pos=x0
-    max_val=pos
-    while(pos>0):
-        pos+=np.random.choice([-1,1])
-        if pos>max_val:
-            max_val=pos
-    return max_val
-
-print("elapsed time : {0} seconds".format(time.time()-a))
+from build.module_SATWWalker import *
+from concurrent.futures import ThreadPoolExecutor
 
 
+n=10000000
+s0=1
+s=100
 
-n=int(input("nb of simulations : "))
-x0=int(input("starting position : "))
+def simu(seed):
+    walker=SATWWalker("mywalker",s0,1/3,seed)
+    if(walker.move_fixed_max(s)==0):
+        return walker.get_lifetime()
+    else:
+        return 0
 
-a=time.time()
+seeds=np.random.randint(0,10*n,n)
 
-results=np.zeros(n)
-seed=round(time.time())
+with ThreadPoolExecutor(4) as ex:
+    results=ex.map(simu,seeds)
 
-for k in tqdm(range(n)):
-    results[k]=simu(x0)
 
-print("elapsed time : {0} seconds".format(time.time()-a))
+
+#for k in tqdm(range(n)):
+#    walker=SATWWalker("mywalker",s0,1/3,seeds[k])
+#    if(walker.move_fixed_max(s)==0):
+#        result.append(walker.get_lifetime())
+#
+results=np.array(list(results))
+results=results[results>0]
+print("max proba : {0}".format(len(results)/n))
+print("nb of successes : {0}".format(len(results)))
