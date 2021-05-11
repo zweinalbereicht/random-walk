@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #include <math.h>
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
@@ -148,12 +149,14 @@ int  ContinuousWalker::move_fixed_time(long time)
 double ContinuousWalker::split_prob(double s0, double s1,double s2, int const n)
 {
     int i;
-    int result[n];
-    //vector<int> result(n); //encore une autre version, ne pas oublier le #include <vector> en haut sinon ça ne marche pas.
+    //int result[n];
+    vector<int> result(n); //encore une autre version, ne pas oublier le #include <vector> en haut sinon ça ne marche pas.
     //result=(int*) malloc(sizeof(int)*n); old C version
     for(i=0;i<n;i++){
         m_lifetime=0;
         m_pos=s0;
+        m_max=m_pos;
+        m_min=m_pos;
         while(m_pos>=s1 && m_pos<=s2){ //attentionn aux inegalités ici
             //cout << "in here" << endl;
             move(0);

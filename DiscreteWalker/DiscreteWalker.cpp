@@ -156,6 +156,8 @@ double DiscreteWalker::split_prob(long s0, long s1,long s2, long const n)
     for(i=0;i<n;i++){
         m_lifetime=0;
         m_pos=s0;
+        m_max=m_pos;
+        m_min=m_pos;
         while(m_pos>s1 && m_pos<s2){ //attention aux inegalités ici, c'est strict, on s'arrete lorsque l'on touche
             move(0);
         }
@@ -180,6 +182,7 @@ double DiscreteWalker::max_prob(long s0, long s1,long const n)
         m_lifetime=0;
         m_pos=s0;
         m_max=m_pos;
+        m_min=m_pos;
         while(m_pos>0 && m_pos<=s1){ //attention aux inegalités ici, c'est strict, on s'arrete lorsque l'on touche
             move(0);
         }
