@@ -10,7 +10,7 @@ if __name__=='__main__':
 
     beta=0.7
     xmax=100
-    nb_simus=100000
+    nb_simus=1000000
     walker=md.SATWWalker(beta)
     walker.set_seed(int(time.time()+100000000))
     walker.print_details()
