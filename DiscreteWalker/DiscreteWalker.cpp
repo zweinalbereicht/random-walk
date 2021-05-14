@@ -167,7 +167,7 @@ double DiscreteWalker::split_prob(long s0, long s1,long s2, long const n)
     for(i=0;i<n;i++){
         m+=result[i];
     }
-    cout << m << endl;
+    //cout << m << endl;
     //free(result); old C version, using fixed size declaration in the above
     return (double)(m/n);
 }
@@ -183,7 +183,7 @@ double DiscreteWalker::max_prob(long s0, long s1,long const n)
         m_pos=s0;
         m_max=m_pos;
         m_min=m_pos;
-        while(m_pos>0 && m_pos<=s1){ //attention aux inegalités ici, c'est strict, on s'arrete lorsque l'on touche
+        while(m_pos>0 && m_pos<=s1){ //attention aux inegalités ici, c'est strict, on s'arrete lorsque l'on touche 0 ou que l'on depasse strictement s1
             move(0);
         }
         result[i]=(int)(m_max==s1); //same thing here, watch the strictness
@@ -192,7 +192,7 @@ double DiscreteWalker::max_prob(long s0, long s1,long const n)
     for(i=0;i<n;i++){
         m+=result[i];
     }
-    cout << m << endl;
+    //cout << m << endl;
     //free(result); old C version, using fixed size declaration in the above
     return (double)(m/n);
 }
