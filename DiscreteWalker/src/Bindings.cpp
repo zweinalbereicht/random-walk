@@ -15,7 +15,7 @@ namespace py = pybind11;
 
 PYBIND11_MODULE(module_DiscreteWalker,handle){
 
-    handle.doc()="this is our C++ module for continuous 1 dimensional walkers";
+    handle.doc()="this is our C++ module for discrete 1 dimensional walkers";
 
     py::add_ostream_redirect(handle,"ostream_redirect");
 
@@ -26,7 +26,7 @@ PYBIND11_MODULE(module_DiscreteWalker,handle){
             .def(py::init<string,long,int>(),"takes entry name(string), position(long), random seed(int)")
 
             .def("print_details",&DiscreteWalker::print_details,
-                    py::call_guard<py::scoped_ostream_redirect>(),
+                    py::call_guard<py::scoped_ostream_redirect>(), //redirects cout to stdout in jupyter notebook
                     "a function that prints details on the walker")
 
             .def("get_pos",&DiscreteWalker::get_pos,
