@@ -1,4 +1,5 @@
 #include <pybind11/pybind11.h>
+#include <pybind11/iostream.h>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -7,6 +8,7 @@
 #include "DiscreteWalker.h"
 #include "BiasedWalker.h"
 #include "SATWWalker.h"
+#include "RiemannWalker.h"
 
 using namespace std;
 namespace py = pybind11;
@@ -15,6 +17,8 @@ PYBIND11_MODULE(module_DiscreteWalker,handle){
 
     handle.doc()="this is our C++ module for continuous 1 dimensional walkers";
 
+    py::add_ostream_redirect(handle,"ostream_redirect");
+
     py::class_<DiscreteWalker>(
                 handle, "DiscreteWalker"
             )
@@ -22,6 +26,7 @@ PYBIND11_MODULE(module_DiscreteWalker,handle){
             .def(py::init<string,long,int>(),"takes entry name(string), position(long), random seed(int)")
 
             .def("print_details",&DiscreteWalker::print_details,
+                    py::call_guard<py::scoped_ostream_redirect>(),
                     "a function that prints details on the walker")
 
             .def("get_pos",&DiscreteWalker::get_pos,
@@ -56,10 +61,12 @@ PYBIND11_MODULE(module_DiscreteWalker,handle){
 
             .def("move",
                     &DiscreteWalker::move,
+                    py::call_guard<py::scoped_ostream_redirect>(),
                     "a function that makes the walker perform a single step, the default choice being up or down with prob 1/2",
                     py::arg("verbose")=0)
 
             .def("move_til_death",&DiscreteWalker::move_til_death,
+                    py::call_guard<py::scoped_ostream_redirect>(),
                     "a function that makes the walker walk until it reaches zero",
                     py::arg("verbose")=0)
 
@@ -90,7 +97,10 @@ PYBIND11_MODULE(module_DiscreteWalker,handle){
                 "a getter function for the  walker's p")
         .def("set_p",&BiasedWalker::set_p,
                 "a setter function for the  walker's p")
-        .def("move",&BiasedWalker::move,"a function that makes the walker perform a single step",py::arg("verbose")=0)
+        .def("move",&BiasedWalker::move,
+                    py::call_guard<py::scoped_ostream_redirect>(),
+                    "a function that makes the walker perform a single step",py::arg("verbose")=0)
+
         ;
 
     //SATW walker bindings
@@ -104,7 +114,30 @@ PYBIND11_MODULE(module_DiscreteWalker,handle){
                 "a getter function for the  walker's beta")
         .def("set_beta",&SATWWalker::set_beta,
                 "a setter function for the  walker's beta")
-        .def("move",&SATWWalker::move,"a function that makes the walker perform a single step",py::arg("verbose")=0)
+        .def("move",&SATWWalker::move,
+                py::call_guard<py::scoped_ostream_redirect>(),
+                "a function that makes the walker perform a single step",py::arg("verbose")=0)
         ;
+
+    //Riemann walker bindings
+    py::class_<RiemannWalker,DiscreteWalker>(handle, "RiemannWalker")
+        .def(py::init<>(),"default constructor")
+        .def(py::init<double,double>(),"takes entry c(double) and alpha(double)")
+        .def(py::init<string,long,int,double,double>(),"takes entry initial position(long), random seed(int), c(double), alpha(double)")
+        .def("print_details",&RiemannWalker::print_details,
+                "a function that prints details on the walker")
+        .def("get_c",&RiemannWalker::get_c,
+                "a getter function for the  walker's c param")
+        .def("get_alpha",&RiemannWalker::get_alpha,
+                "a getter function for the  walker's alpha param")
+        .def("set_c",&RiemannWalker::set_c,
+                "a setter function for the  walker's c")
+        .def("set_alpha",&RiemannWalker::set_alpha,
+                "a setter function for the  walker's alpha")
+        .def("move",&RiemannWalker::move,
+                py::call_guard<py::scoped_ostream_redirect>(),
+                "a function that makes the walker perform a single step",py::arg("verbose")=0)
+        ;
+
 
 }

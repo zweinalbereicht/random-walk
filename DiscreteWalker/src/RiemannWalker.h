@@ -1,8 +1,8 @@
 #pragma once
 #include <iostream>
-#include "ContinuousWalker.h"
+#include "DiscreteWalker.h"
 
-class LevyWalker : public ContinuousWalker
+class RiemannWalker : public DiscreteWalker
 //should inherit most continuous walker methods
 {
     protected :
@@ -13,9 +13,9 @@ class LevyWalker : public ContinuousWalker
     public :
 
         //constructors
-        LevyWalker();
-        LevyWalker(double c, double alpha);
-        LevyWalker(std::string name, double pos, int seed, double c, double alpha);
+        RiemannWalker();
+        RiemannWalker(double c, double alpha);
+        RiemannWalker(std::string name, long pos, int seed, double c, double alpha);
 
         //print functions
         void print_details() const;
