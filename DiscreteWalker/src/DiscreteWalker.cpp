@@ -105,9 +105,25 @@ void DiscreteWalker::move(int verbose=0){
 }
 
 //other funtions
-void DiscreteWalker::move_til_death(int verbose=0){
+void DiscreteWalker::move_til_death(int verbose=1){
     while(isAlive()){
         move(verbose);
+    }
+}
+
+void DiscreteWalker::move_til_death_bounded(long N,int verbose=1)
+{
+    while(isAlive()){
+        move(verbose);
+        if (m_pos>N){
+            m_pos=(long) m_pos%(N); //encore un probleme à corriger ici
+            cout << "relocating position : " << m_pos << endl;
+        }
+        else if (m_pos<0)
+        {
+            m_pos=long((N)-((-m_pos)%(N)));
+            cout << "relocating position : " << m_pos << endl;
+        }
     }
 }
 

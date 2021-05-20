@@ -70,6 +70,11 @@ PYBIND11_MODULE(module_DiscreteWalker,handle){
                     "a function that makes the walker walk until it reaches zero",
                     py::arg("verbose")=0)
 
+            .def("move_til_death_bounded",&DiscreteWalker::move_til_death_bounded,
+                    py::call_guard<py::scoped_ostream_redirect>(),
+                    "a function that makes the walker walk on a ring of N sites until it reaches exactly zero",
+                    py::arg("N"),py::arg("verbose")=0)
+
             .def("isAlive",&DiscreteWalker::isAlive,
                     "a function that says if the walker is still alive")
 

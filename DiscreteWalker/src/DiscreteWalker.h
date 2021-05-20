@@ -51,6 +51,7 @@ class DiscreteWalker
     virtual void move(int verbose); //only virtual function a priori
     bool isAlive() const;
     void move_til_death(int verbose);
+    void move_til_death_bounded(long N,int verbose);
     int move_fixed_max(long borne);
     int move_fixed_time(long time);
     double split_prob(long s0, long s1,long s2, long const n);
