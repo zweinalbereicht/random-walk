@@ -47,10 +47,10 @@ class DiscreteWalker
     void set_lifetime(long lifetime);
     void set_seed(long seed);
 
-    virtual void move(int verbose); //only virtual function a priori
+    virtual void move(int verbose=0); //only virtual function a priori
     bool isAlive() const;
-    void move_til_death(int verbose);
-    void move_til_death_bounded(long N,int verbose);
+    void move_til_death(int verbose=0);
+    void move_til_death_bounded(long N,int verbose=0);
     int move_fixed_max(long borne);
     int move_fixed_time(long time);
     double split_prob(long s0, long s1,long s2, long const n);

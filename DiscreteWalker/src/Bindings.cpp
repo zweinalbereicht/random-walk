@@ -1,5 +1,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/iostream.h>
+#include <pybind11/numpy.h>
+#include <pybind11/stl.h>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -12,8 +14,8 @@
 
 #include "Observables.h" //specific histogram creations
 
-using namespace std;
 namespace py = pybind11;
+using namespace std;
 
 PYBIND11_MODULE(module_DiscreteWalker,handle){
 
@@ -171,6 +173,6 @@ PYBIND11_MODULE(module_DiscreteWalker,handle){
         ;
 
     // these methods will be for very specific usecases, such as providing data for histograms for instance
-    handle.def("first_test",&first_test);
+    handle.def("arrival_fpt_bounded",&arrival_fpt_bounded);
 
 }

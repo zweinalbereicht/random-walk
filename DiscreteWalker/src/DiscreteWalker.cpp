@@ -89,7 +89,7 @@ void  DiscreteWalker::set_seed(long seed){
 }
 
 //the basic move function
-void DiscreteWalker::move(int verbose=0){
+void DiscreteWalker::move(int verbose){
     int m = gsl_ran_bernoulli(m_rng, 0.5); //the basic move is +1 or -1 with equal probability
     m_pos+=1-2*m;
     m_lifetime+=1;
@@ -105,24 +105,26 @@ void DiscreteWalker::move(int verbose=0){
 }
 
 //other funtions
-void DiscreteWalker::move_til_death(int verbose=1){
+void DiscreteWalker::move_til_death(int verbose){
     while(isAlive()){
         move(verbose);
     }
 }
 
-void DiscreteWalker::move_til_death_bounded(long N,int verbose=1)
+void DiscreteWalker::move_til_death_bounded(long N,int verbose)
 {
     while(isAlive()){
         move(verbose);
-        if (m_pos>N){
+        if (m_pos>=N){
+            //cout << "old position : " << m_pos << endl;
             m_pos=(long) m_pos%(N); //encore un probleme à corriger ici
-            cout << "relocating position : " << m_pos << endl;
+            //cout << "relocating position : " << m_pos << endl;
         }
         else if (m_pos<0)
         {
+            //cout << "old position : " << m_pos << endl;
             m_pos = (long)((((N)-((-m_pos)%(N))))%N);
-            cout << "relocating position : " << m_pos << endl;
+            //cout << "relocating position : " << m_pos << endl;
         }
     }
 }

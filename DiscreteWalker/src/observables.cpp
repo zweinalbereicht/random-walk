@@ -1,5 +1,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/iostream.h>
+#include <pybind11/numpy.h>
+#include <pybind11/stl.h>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -15,8 +17,18 @@
 using namespace std;
 namespace py = pybind11;
 
-void first_test(const DiscreteWalker& walker)
+py::list arrival_fpt_bounded(const long s0,const long N,DiscreteWalker &walker, const int n)
 {
-    walker.print_details();
+    vector<long> result(n);
+    for(int i=0;i<n;i++)
+    {
+        walker.set_lifetime(0);
+        walker.set_pos(s0);
+        walker.move_til_death_bounded(N);
+        result[i]=walker.get_lifetime();
+    }
+
+    py::list ret = py::cast(result);
+    return ret;
 }
 

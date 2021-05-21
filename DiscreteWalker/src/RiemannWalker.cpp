@@ -62,5 +62,6 @@ void RiemannWalker::move(int verbose)
     else if (m_pos<m_min){
         m_min=m_pos;
     }
+    m_lifetime+=1;
 }
 

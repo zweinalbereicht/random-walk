@@ -2,6 +2,8 @@
 
 #include <pybind11/pybind11.h>
 #include <pybind11/iostream.h>
+#include <pybind11/numpy.h>
+#include <pybind11/stl.h>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -12,4 +14,6 @@
 #include "SATWWalker.h"
 #include "RiemannWalker.h"
 
-void first_test(const DiscreteWalker& walker);
+namespace py = pybind11;
+
+py::list arrival_fpt_bounded(const long s0,const long N,DiscreteWalker &walker, const int n);
