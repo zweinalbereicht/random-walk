@@ -121,7 +121,7 @@ void DiscreteWalker::move_til_death_bounded(long N,int verbose=1)
         }
         else if (m_pos<0)
         {
-            m_pos=long((N)-((-m_pos)%(N)));
+            m_pos = (long)((((N)-((-m_pos)%(N))))%N);
             cout << "relocating position : " << m_pos << endl;
         }
     }
