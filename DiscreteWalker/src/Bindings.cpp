@@ -10,14 +10,14 @@
 #include "SATWWalker.h"
 #include "RiemannWalker.h"
 
+#include "Observables.h" //specific histogram creations
+
 using namespace std;
 namespace py = pybind11;
 
 PYBIND11_MODULE(module_DiscreteWalker,handle){
 
     handle.doc()="this is our C++ module for discrete 1 dimensional walkers";
-
-    py::add_ostream_redirect(handle,"ostream_redirect");
 
     py::class_<DiscreteWalker>(
                 handle, "DiscreteWalker"
@@ -170,5 +170,7 @@ PYBIND11_MODULE(module_DiscreteWalker,handle){
                 "a function that makes the walker perform a single step",py::arg("verbose")=0)
         ;
 
+    // these methods will be for very specific usecases, such as providing data for histograms for instance
+    handle.def("first_test",&first_test);
 
 }

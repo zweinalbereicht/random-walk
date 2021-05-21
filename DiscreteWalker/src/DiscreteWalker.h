@@ -27,12 +27,11 @@ class DiscreteWalker
     DiscreteWalker();
     DiscreteWalker(std::string name, long pos,int seed);
 
-
     //destucteurs
     ~DiscreteWalker();
 
     //un printeur d'état
-    void print_details() const;
+    virtual void print_details() const;
 
     //fonctions getters
     long get_pos() const ;

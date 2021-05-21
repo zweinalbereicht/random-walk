@@ -4,7 +4,7 @@ project(DiscreteWalker)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 
-set(SOURCE_FILES src/DiscreteWalker.cpp src/DiscreteWalker.h src/BiasedWalker.cpp src/BiasedWalker.h src/SATWWalker.cpp src/SATWWalker.h src/RiemannWalker.h src/RiemannWalker.cpp src/Bindings.cpp)
+set(SOURCE_FILES src/DiscreteWalker.cpp src/DiscreteWalker.h src/BiasedWalker.cpp src/BiasedWalker.h src/SATWWalker.cpp src/SATWWalker.h src/RiemannWalker.h src/RiemannWalker.cpp src/Bindings.cpp src/Observables.cpp src/Observables.h)
 
 add_subdirectory(../pybind11 build)
 pybind11_add_module(module_DiscreteWalker ${SOURCE_FILES})
