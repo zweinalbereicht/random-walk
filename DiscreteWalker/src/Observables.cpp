@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <stdlib.h>
+#include <gsl/gsl_rng.h>
 
 #include "DiscreteWalker.h"
 #include "BiasedWalker.h"
@@ -30,5 +31,25 @@ py::list arrival_fpt_bounded(const long s0,const long N,DiscreteWalker &walker, 
 
     py::list ret = py::cast(result);
     return ret;
+}
+
+double global_arrival_fpt_bounded(long N,DiscreteWalker &walker, const int n)
+{
+    vector<long> result(n);
+    for(int i=0;i<n;i++)
+    {
+        walker.set_lifetime(0);
+        walker.set_random_pos(N);
+        walker.move_til_death_bounded(N);
+        result[i]=walker.get_lifetime();
+    }
+
+    double m;
+
+    for (int i=0;i<n;i++){
+       m+=result[i];
+    }
+
+    return (double) m/n;
 }
 

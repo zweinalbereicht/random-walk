@@ -47,6 +47,9 @@ class DiscreteWalker
     void set_lifetime(long lifetime);
     void set_seed(long seed);
 
+    //other setter functions
+    void set_random_pos(long N);
+
     virtual void move(int verbose=0); //only virtual function a priori
     bool isAlive() const;
     void move_til_death(int verbose=0);

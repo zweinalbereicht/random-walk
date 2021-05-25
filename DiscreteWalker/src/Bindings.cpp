@@ -51,6 +51,10 @@ PYBIND11_MODULE(module_DiscreteWalker,handle){
                     py::arg("pos"),
                     "a setter function for the  walker's positonn")
 
+            .def("set_random_pos",&DiscreteWalker::set_random_pos,
+                    py::arg("N"),
+                    "a setter function for the  walker's positioning it at random on a ring of size N, 0 non reachable")
+
             .def("set_min",&DiscreteWalker::set_min,
                     py::arg("min"),
                     "a setter function for the  walker's minimum")
@@ -173,6 +177,9 @@ PYBIND11_MODULE(module_DiscreteWalker,handle){
         ;
 
     // these methods will be for very specific usecases, such as providing data for histograms for instance
-    handle.def("arrival_fpt_bounded",&arrival_fpt_bounded);
+    handle.def("arrival_fpt_bounded",&arrival_fpt_bounded,
+            py::arg("s0"),py::arg("N"),py::arg("walker"),py::arg("n"));
+
+    handle.def("global_arrival_fpt_bounded",&global_arrival_fpt_bounded,py::arg("N"),py::arg("walker"),py::arg("n"));
 
 }

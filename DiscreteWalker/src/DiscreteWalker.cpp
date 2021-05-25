@@ -67,8 +67,12 @@ int DiscreteWalker::get_seed() const {
 }
 
 //setters
-void  DiscreteWalker::set_pos(long pos){
+void DiscreteWalker::set_pos(long pos){
      m_pos=pos;
+}
+
+void DiscreteWalker::set_random_pos(long N){
+     m_pos=1+gsl_rng_uniform_int(m_rng,N-1);
 }
 
 void  DiscreteWalker::set_max(long max){

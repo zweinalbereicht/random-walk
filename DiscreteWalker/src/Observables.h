@@ -17,3 +17,5 @@
 namespace py = pybind11;
 
 py::list arrival_fpt_bounded(const long s0,const long N,DiscreteWalker &walker, const int n);
+
+double global_arrival_fpt_bounded(long N,DiscreteWalker &walker, const int n);
