@@ -178,8 +178,9 @@ PYBIND11_MODULE(module_DiscreteWalker,handle){
 
     // these methods will be for very specific usecases, such as providing data for histograms for instance
     handle.def("arrival_fpt_bounded",&arrival_fpt_bounded,
-            py::arg("s0"),py::arg("N"),py::arg("walker"),py::arg("n"));
+            py::arg("s0"),py::arg("N"),py::arg("walker"),py::arg("n"), "returns an array of n death times, starting from s0, on a ring of size N");
 
-    handle.def("global_mean_arrival_fpt_bounded",&global_mean_arrival_fpt_bounded,py::arg("N"),py::arg("walker"),py::arg("n"));
+    handle.def("global_mean_arrival_fpt_bounded",&global_mean_arrival_fpt_bounded,py::arg("N"),py::arg("walker"),py::arg("n"),"returns the first passage time on a ring of size N, over n trials, with the starting position averaged over the whole ring");
 
+    handle.def("mean_arrival_fpt_bounded",&mean_arrival_fpt_bounded,py::arg("s0"),py::arg("N"),py::arg("walker"),py::arg("n"),"returns the mean first passage time to zero starting from s0 on a ring of size N, averaged over N trials");
 }

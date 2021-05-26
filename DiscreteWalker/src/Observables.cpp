@@ -53,3 +53,23 @@ double global_mean_arrival_fpt_bounded(long N,DiscreteWalker &walker, const int 
     return (double) m/n;
 }
 
+double mean_arrival_fpt_bounded(long s0,long N,DiscreteWalker &walker, const int n)
+{
+    vector<long> result(n);
+    for(int i=0;i<n;i++)
+    {
+        walker.set_lifetime(0);
+        walker.set_pos(s0);
+        walker.move_til_death_bounded(N);
+        result[i]=walker.get_lifetime();
+    }
+
+    double m;
+
+    for (int i=0;i<n;i++){
+       m+=result[i];
+    }
+
+    return (double) m/n;
+}
+
