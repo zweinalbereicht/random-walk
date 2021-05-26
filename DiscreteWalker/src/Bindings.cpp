@@ -180,6 +180,6 @@ PYBIND11_MODULE(module_DiscreteWalker,handle){
     handle.def("arrival_fpt_bounded",&arrival_fpt_bounded,
             py::arg("s0"),py::arg("N"),py::arg("walker"),py::arg("n"));
 
-    handle.def("global_arrival_fpt_bounded",&global_arrival_fpt_bounded,py::arg("N"),py::arg("walker"),py::arg("n"));
+    handle.def("global_mean_arrival_fpt_bounded",&global_mean_arrival_fpt_bounded,py::arg("N"),py::arg("walker"),py::arg("n"));
 
 }
