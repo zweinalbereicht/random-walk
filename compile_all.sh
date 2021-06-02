@@ -1,7 +1,7 @@
 #/bin/bash
 
 #for a in $(ls | grep Walker)
-for a in DiscreteWalker ContinuousWalker
+for a in DiscreteWalker #ContinuousWalker
 do
     echo $a
     cd $a
@@ -19,6 +19,6 @@ echo ===============
 
 echo  TESTING THE LOAD
 
-python tests/load_module_test.py
+#python tests/load_module_test.py
 
 echo ===============

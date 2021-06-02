@@ -6,6 +6,7 @@
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
 
+
 class DiscreteWalker
 {
 
@@ -19,7 +20,6 @@ class DiscreteWalker
     long m_max;
     int m_seed; //each walker will have it's own seed
     gsl_rng* m_rng; //and own random generator
-
 
     public:
 

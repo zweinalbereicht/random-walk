@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+
 #include "DiscreteWalker.h"
 
 class BiasedWalker : public DiscreteWalker

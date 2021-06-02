@@ -6,6 +6,7 @@
 #include <gsl/gsl_randist.h>
 #include <stdlib.h>
 
+
 #include "DiscreteWalker.h"
 #include "BiasedWalker.h"
 #include "SATWWalker.h"
