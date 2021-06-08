@@ -1,10 +1,13 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <random>
 #include <math.h>
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
 #include <stdlib.h>
+
+//#include "../../pcg-cpp-0.98/include/pcg_test.h"
 
 
 #include "DiscreteWalker.h"

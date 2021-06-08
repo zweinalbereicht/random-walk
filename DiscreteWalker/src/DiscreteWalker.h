@@ -1,11 +1,13 @@
 #pragma once
 
 #include <iostream>
+#include <random>
 #include <string>
 #include <math.h>
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
 
+//#include "../../pcg-cpp-0.98/include/pcg_test.h"
 
 class DiscreteWalker
 {

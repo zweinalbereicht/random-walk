@@ -8,9 +8,9 @@
 #include <stdlib.h>
 
 #include "DiscreteWalker.h"
-#include "BiasedWalker.h"
-#include "SATWWalker.h"
-#include "RiemannWalker.h"
+//#include "BiasedWalker.h"
+//#include "SATWWalker.h"
+//#include "RiemannWalker.h"
 
 #include "Observables.h" //specific histogram creations
 
@@ -177,10 +177,10 @@ PYBIND11_MODULE(module_DiscreteWalker,handle){
         ;
 
     // these methods will be for very specific usecases, such as providing data for histograms for instance
-    handle.def("arrival_fpt_bounded",&arrival_fpt_bounded,
+    handle.def("fpt_arrival_bounded_distribution",&fpt_arrival_bounded_distribution,
             py::arg("s0"),py::arg("N"),py::arg("walker"),py::arg("n"), "returns an array of n death times, starting from s0, on a ring of size N");
 
-    handle.def("global_mean_arrival_fpt_bounded",&global_mean_arrival_fpt_bounded,py::arg("N"),py::arg("walker"),py::arg("n"),"returns the first passage time on a ring of size N, over n trials, with the starting position averaged over the whole ring");
+    handle.def("fpt_arrival_bounded_global_mean",&fpt_arrival_bounded_global_mean,py::arg("N"),py::arg("walker"),py::arg("n"),"returns the first passage time on a ring of size N, over n trials, with the starting position averaged over the whole ring");
 
-    handle.def("mean_arrival_fpt_bounded",&mean_arrival_fpt_bounded,py::arg("s0"),py::arg("N"),py::arg("walker"),py::arg("n"),"returns the mean first passage time to zero starting from s0 on a ring of size N, averaged over N trials");
+    handle.def("fpt_arrival_bounded_mean",&fpt_arrival_bounded_mean,py::arg("s0"),py::arg("N"),py::arg("walker"),py::arg("n"),"returns the mean first passage time to zero starting from s0 on a ring of size N, averaged over N trials");
 }

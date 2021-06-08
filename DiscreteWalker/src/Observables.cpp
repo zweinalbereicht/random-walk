@@ -18,7 +18,8 @@
 using namespace std;
 namespace py = pybind11;
 
-py::list arrival_fpt_bounded(const long s0,const long N,DiscreteWalker &walker, const int n)
+py::list
+fpt_arrival_bounded_distribution(const long s0,const long N,DiscreteWalker &walker, const int n)
 {
     vector<long> result(n);
     for(int i=0;i<n;i++)
@@ -33,7 +34,8 @@ py::list arrival_fpt_bounded(const long s0,const long N,DiscreteWalker &walker, 
     return ret;
 }
 
-double global_mean_arrival_fpt_bounded(long N,DiscreteWalker &walker, const int n)
+double
+fpt_arrival_bounded_global_mean(long N,DiscreteWalker &walker, const int n)
 {
     vector<long> result(n);
     for(int i=0;i<n;i++)
@@ -53,7 +55,8 @@ double global_mean_arrival_fpt_bounded(long N,DiscreteWalker &walker, const int 
     return (double) m/n;
 }
 
-double mean_arrival_fpt_bounded(long s0,long N,DiscreteWalker &walker, const int n)
+double
+fpt_arrival_bounded_mean(long s0,long N,DiscreteWalker &walker, const int n)
 {
     vector<long> result(n);
     for(int i=0;i<n;i++)
