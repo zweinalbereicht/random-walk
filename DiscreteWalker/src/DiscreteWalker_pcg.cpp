@@ -7,18 +7,15 @@
 #include <gsl/gsl_randist.h>
 #include <stdlib.h>
 
-//#include "../../pcg-cpp-0.98/include/pcg_test.h"
+#include "../../pcg-cpp-0.98/include/pcg_test.h"
 
 
-#include "DiscreteWalker.h"
-#include "BiasedWalker.h"
-#include "SATWWalker.h"
-#include "RiemannWalker.h"
+#include "DiscreteWalker_pcg.h"
 
 using namespace std;
 
 
-DiscreteWalker::DiscreteWalker(){
+DiscreteWalker_pcg::DiscreteWalker_pcg(){
     m_name="a simple walker";
     m_pos=1;
     m_max=m_pos;
@@ -29,18 +26,18 @@ DiscreteWalker::DiscreteWalker(){
     gsl_rng_set(m_rng,m_seed);
 }
 
-DiscreteWalker::DiscreteWalker(string name, long pos,int seed): m_name(name),m_pos(pos),m_max(pos), m_min(pos), m_seed(seed),m_lifetime(0)
+DiscreteWalker_pcg::DiscreteWalker_pcg(string name, long pos,int seed): m_name(name),m_pos(pos),m_max(pos), m_min(pos), m_seed(seed),m_lifetime(0)
 {
-    m_rng = gsl_rng_alloc(gsl_rng_mt19937);
+    m_rng = gsl_rng_alloc(gsl_rng_pcg);
     gsl_rng_set(m_rng,seed);
 }
 
-DiscreteWalker::~DiscreteWalker()
+DiscreteWalker_pcg::~DiscreteWalker_pcg()
 {
     gsl_rng_free(m_rng);
 }
 
-void DiscreteWalker::print_details() const
+void DiscreteWalker_pcg::print_details() const
 {
     cout << "name : " << m_name << endl;
     cout << "position : " << m_pos << endl;
@@ -51,54 +48,54 @@ void DiscreteWalker::print_details() const
 }
 
 //getters
-long DiscreteWalker::get_pos() const {
+long DiscreteWalker_pcg::get_pos() const {
     return m_pos;
 }
 
-long DiscreteWalker::get_max() const {
+long DiscreteWalker_pcg::get_max() const {
     return m_max;
 }
 
-long DiscreteWalker::get_min() const {
+long DiscreteWalker_pcg::get_min() const {
     return m_min;
 }
 
-long DiscreteWalker::get_lifetime() const {
+long DiscreteWalker_pcg::get_lifetime() const {
     return m_lifetime;
 }
 
-int DiscreteWalker::get_seed() const {
+int DiscreteWalker_pcg::get_seed() const {
     return m_seed;
 }
 
 //setters
-void DiscreteWalker::set_pos(long pos){
+void DiscreteWalker_pcg::set_pos(long pos){
      m_pos=pos;
 }
 
-void DiscreteWalker::set_random_pos(long N){
+void DiscreteWalker_pcg::set_random_pos(long N){
      m_pos=1+gsl_rng_uniform_int(m_rng,N-1);
 }
 
-void  DiscreteWalker::set_max(long max){
+void  DiscreteWalker_pcg::set_max(long max){
     m_max=max;
 }
 
-void  DiscreteWalker::set_min(long min){
+void  DiscreteWalker_pcg::set_min(long min){
     m_min=min;
 }
 
-void  DiscreteWalker::set_lifetime(long lifetime){
+void  DiscreteWalker_pcg::set_lifetime(long lifetime){
     m_lifetime=lifetime;
 }
 
-void  DiscreteWalker::set_seed(long seed){
+void  DiscreteWalker_pcg::set_seed(long seed){
     m_seed=seed;
     gsl_rng_set(m_rng,m_seed);
 }
 
 //the basic move function
-void DiscreteWalker::move(int verbose){
+void DiscreteWalker_pcg::move(int verbose){
     int m = gsl_ran_bernoulli(m_rng, 0.5); //the basic move is +1 or -1 with equal probability
     m_pos+=1-2*m;
     m_lifetime+=1;
@@ -114,13 +111,13 @@ void DiscreteWalker::move(int verbose){
 }
 
 //other funtions
-void DiscreteWalker::move_til_death(int verbose){
+void DiscreteWalker_pcg::move_til_death(int verbose){
     while(isAlive()){
         move(verbose);
     }
 }
 
-void DiscreteWalker::move_til_death_bounded(long N,int verbose)
+void DiscreteWalker_pcg::move_til_death_bounded(long N,int verbose)
 {
     while(isAlive()){
         move(verbose);
@@ -138,12 +135,12 @@ void DiscreteWalker::move_til_death_bounded(long N,int verbose)
     }
 }
 
-bool DiscreteWalker::isAlive() const
+bool DiscreteWalker_pcg::isAlive() const
 {
     return (m_pos>0); //strict inequality here
 }
 
-int DiscreteWalker::move_fixed_max(long borne)
+int DiscreteWalker_pcg::move_fixed_max(long borne)
 {
     while(isAlive() && m_pos<=borne){
         move();
@@ -155,7 +152,7 @@ int DiscreteWalker::move_fixed_max(long borne)
         return 1;
     }
 }
-int  DiscreteWalker::move_fixed_time(long time)
+int  DiscreteWalker_pcg::move_fixed_time(long time)
 {
 
     while(isAlive() && m_lifetime<=time){
@@ -170,7 +167,7 @@ int  DiscreteWalker::move_fixed_time(long time)
 }
 
 
-double DiscreteWalker::split_prob(long s0, long s1,long s2, long const n)
+double DiscreteWalker_pcg::split_prob(long s0, long s1,long s2, long const n)
 {
     long i;
     //int result[n];
@@ -195,7 +192,7 @@ double DiscreteWalker::split_prob(long s0, long s1,long s2, long const n)
     return (double)(m/n);
 }
 
-double DiscreteWalker::max_prob(long s0, long s1,long const n)
+double DiscreteWalker_pcg::max_prob(long s0, long s1,long const n)
 {
     long i;
     //int result[n];

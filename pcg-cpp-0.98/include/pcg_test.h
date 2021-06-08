@@ -18,7 +18,7 @@ gsl_pcg_set(void *state, unsigned long int s)
     pcg_extras::seed_seq_from<std::random_device> seed_source;
     static pcg32 rng_init(seed_source); //on initialise un generateur pcg de maniere completement non controlée pour ll'instant!!
 
-    (((gsl_pcg_state *) state)->rng) = &rng_init; //on mappe l'aresse dans l'eta
+    (((gsl_pcg_state *) state)->rng) = &rng_init; //on mappe l'adresse dans l'etat
     (void) s; // ne nous sert à rien puisqu'on controle pas le seeding
 }
 
