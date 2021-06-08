@@ -7,7 +7,7 @@
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
 
-#include "../../pcg-cpp-0.98/include/pcg_test.h"
+#include "../../pcg-cpp-0.98/include/pcg_random_walk.h"
 
 class DiscreteWalker_pcg
 {

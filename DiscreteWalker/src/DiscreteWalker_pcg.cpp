@@ -7,7 +7,7 @@
 #include <gsl/gsl_randist.h>
 #include <stdlib.h>
 
-#include "../../pcg-cpp-0.98/include/pcg_test.h"
+#include "../../pcg-cpp-0.98/include/pcg_random_walk.h"
 
 
 #include "DiscreteWalker_pcg.h"
