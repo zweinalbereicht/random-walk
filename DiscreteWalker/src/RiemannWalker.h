@@ -2,6 +2,8 @@
 #include <iostream>
 #include "DiscreteWalker.h"
 
+#include "../../custom_distributions/Zipf.h"
+
 class RiemannWalker : public DiscreteWalker
 //should inherit most continuous walker methods
 {

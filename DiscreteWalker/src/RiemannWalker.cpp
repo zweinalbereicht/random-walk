@@ -9,6 +9,7 @@
 #include "DiscreteWalker.h"
 //le include precedent est il necessaire?
 #include "RiemannWalker.h"
+//#include "Zipf.h"
 
 using namespace std;
 namespace py = pybind11;
