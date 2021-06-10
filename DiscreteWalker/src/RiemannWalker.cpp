@@ -9,7 +9,6 @@
 #include "DiscreteWalker.h"
 //le include precedent est il necessaire?
 #include "RiemannWalker.h"
-//#include "Zipf.h"
 
 using namespace std;
 namespace py = pybind11;
@@ -53,6 +52,11 @@ void RiemannWalker::set_c(double c)
 void RiemannWalker::move(int verbose)
 {
     double m = gsl_ran_levy(m_rng, m_c, m_alpha);
+
+    //unsigned int m = gsl_ran_zipf(m_rng, m_alpha);
+    //unsigned int dir = gsl_ran_bernoulli(m_rng,0.5);
+    //m_pos = m_pos + ((long)(2*dir-1))*((long)m);
+
     m_pos=round(m_pos+m);
     if(verbose)
         cout << "pos : " << m_pos << endl;

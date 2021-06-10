@@ -7,7 +7,7 @@
 #include "Zipf.h"
 
 unsigned int //que veux t-on vraiment renvoyer à la fin?
-gsl_rng_zipf(const gsl_rng * r, double a)
+gsl_ran_zipf(const gsl_rng * r, double a)
 {
 
     double am1, b;

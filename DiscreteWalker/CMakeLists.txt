@@ -4,7 +4,10 @@ project(DiscreteWalker)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 
-set(SOURCE_FILES src/DiscreteWalker.cpp src/DiscreteWalker.h src/BiasedWalker.cpp src/BiasedWalker.h src/SATWWalker.cpp src/SATWWalker.h src/RiemannWalker.h src/RiemannWalker.cpp src/Bindings.cpp src/Observables.cpp src/Observables.h src/DiscreteWalker_pcg.h src/DiscreteWalker_pcg.cpp ../custom_distributions/Zipf.h ../custom_distributions/Zipf.cpp)
+#set(SOURCE_FILES src/DiscreteWalker.cpp src/DiscreteWalker.h src/BiasedWalker.cpp src/BiasedWalker.h src/SATWWalker.cpp src/SATWWalker.h src/RiemannWalker.h src/RiemannWalker.cpp src/Bindings.cpp src/Observables.cpp src/Observables.h src/DiscreteWalker_pcg.h src/DiscreteWalker_pcg.cpp ../custom_distributions/Zipf.h ../custom_distributions/Zipf.cpp)
+
+set(SOURCE_FILES src/DiscreteWalker.cpp src/DiscreteWalker.h src/BiasedWalker.cpp src/BiasedWalker.h src/SATWWalker.cpp src/SATWWalker.h src/RiemannWalker.h src/RiemannWalker.cpp src/Bindings.cpp src/Observables.cpp src/Observables.h ../custom_distributions/Zipf.h ../custom_distributions/Zipf.cpp src/ZipfWalker.h src/ZipfWalker.cpp)
+
 #set(SOURCE_FILES src/DiscreteWalker.cpp src/DiscreteWalker.h src/Bindings.cpp src/Observables.cpp src/Observables.h ../pcg-cpp-0.98/include/pcg_test.h)
 
 add_subdirectory(../pybind11 build)

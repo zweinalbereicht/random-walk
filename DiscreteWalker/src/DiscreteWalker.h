@@ -9,6 +9,9 @@
 
 //#include "../../pcg-cpp-0.98/include/pcg_test.h"
 
+
+//#include "../../custom_distributions/Zipf.h"
+
 class DiscreteWalker
 {
 

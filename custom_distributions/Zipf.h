@@ -7,4 +7,4 @@
 #include <limits>
 
 unsigned int
-gsl_rng_zipf(const gsl_rng * r, double a);
+gsl_ran_zipf(const gsl_rng * r, double a);

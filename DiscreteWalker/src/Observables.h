@@ -14,6 +14,9 @@
 #include "SATWWalker.h"
 #include "RiemannWalker.h"
 
+//#include "DiscreteWalker_pcg.h"
+#include "ZipfWalker.h"
+
 namespace py = pybind11;
 
 py::list
