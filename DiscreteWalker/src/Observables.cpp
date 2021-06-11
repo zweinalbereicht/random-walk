@@ -35,7 +35,7 @@ fpt_arrival_bounded_distribution(const long s0,const long N,DiscreteWalker &walk
 }
 
 double
-fpt_arrival_bounded_global_mean(long N,DiscreteWalker &walker, const int n)
+fpt_arrival_bounded_global_mean(const long N,DiscreteWalker &walker, const int n)
 {
     vector<long> result(n);
     for(int i=0;i<n;i++)
@@ -56,7 +56,7 @@ fpt_arrival_bounded_global_mean(long N,DiscreteWalker &walker, const int n)
 }
 
 double
-fpt_arrival_bounded_mean(long s0,long N,DiscreteWalker &walker, const int n)
+fpt_arrival_bounded_mean(const long s0,const long N,DiscreteWalker &walker, const int n)
 {
     vector<long> result(n);
     for(int i=0;i<n;i++)
@@ -65,6 +65,62 @@ fpt_arrival_bounded_mean(long s0,long N,DiscreteWalker &walker, const int n)
         walker.set_pos(s0);
         walker.move_til_death_bounded(N);
         result[i]=walker.get_lifetime();
+    }
+
+    double m;
+
+    for (int i=0;i<n;i++){
+       m+=result[i];
+    }
+
+    return (double) m/n;
+}
+
+py::list
+territory_distribution(const long s0, const long N, DiscreteWalker &walker, const int n)
+{
+    vector<long> result(n);
+    for(int i=0;i<n;i++)
+    {
+        walker.set_lifetime(0);
+        walker.set_pos(s0);
+        result[i]=walker.move_til_death_bounded_record_territory(N); // a implementer
+    }
+
+    py::list ret = py::cast(result);
+    return ret;
+}
+
+double
+territory_global_mean(const long N,DiscreteWalker &walker, const int n)
+{
+    vector<long> result(n);
+    for(int i=0;i<n;i++)
+    {
+        walker.set_lifetime(0);
+        walker.set_random_pos(N);
+        result[i]=walker.move_til_death_bounded_record_territory(N); // a implementer
+
+    }
+
+    double m;
+
+    for (int i=0;i<n;i++){
+       m+=result[i];
+    }
+
+    return (double) m/n;
+}
+
+double
+territory_mean(const long s0,const long N,DiscreteWalker &walker, const int n)
+{
+    vector<long> result(n);
+    for(int i=0;i<n;i++)
+    {
+        walker.set_lifetime(0);
+        walker.set_pos(s0);
+        result[i]=walker.move_til_death_bounded_record_territory(N); // a implementer
     }
 
     double m;

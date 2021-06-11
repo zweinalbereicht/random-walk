@@ -41,7 +41,8 @@ DiscreteWalker::~DiscreteWalker()
     gsl_rng_free(m_rng);
 }
 
-void DiscreteWalker::print_details() const
+void
+DiscreteWalker::print_details() const
 {
     cout << "name : " << m_name << endl;
     cout << "position : " << m_pos << endl;
@@ -99,7 +100,8 @@ void  DiscreteWalker::set_seed(long seed){
 }
 
 //the basic move function
-void DiscreteWalker::move(int verbose){
+void
+DiscreteWalker::move(int verbose){
     int m = gsl_ran_bernoulli(m_rng, 0.5); //the basic move is +1 or -1 with equal probability
     m_pos+=1-2*m;
     m_lifetime+=1;
@@ -115,13 +117,15 @@ void DiscreteWalker::move(int verbose){
 }
 
 //other funtions
-void DiscreteWalker::move_til_death(int verbose){
+void
+DiscreteWalker::move_til_death(int verbose){
     while(isAlive()){
         move(verbose);
     }
 }
 
-void DiscreteWalker::move_til_death_bounded(long N,int verbose)
+void
+DiscreteWalker::move_til_death_bounded(long N,int verbose)
 {
     while(isAlive()){
         move(verbose);
@@ -137,6 +141,38 @@ void DiscreteWalker::move_til_death_bounded(long N,int verbose)
             //cout << "relocating position : " << m_pos << endl;
         }
     }
+}
+
+long
+DiscreteWalker::move_til_death_bounded_record_territory(long N,int verbose)
+{
+    vector<int> territory(N); //the territory on which we walk
+    long i=0;
+    for(;i<N;i++)
+        territory[i]=0;
+
+    while(isAlive()){
+        move(verbose);
+        if (m_pos>=N){
+            //cout << "old position : " << m_pos << endl;
+            m_pos=(long) m_pos%(N); //encore un probleme à corriger ici
+            //cout << "relocating position : " << m_pos << endl;
+        }
+        else if (m_pos<0)
+        {
+            //cout << "old position : " << m_pos << endl;
+            m_pos = (long)((((N)-((-m_pos)%(N))))%N);
+            //cout << "relocating position : " << m_pos << endl;
+        }
+        territory[m_pos]+=1;
+    }
+
+    long result=0; // parcourons le tableau de sortie
+    for(i=0;i<N;i++)
+        if(territory[i]>0)
+            result+=1;
+
+    return result;
 }
 
 bool DiscreteWalker::isAlive() const

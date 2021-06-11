@@ -23,7 +23,16 @@ py::list
 fpt_arrival_bounded_distribution(const long s0,const long N,DiscreteWalker &walker, const int n);
 
 double
-fpt_arrival_bounded_global_mean(long N,DiscreteWalker &walker, const int n);
+fpt_arrival_bounded_mean(const long s0,const long N,DiscreteWalker &walker, const int n);
 
 double
-fpt_arrival_bounded_mean(long s0,long N,DiscreteWalker &walker, const int n);
+fpt_arrival_bounded_global_mean(const long N,DiscreteWalker &walker, const int n);
+
+py::list
+territory_distribution(const long s0, const long N, DiscreteWalker &walker, const int n);
+
+double
+territory_mean(const long s0, const long N, DiscreteWalker &walker, const int n);
+
+double
+territory_global_mean(const long N, DiscreteWalker &walker, const int n);

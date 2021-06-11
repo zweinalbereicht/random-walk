@@ -59,6 +59,7 @@ class DiscreteWalker
     bool isAlive() const;
     void move_til_death(int verbose=0);
     void move_til_death_bounded(long N,int verbose=0);
+    long move_til_death_bounded_record_territory(long N,int verbose=0);
     int move_fixed_max(long borne);
     int move_fixed_time(long time);
     double split_prob(long s0, long s1,long s2, long const n);
