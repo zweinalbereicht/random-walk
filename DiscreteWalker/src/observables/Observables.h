@@ -9,13 +9,13 @@
 #include <string>
 #include <stdlib.h>
 
-#include "DiscreteWalker.h"
-#include "BiasedWalker.h"
-#include "SATWWalker.h"
-#include "RiemannWalker.h"
+#include "../walkers/DiscreteWalker.h"
+#include "../walkers/BiasedWalker.h"
+#include "../walkers/SATWWalker.h"
+#include "../walkers/RiemannWalker.h"
 
 //#include "DiscreteWalker_pcg.h"
-#include "ZipfWalker.h"
+#include "../walkers/ZipfWalker.h"
 
 namespace py = pybind11;
 

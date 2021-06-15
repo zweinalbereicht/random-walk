@@ -8,10 +8,10 @@
 #include <stdlib.h>
 #include <gsl/gsl_rng.h>
 
-#include "DiscreteWalker.h"
-#include "BiasedWalker.h"
-#include "SATWWalker.h"
-#include "RiemannWalker.h"
+#include "../walkers/DiscreteWalker.h"
+#include "../walkers/BiasedWalker.h"
+#include "../walkers/SATWWalker.h"
+#include "../walkers/RiemannWalker.h"
 
 #include "Observables.h"
 
