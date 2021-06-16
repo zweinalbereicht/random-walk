@@ -9,9 +9,13 @@
 #include <gsl/gsl_randist.h>
 
 //#include "../../pcg-cpp-0.98/include/pcg_test.h"
+#include "../../Graphs/src/Graph.h"
 
 
 //#include "../../custom_distributions/Zipf.h"
+
+
+
 
 class GraphWalker
 {
@@ -20,19 +24,17 @@ class GraphWalker
     protected:
 
     std::string m_name;
-    long m_pos;
+    int m_pos;
     long m_lifetime;
-    long m_min;
-    long m_max;
     int m_seed; //each walker will have it's own seed
     gsl_rng* m_rng; //and own random generator
-    Graph* m_g;
+    Graph m_graph;
 
     public:
 
     //constructeurs
     GraphWalker();
-    GraphWalker(std::string name, long pos,int seed);
+    GraphWalker(std::string filename, int pos,int seed);
 
     //destucteurs
     ~GraphWalker();
@@ -41,7 +43,7 @@ class GraphWalker
     virtual void print_details() const;
 
     //fonctions getters
-    long get_pos() const ;
+    int get_pos() const ;
     long get_lifetime() const ;
     int get_seed() const ;
 
@@ -51,13 +53,13 @@ class GraphWalker
     void set_seed(long seed);
 
     //other setter functions
-    void set_random_pos(long N);
+    void set_random_pos(int N);
 
-    virtual void move(int verbose=0); //only virtual function a priori
-    bool isAlive() const;
-    void move_til_death(int verbose=0);
-    int move_fixed_time(long time);
-    double split_prob(long s0, long s1,long s2, long const n);
+    void move(int verbose=0); //only virtual function a priori
+    bool isAlive(int target) const;
+    void move_til_death(int target, int verbose=0);
+    int move_fixed_time(int target,long time);
+    //double split_prob(long s0, long s1,long s2, long const n);
 
 };
 
