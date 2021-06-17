@@ -36,8 +36,6 @@ GraphWalker::print_details() const
     cout << "position : " << m_pos << endl;
     cout << "age : " << m_lifetime << endl;
     cout << "seed : " << m_seed << endl;
-
-    //m_graph.show_matrix();
 }
 
 //getters
@@ -54,19 +52,19 @@ int GraphWalker::get_seed() const {
 }
 
 //setters
-void GraphWalker::set_pos(long pos){
+void GraphWalker::set_pos(const int pos){
      m_pos=pos;
 }
 
-void GraphWalker::set_random_pos(int N){
-     m_pos=1+gsl_rng_uniform_int(m_rng,N-1);
+void GraphWalker::set_random_pos(){
+     m_pos=gsl_rng_uniform_int(m_rng,m_graph.get_n());
 }
 
-void  GraphWalker::set_lifetime(long lifetime){
+void  GraphWalker::set_lifetime(const long lifetime){
     m_lifetime=lifetime;
 }
 
-void  GraphWalker::set_seed(long seed){
+void  GraphWalker::set_seed(const int seed){
     m_seed=seed;
     gsl_rng_set(m_rng,m_seed);
 }
@@ -87,18 +85,18 @@ GraphWalker::move(int verbose){
 
 //other funtions
 void
-GraphWalker::move_til_death(int target,int verbose){
+GraphWalker::move_til_death(const int target,int verbose){
     while(isAlive(target)){
         move(verbose);
     }
 }
 
-bool GraphWalker::isAlive(int target) const
+bool GraphWalker::isAlive(const int target) const
 {
-    return (m_pos==target); //strict inequality here
+    return (m_pos!=target); //strict inequality here
 }
 
-int  GraphWalker::move_fixed_time(int target,long time)
+int  GraphWalker::move_fixed_time(const int target,long time)
 {
 
     while(isAlive(target) && m_lifetime<=time){
@@ -111,3 +109,25 @@ int  GraphWalker::move_fixed_time(int target,long time)
         return 1;
     }
 }
+
+int
+GraphWalker::move_til_death_record_territory(const int target,int verbose)
+{
+    vector<int> territory(m_graph.get_n()); //the territory on which we walk
+    long i=0;
+    for(;i<m_graph.get_n();i++)
+        territory[i]=0;
+
+    territory[m_pos]+=1; //setting the first position
+    while(isAlive(target)){
+        move(verbose);
+        territory[m_pos]+=1;
+    }
+
+    int result=0; // parcourons le tableau de sortie
+    for(i=0;i<m_graph.get_n();i++)
+        if(territory[i]>0)
+            result+=1;
+    return result;
+}
+

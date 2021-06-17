@@ -6,12 +6,14 @@
 #include <assert.h>
 
 #include "../../Graphs/src/Graph.h"
-#include "../src/GraphWalker.h"
+#include "../src/walkers/GraphWalker.h"
+#include "../src/observables/Observables.h"
 
 int main(int argc, char** argv){
 
     std::string filename(argv[1]);
-    GraphWalker walker(filename,0,10);
+    GraphWalker walker(filename);
+    walker.set_random_pos();
     walker.print_details();
     int i;
     Log("\n");

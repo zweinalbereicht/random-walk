@@ -9,7 +9,7 @@
 #include <gsl/gsl_randist.h>
 
 //#include "../../pcg-cpp-0.98/include/pcg_test.h"
-#include "../../Graphs/src/Graph.h"
+#include "../../../Graphs/src/Graph.h"
 
 
 //#include "../../custom_distributions/Zipf.h"
@@ -34,7 +34,7 @@ class GraphWalker
 
     //constructeurs
     GraphWalker();
-    GraphWalker(std::string filename, int pos,int seed);
+    GraphWalker(std::string filename, int pos=0,int seed=1);
 
     //destucteurs
     ~GraphWalker();
@@ -48,18 +48,18 @@ class GraphWalker
     int get_seed() const ;
 
     //fonctions setters
-    void set_pos(long pos);
-    void set_lifetime(long lifetime);
-    void set_seed(long seed);
+    void set_pos(const int pos);
+    void set_lifetime(const long lifetime);
+    void set_seed(const int seed);
 
     //other setter functions
-    void set_random_pos(int N);
+    void set_random_pos();
 
-    void move(int verbose=0); //only virtual function a priori
+    void move(int verbose=0);
     bool isAlive(int target) const;
-    void move_til_death(int target, int verbose=0);
-    int move_fixed_time(int target,long time);
-    //double split_prob(long s0, long s1,long s2, long const n);
+    void move_til_death(const int target, int verbose=0);
+    int move_fixed_time(const int target,long time);
+    int move_til_death_record_territory(const int target, int verbose=0);
 
 };
 

@@ -46,6 +46,9 @@ class Graph
         //getters
         int get_n() const;
 
+        //writers
+        void write_adjacency(const std::string filename) const;
+
         //info functions
         void graph_info() const;
         void show_matrix() const;
@@ -61,9 +64,40 @@ class Graph
 };
 
 
+/*------------------------------------------------------*/
+
 //tools
 void
 split_line(const std::string line, std::vector<int> &vec);
 
 void
 show_matrix(std::vector<int> mat,int matsize);
+
+
+//write a single matrix to a file
+template <typename T>
+void
+write_matrix(const std::vector<T> matrix, const int matsize, const std::string filename);
+
+//write pairs and the associatred chemical distance in a sorted way.
+//valid only for non oriented graphs
+void
+write_chemical_distances(const std::vector<int> matrix, const int matsize, std::string filename);
+
+/*------------------------------------------------------*/
+
+//generate all graph files from neighbor file
+
+/*
+we suppose the filename.txt file exists
+filename.txt is a neighbor file, of the form
+
+1 2
+0 2
+0 1
+
+where the above is a triangular graph (0 is linked to 1 and 2 ...)
+*/
+
+void
+create_all_graph_files_from_neighbors(const std::string filename);

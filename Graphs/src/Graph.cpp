@@ -29,7 +29,7 @@ Graph::Graph(const int n): m_n(n),m_m(0)
    for(i=0;i<m_n;i++)
    {
        m_alist.push_back(Successors());
-       for(j=0;i<m_n;i++)
+       for(j=0;j<m_n;j++)
        {
            m_adjacency.push_back(0);
        }
@@ -97,6 +97,15 @@ Graph::get_n() const
 }
 
 /*------------------------------------------------------*/
+//writers
+
+void
+Graph::write_adjacency(const std::string filename) const
+{
+   write_matrix(m_adjacency,m_n,filename);
+}
+
+/*------------------------------------------------------*/
 //Graph fucntions
 
 //displays
@@ -120,6 +129,7 @@ Graph::show_matrix() const
     int i,j;
     for (i=0;i<m_n;i++){
         for (j=0;j<m_n;j++){
+            //std::cout << m_adjacency[m_n*i+j] << std::endl;
             std::cout << m_adjacency[m_n*i+j] << " ";
         }
         std::cout << std::endl;
@@ -167,7 +177,7 @@ Graph::floyd_warshall() const
 {
     //on commence par faire une copie de la matrice d'adjacence
     std::vector<int> FW;
-    int i,j,k,newdist;
+    int i,j,k,newdist; //variables de boucle
 
     for(auto x : m_adjacency)
     {
@@ -238,4 +248,85 @@ show_matrix(std::vector<int> mat,int matsize)
         std::cout << std::endl;
     }
     std::cout << std::endl;
+}
+
+template<typename T>
+void
+write_matrix(const std::vector<T> matrix, const int matsize, const std::string filename)
+{
+
+    std::ofstream file;
+    file.open(filename);
+    for(int i=0;i<matsize;i++)
+    {
+        for(int j=0; j<matsize-1;j++)
+        {
+            file << matrix[matsize*i+j] << " ";
+        }
+        file << matrix[matsize*i+matsize-1] << "\n";
+    }
+    file.close();
+}
+
+//valid only for non oriented graphs
+void
+write_chemical_distances(const std::vector<int> matrix, const int matsize, const std::string filename)
+{
+
+    //fill the data array
+    std::vector<std::vector<int>> data(matsize*matsize, std::vector<int>(0));
+    for(int i=0;i<matsize;i++)
+    {
+        for(int j=0; j<i;j++)
+        {
+            data[matrix[i*matsize+j]].push_back(i);
+            data[matrix[i*matsize+j]].push_back(j);
+        }
+    }
+
+    //write to file
+    std::ofstream file;
+    file.open(filename);
+    for (int i=0;i<data.size();i++)
+    {
+        if(data[i].size()>0) //(smth to write)
+        {
+            file << "chemical_distance : " << i << " number of pairs : " << (int) (data[i].size()/2) << std::endl;
+            for(int j=0;j<data[i].size();j+=2)
+                file << data[i][j] << " " << data[i][j+1] << std::endl;
+        }
+    }
+    file.close();
+}
+
+/*------------------------------------------------------*/
+
+//generate all graph files from neighbor file
+
+/*
+we suppose the filename.txt file exists
+filename.txt is a neighbor file, of the form
+
+1 2
+0 2
+0 1
+
+where the above is a triangular graph (0 is linked to 1 and 2 ...)
+*/
+
+void
+create_all_graph_files_from_neighbors(const std::string filename)
+{
+    std::ifstream graph_file(filename+".txt");
+    if(graph_file.good())
+    {
+        Graph g(filename+".txt");
+        std::vector<int> FW;
+        FW=g.floyd_warshall();
+        g.write_adjacency(filename+"_adja.txt");
+        write_matrix(FW, g.get_n(),filename+"_SP.txt");
+        write_chemical_distances(FW, g.get_n(), filename+"_chemdist.txt");
+    }
+    else
+        std::cout << "ERROR : no such file as " << filename << ".txt" << std::endl;
 }
