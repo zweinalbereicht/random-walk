@@ -324,7 +324,7 @@ create_all_graph_files_from_neighbors(const std::string filename)
         Graph g(filename+".txt");
         std::vector<int> FW;
         FW=g.floyd_warshall();
-        g.write_adjacency(filename+"_adja.txt");
+        g.write_adjacency(filename+"_adja.txt"); //ca prend potentiellement beaucoup d'espace de stockage...
         write_matrix(FW, g.get_n(),filename+"_SP.txt");
         write_chemical_distances(FW, g.get_n(), filename+"_chemdist.txt");
     }

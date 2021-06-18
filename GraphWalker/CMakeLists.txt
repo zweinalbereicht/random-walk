@@ -18,7 +18,7 @@ set(OBSRVABLE_PATH src/observables/)
 set(OBSRVABLES ${OBSRVABLE_PATH}Observables.h ${OBSRVABLE_PATH}Observables.cpp)
 
 #Graph files
-set(GRAPH_PATH ../Graphs/src/)
+set(GRAPH_PATH ../Graphs/src/include/)
 set(GRAPH ${GRAPH_PATH}Graph.h ${GRAPH_PATH}Graph.cpp)
 
 # all source files

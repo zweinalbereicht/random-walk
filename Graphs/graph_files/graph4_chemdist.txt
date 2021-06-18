@@ -1,0 +1,5 @@
+chemical_distance : 1 number of pairs : 1
+2 0
+chemical_distance : 2 number of pairs : 2
+1 0
+2 1

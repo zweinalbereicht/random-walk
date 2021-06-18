@@ -17,6 +17,9 @@ namespace py = pybind11;
 py::list
 fpt_arrival_distribution(const int s0,const int target,GraphWalker &walker, const int n)
 {
+    assert(s0<walker.get_graph_size()),
+    assert(target<walker.get_graph_size());
+
     vector<int> result(n);
     for(int i=0;i<n;i++)
     {
@@ -33,6 +36,8 @@ fpt_arrival_distribution(const int s0,const int target,GraphWalker &walker, cons
 double
 fpt_arrival_mean(const int s0,const int target,GraphWalker &walker, const int n)
 {
+    assert(s0<walker.get_graph_size()),
+    assert(target<walker.get_graph_size());
     vector<long> result(n);
     for(int i=0;i<n;i++)
     {
@@ -54,6 +59,8 @@ fpt_arrival_mean(const int s0,const int target,GraphWalker &walker, const int n)
 double
 fpt_arrival_global_mean(const int target ,GraphWalker &walker, const int n)
 {
+    assert(target<walker.get_graph_size());
+
     vector<long> result(n);
     for(int i=0;i<n;i++)
     {
@@ -75,6 +82,8 @@ fpt_arrival_global_mean(const int target ,GraphWalker &walker, const int n)
 py::list
 territory_distribution(const int s0, const int target, GraphWalker &walker, const int n)
 {
+    assert(s0<walker.get_graph_size()),
+    assert(target<walker.get_graph_size());
     vector<long> result(n);
     for(int i=0;i<n;i++)
     {
@@ -90,6 +99,8 @@ territory_distribution(const int s0, const int target, GraphWalker &walker, cons
 double
 territory_mean(const int s0, const int target , GraphWalker &walker, const int n)
 {
+    assert(s0<walker.get_graph_size()),
+    assert(target<walker.get_graph_size());
     vector<long> result(n);
     for(int i=0;i<n;i++)
     {
@@ -110,6 +121,7 @@ territory_mean(const int s0, const int target , GraphWalker &walker, const int n
 double
 territory_global_mean(const int target,GraphWalker &walker, const int n)
 {
+    assert(target<walker.get_graph_size());
     vector<long> result(n);
     for(int i=0;i<n;i++)
     {

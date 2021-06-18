@@ -47,6 +47,7 @@ class GraphWalker
     long get_lifetime() const ;
     int get_seed() const ;
     int get_graph_size() const;
+    Graph* get_graph() const;
 
     //fonctions setters
     void set_pos(const int pos);

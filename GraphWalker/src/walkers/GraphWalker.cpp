@@ -51,6 +51,10 @@ int GraphWalker::get_seed() const {
     return m_seed;
 }
 
+int GraphWalker::get_graph_size() const {
+    return m_graph.get_n();
+}
+
 //setters
 void GraphWalker::set_pos(const int pos){
      m_pos=pos;

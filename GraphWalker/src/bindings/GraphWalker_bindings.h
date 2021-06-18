@@ -23,6 +23,9 @@ py::class_<GraphWalker>(handle, "GraphWalker")
     .def("get_seed",&GraphWalker::get_seed
             ,"a getter function for the  walker's seed")
 
+    .def("get_graph_size",&GraphWalker::get_graph_size
+            ,"a getter function for the  walker's graph size")
+
     .def("set_pos",&GraphWalker::set_pos
             ,py::arg("pos")
             ,"a setter function for the  walker's positon")
