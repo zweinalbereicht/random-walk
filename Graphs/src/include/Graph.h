@@ -77,12 +77,12 @@ show_matrix(std::vector<int> mat,int matsize);
 //write a single matrix to a file
 template <typename T>
 void
-write_matrix(const std::vector<T> matrix, const int matsize, const std::string filename);
+write_matrix(const std::vector<T> &matrix, const int matsize, const std::string filename);
 
 //write pairs and the associatred chemical distance in a sorted way.
 //valid only for non oriented graphs
 void
-write_chemical_distances(const std::vector<int> matrix, const int matsize, std::string filename);
+write_chemical_distances(const std::vector<int> &matrix, const int matsize, std::string filename);
 
 /*------------------------------------------------------*/
 

@@ -253,7 +253,7 @@ show_matrix(std::vector<int> mat,int matsize)
 
 template<typename T>
 void
-write_matrix(const std::vector<T> matrix, const int matsize, const std::string filename)
+write_matrix(const std::vector<T> &matrix, const int matsize, const std::string filename) //attention ici on veut potentiellemen tun passage par reference, pour eviter une copie justement.
 {
 
     std::ofstream file;
@@ -271,7 +271,7 @@ write_matrix(const std::vector<T> matrix, const int matsize, const std::string f
 
 //valid only for non oriented graphs
 void
-write_chemical_distances(const std::vector<int> matrix, const int matsize, const std::string filename)
+write_chemical_distances(const std::vector<int> &matrix, const int matsize, const std::string filename)
 {
 
     //fill the data array
