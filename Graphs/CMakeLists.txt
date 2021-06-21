@@ -14,3 +14,4 @@ set(SOURCE_FILES ${INCLUDE_FILES})
 #executable files
 set(EXECUTABLE_PATH src/executables/)
 add_executable(create_all_files ${EXECUTABLE_PATH}create_all_files.cpp ${SOURCE_FILES})
+add_executable(make_chemdist_from_SP ${EXECUTABLE_PATH}make_chemdist_from_SP.cpp ${SOURCE_FILES})

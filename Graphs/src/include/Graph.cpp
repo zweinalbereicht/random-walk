@@ -251,6 +251,7 @@ show_matrix(std::vector<int> mat,int matsize)
     std::cout << std::endl;
 }
 
+//write a matrix to a file
 template<typename T>
 void
 write_matrix(const std::vector<T> &matrix, const int matsize, const std::string filename) //attention ici on veut potentiellemen tun passage par reference, pour eviter une copie justement.
@@ -268,6 +269,43 @@ write_matrix(const std::vector<T> &matrix, const int matsize, const std::string 
     }
     file.close();
 }
+
+//load a matrix from a file
+std::vector<int>
+load_matrix(const std::string filename, const int matsize)
+{
+    std::string line;
+    std::vector<int> vec;
+    std::vector<int> result(matsize*matsize);
+    std::ifstream file;
+    file.open(filename);
+    if(file.is_open())
+    {
+        int i=0;
+        int j;
+        while(getline(file,line))
+        {
+            j=0;
+            split_line(line, vec);
+            for(auto x : vec)
+            {
+                result[i*matsize+j]=(int) x;
+                j++;
+            }
+            i++;
+        }
+        file.close();
+        return result;
+    }
+    else
+    {
+        std::cout<<"no such file as "<< filename << std::endl;
+        result.clear();
+        return result;
+    }
+}
+
+
 
 //valid only for non oriented graphs
 void

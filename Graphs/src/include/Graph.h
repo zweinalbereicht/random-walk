@@ -79,6 +79,10 @@ template <typename T>
 void
 write_matrix(const std::vector<T> &matrix, const int matsize, const std::string filename);
 
+//load a songle matrix
+std::vector<int>
+load_matrix(const std::string filename, const int matsize);
+
 //write pairs and the associatred chemical distance in a sorted way.
 //valid only for non oriented graphs
 void
