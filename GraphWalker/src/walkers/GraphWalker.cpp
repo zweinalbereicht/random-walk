@@ -144,7 +144,7 @@ GraphWalker::move_til_death_territory_max_dist(const int target,vector<int> &tmp
     int n=m_graph.get_n();
     vector<int> territory(m_graph.get_n()); //the territory on which we walk
     long i=0;
-    int max_dist=1;
+    int max_dist=SP[n*m_pos+target];
     for(;i<m_graph.get_n();i++)
         territory[i]=0;
 
