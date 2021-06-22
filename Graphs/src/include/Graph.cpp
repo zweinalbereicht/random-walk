@@ -307,13 +307,13 @@ load_matrix(const std::string filename, const int matsize)
 
 
 
-//valid only for non oriented graphs
+//valid only for non oriented graphs ie with symmetric edja matrix
 void
 write_chemical_distances(const std::vector<int> &matrix, const int matsize, const std::string filename)
 {
 
     //fill the data array
-    std::vector<std::vector<int>> data(matsize*matsize, std::vector<int>(0));
+    std::vector<std::vector<int>> data(matsize, std::vector<int>(0));
     for(int i=0;i<matsize;i++)
     {
         for(int j=0; j<i;j++)
@@ -326,7 +326,7 @@ write_chemical_distances(const std::vector<int> &matrix, const int matsize, cons
     //write to file
     std::ofstream file;
     file.open(filename);
-    for (int i=0;i<data.size();i++)
+    for (int i=1;i<data.size();i++)
     {
         if(data[i].size()>0) //(smth to write)
         {

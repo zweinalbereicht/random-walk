@@ -22,6 +22,7 @@ int main(int argc, char** argv)
         else
             path = (std::string) argv[1];
 
+        //take off the .txt extension
         path.resize(path.size()-4);
         create_all_graph_files_from_neighbors(path);
         exit(0);

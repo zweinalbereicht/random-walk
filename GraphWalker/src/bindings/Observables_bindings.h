@@ -53,4 +53,4 @@ handle.def("max_dist_territory_distribution"
         ,py::arg("walker")
         ,py::arg("n")
         ,py::arg("filemane")
-        ,"returns the joint distribution of the max distance and territory visited before hitting the target, starting from s0, with n values. The filemane argument indicates a path to the shortest path matrix needed to compute the max_distance.");
+        ,"returns the joint distribution of the max distance and territory visited before hitting the target, starting from s0, with n values. The filemane argument indicates a path to the shortest path matrix needed to compute the max_distance. We return a list of the form [[territories],[distances]].");
