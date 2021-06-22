@@ -10,6 +10,7 @@
 
 //#include "../../pcg-cpp-0.98/include/pcg_test.h"
 #include "../../../Graphs/src/include/Graph.h"
+using namespace std;
 
 
 //#include "../../custom_distributions/Zipf.h"
@@ -61,6 +62,8 @@ class GraphWalker
     void move_til_death(const int target, int verbose=0);
     int move_fixed_time(const int target,long time);
     int move_til_death_record_territory(const int target, int verbose=0);
+    //results are stored into tmp
+    void move_til_death_territory_max_dist(const int target,vector<int> &tmp,const vector<int> &SP);
 
 };
 

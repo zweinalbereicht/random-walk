@@ -1,7 +1,7 @@
 #/bin/bash
 
 #for a in $(ls | grep Walker)
-for a in Graphs GraphWalker DiscreteWalker ContinuousWalker
+for a in GraphWalker #Graphs #DiscreteWalker ContinuousWalker
 do
     echo $a
     cd $a

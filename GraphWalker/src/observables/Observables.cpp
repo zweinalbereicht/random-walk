@@ -140,3 +140,32 @@ territory_global_mean(const int target,GraphWalker &walker, const int n)
     return (double) m/n;
 }
 
+py::list
+max_dist_territory_distribution(const int s0, const int target, GraphWalker &walker,const int n,const string filename)
+{
+    assert(s0<walker.get_graph_size()),
+    assert(target<walker.get_graph_size());
+
+    //prepare storage data
+    vector<int> territory(n);
+    vector<int> max_dist(n);
+    vector<int> tmp(2);
+
+    //prepare SP matrix
+    vector<int> SP=load_matrix(filename,walker.get_graph_size());
+
+    for(int i=0;i<n;i++)
+    {
+        walker.set_lifetime(0);
+        walker.set_pos(s0);
+        walker.move_til_death_territory_max_dist(target,tmp,SP);
+        territory[i]=tmp[0];
+        max_dist[i]=tmp[1];
+    }
+
+    vector<vector<int>> results;
+    results.push_back(territory);
+    results.push_back(max_dist);
+    py::list ret = py::cast(results);
+    return ret;
+}

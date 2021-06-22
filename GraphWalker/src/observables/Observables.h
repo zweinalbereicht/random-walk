@@ -10,6 +10,7 @@
 #include <stdlib.h>
 
 #include "../walkers/GraphWalker.h"
+#include "../../../Graphs/src/include/Graph.h"
 
 namespace py = pybind11;
 
@@ -30,3 +31,6 @@ territory_mean(const int s0, const int target , GraphWalker &walker, const int n
 
 double
 territory_global_mean(const int target, GraphWalker &walker, const int n);
+
+py::list
+max_dist_territory_distribution(const int s0, const int target, GraphWalker &walker,const int n,const string filename);
