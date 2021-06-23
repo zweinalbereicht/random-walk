@@ -87,6 +87,13 @@ GraphWalker::move(int verbose){
     m_lifetime++;
 }
 
+void
+GraphWalker::move_nsteps(int n,int verbose)
+{
+    for(int i=0;i<n;i++)
+        move(verbose);
+}
+
 //other funtions
 void
 GraphWalker::move_til_death(const int target,int verbose){

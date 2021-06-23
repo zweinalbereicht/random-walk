@@ -180,6 +180,7 @@ Graph::floyd_warshall() const
     std::vector<int> FW;
     int i,j,k,newdist; //variables de boucle
 
+    //on remplit la matrice avec les bonnes conditions initiales
     for(auto x : m_adjacency)
     {
         if(x==0)
@@ -193,9 +194,9 @@ Graph::floyd_warshall() const
     //on lance l'algo
     for(k=0;k<m_n;k++){
         for(i=0;i<m_n;i++){
-            if(FW[i+m_n*k]==INT_MAX) continue;
+            if(FW[i+m_n*k]==INT_MAX) continue; //evite l'overflow en sautant la loop
             for(j=0;j<m_n;j++){
-                if(FW[k+m_n*j]==INT_MAX) continue;
+                if(FW[k+m_n*j]==INT_MAX) continue; //rebelote : evite l'overflow en sautant la loop
 
                 newdist=FW[i+m_n*k]+FW[k+m_n*j];
                 if(newdist<FW[i+m_n*j]){

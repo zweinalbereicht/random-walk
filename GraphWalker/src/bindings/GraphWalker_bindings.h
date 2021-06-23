@@ -46,6 +46,12 @@ py::class_<GraphWalker>(handle, "GraphWalker")
             ,py::arg("verbose")=0
             ,"a function that makes the walker perform a single step on one of its neighbors")
 
+    .def("move_nsteps",&GraphWalker::move_nsteps
+            ,py::call_guard<py::scoped_ostream_redirect>()
+            ,py::arg("n")
+            ,py::arg("verbose")=0
+            ,"a function that makes the walker perform n steps")
+
     .def("move_til_death",&GraphWalker::move_til_death
             ,py::call_guard<py::scoped_ostream_redirect>()
             ,py::arg("target")

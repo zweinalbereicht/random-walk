@@ -57,7 +57,9 @@ class GraphWalker
     //other setter functions
     void set_random_pos();
 
+    //some functions
     void move(int verbose=0);
+    void move_nsteps(int n,int verbose=0);
     bool isAlive(int target) const;
     void move_til_death(const int target, int verbose=0);
     int move_fixed_time(const int target,long time);
