@@ -34,3 +34,6 @@ territory_global_mean(const int target, GraphWalker &walker, const int n);
 
 py::list
 max_dist_territory_distribution(const int s0, const int target, GraphWalker &walker,const int n,const string filename);
+
+py::list
+position_distribution(const int s0, const int steps, GraphWalker &walker, const int n);

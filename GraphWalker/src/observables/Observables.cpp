@@ -169,3 +169,18 @@ max_dist_territory_distribution(const int s0, const int target, GraphWalker &wal
     py::list ret = py::cast(results);
     return ret;
 }
+
+py::list
+position_distribution(const int s0,const int steps, GraphWalker &walker, const int n)
+{
+    vector<long> result(n);
+    for(int i=0;i<n;i++)
+    {
+        walker.set_lifetime(0);
+        walker.set_pos(s0);
+        walker.move_nsteps(steps);
+        result[i]=walker.get_pos();
+    }
+    py::list ret = py::cast(result);
+    return ret;
+}
