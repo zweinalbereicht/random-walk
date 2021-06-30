@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED YES)
 
 #binding files
 set(BINDING_PATH src/bindings/)
-set(BINDINGS ${BINDING_PATH}Bindings.cpp ${BINDING_PATH}Observables_bindings.h ${BINDING_PATH}DiscreteWalker_bindings.h)
+set(BINDINGS ${BINDING_PATH}Bindings.cpp ${BINDING_PATH}DiscreteWalker_bindings.h)
 
 #walker files
 set(WALKER_PATH src/walkers/)

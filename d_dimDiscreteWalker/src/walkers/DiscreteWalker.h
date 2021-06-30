@@ -6,6 +6,8 @@
 #include <math.h>
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
+#include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
 
 
 class DiscreteWalker
@@ -26,7 +28,7 @@ class DiscreteWalker
 
     //constructeurs
     DiscreteWalker();
-    DiscreteWalker(std::string name, int d, std::vector<long> pos,int seed);
+    DiscreteWalker(std::string name, int d, pybind11::list &pos,int seed);
 
     //destucteurs
     ~DiscreteWalker();
@@ -35,7 +37,7 @@ class DiscreteWalker
     virtual void print_details() const;
 
     //fonctions getters
-    long get_pos() const ;
+    std::vector<long> get_pos() const ;
     long get_max() const ;
     long get_min() const ;
     long get_lifetime() const ;

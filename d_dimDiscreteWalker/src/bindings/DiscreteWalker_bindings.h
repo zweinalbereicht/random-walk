@@ -5,8 +5,9 @@ py::class_<DiscreteWalker>(handle, "DiscreteWalker")
 
 .def(py::init<>(),"default constructor")
 
-.def(py::init<string,int, std::vector<long>,int>()
+.def(py::init<string,int, pybind11::list &,int>()
         ,py::arg("name")
+        ,py::arg("dimension")
         ,py::arg("position")
         ,py::arg("seed"))
 

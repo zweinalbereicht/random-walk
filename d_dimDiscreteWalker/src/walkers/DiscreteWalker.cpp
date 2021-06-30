@@ -20,10 +20,12 @@ DiscreteWalker::DiscreteWalker(): m_name("a simple 2 dimensional walker"), m_pos
     gsl_rng_set(m_rng,m_seed);
 }
 
-DiscreteWalker::DiscreteWalker(string name,int d, vector<long> pos,int seed): m_name(name),m_seed(seed),m_lifetime(0),m_d(d)
+DiscreteWalker::DiscreteWalker(string name,int d, pybind11::list &pos,int seed): m_name(name),m_seed(seed),m_lifetime(0),m_d(d)
 {
-    vector<long> target(d,0);
-    m_max=euclidian_distance(pos,target);
+    //on essaye tant bien que mal d'extraire cette merde
+    for(int i=0;i<d;i++)
+        m_pos.push_back(pos[i].cast<long>());
+    m_max=euclidian_distance(m_pos);
     m_rng = gsl_rng_alloc(gsl_rng_mt19937);
     gsl_rng_set(m_rng,seed);
 }
@@ -48,7 +50,9 @@ DiscreteWalker::print_details() const
 }
 
 //getters
-long DiscreteWalker::get_pos() const {
+
+vector<long>
+DiscreteWalker::get_pos() const {
     return m_pos;
 }
 
