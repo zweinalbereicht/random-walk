@@ -28,7 +28,7 @@ class DiscreteWalker
 
     //constructeurs
     DiscreteWalker();
-    DiscreteWalker(std::string name, int d, pybind11::list &pos,int seed);
+    DiscreteWalker(std::string name, int d, const pybind11::list &pos,int seed);
 
     //destucteurs
     ~DiscreteWalker();
@@ -44,20 +44,26 @@ class DiscreteWalker
     int get_seed() const ;
 
     //fonctions setters
-    void set_pos(std::vector<long> &pos);
+    void set_pos(const pybind11::list &pos);
     void set_max(long max);
     void set_lifetime(long lifetime);
     void set_seed(long seed);
 
     //other setter functions
+    void set_random_pos(const pybind11::list &dimensions);
+
     //void set_random_pos(long N);
 
     virtual void move(int verbose=0); //only virtual function a priori
+
+    virtual void move_bounded(const pybind11::list &dimensions, int verbose=0); //the dimensions give the size of the hypercube we are moving in
+    virtual void move_bounded(const std::vector<long> &dimensions, int verbose=0); //the dimensions give the size of the hypercube we are moving in
+
     bool isAlive() const;
     void move_til_death(int verbose=0);
+    void move_til_death_bounded(const pybind11::list &dimensions, int verbose=0); //the dimensions give the size of the hypercube we are moving in
+    long move_til_death_bounded_record_territory(const pybind11::list &dimensions,int verbose=0);
     /*
-    void move_til_death_bounded(long N,int verbose=0);
-    long move_til_death_bounded_record_territory(long N,int verbose=0);
     int move_fixed_max(long borne);
     double split_prob(long s0, long s1,long s2, long const n);
     double max_prob(long s0,long s1, long const n);

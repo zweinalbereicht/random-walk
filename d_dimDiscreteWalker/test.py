@@ -2,10 +2,11 @@ import numpy as np
 import sys
 import build.module_d_dimDiscreteWalker as md
 
-walker=md.DiscreteWalker("lala",3,[0,0,0],np.random.randint(100000))
+walker=md.DiscreteWalker("lala",3,[1,0,0],np.random.randint(100000))
+#walker.print_details()
 
-walker.print_details()
-for k in range(int(sys.argv[1])):
-    walker.move(0)
+a=int(sys.argv[1])
+nb_sites = md.fpt_arrival_bounded_global_mean([10,10,10],walker,a)
 
-walker.print_details()
+#print("nb od sites visited : \n")
+print(nb_sites)

@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <unordered_set>
+#include <set>
 #include <string>
 #include <random>
 #include <math.h>
@@ -7,6 +9,9 @@
 #include <gsl/gsl_randist.h>
 #include <stdlib.h>
 
+//useful shorthands
+#define LOG(x) cout << x << endl
+#define MOD(x,b) (x % b + b ) % b
 
 #include "DiscreteWalker.h"
 using namespace std;
@@ -20,7 +25,7 @@ DiscreteWalker::DiscreteWalker(): m_name("a simple 2 dimensional walker"), m_pos
     gsl_rng_set(m_rng,m_seed);
 }
 
-DiscreteWalker::DiscreteWalker(string name,int d, pybind11::list &pos,int seed): m_name(name),m_seed(seed),m_lifetime(0),m_d(d)
+DiscreteWalker::DiscreteWalker(string name,int d, const pybind11::list &pos,int seed): m_name(name),m_seed(seed),m_lifetime(0),m_d(d)
 {
     //on essaye tant bien que mal d'extraire cette merde
     for(int i=0;i<d;i++)
@@ -69,8 +74,14 @@ int DiscreteWalker::get_seed() const {
 }
 
 //setters
-void DiscreteWalker::set_pos(vector<long> &pos){
-     m_pos=pos;
+void DiscreteWalker::set_pos(const pybind11::list &pos){
+    for(int i=0;i<m_pos.size();i++)
+        m_pos[i]=pos[i].cast<long>();
+}
+
+void DiscreteWalker::set_random_pos(const pybind11::list &dimensions){
+    for(int i=0;i<m_pos.size();i++)
+        m_pos[i]=gsl_rng_uniform_int(m_rng,dimensions[i].cast<long>());
 }
 
 /*
@@ -113,6 +124,47 @@ DiscreteWalker::move(int verbose){
     }
 }
 
+void
+DiscreteWalker::move_bounded(const pybind11::list &dimensions,int verbose){
+    int coord = gsl_rng_uniform_int(m_rng,m_d); //choose which direction we gonna move
+    int m = gsl_ran_bernoulli(m_rng, 0.5); //the basic move is +1 or -1 with equal probability
+    m_pos[coord]=MOD(m_pos[coord]+(1-2*m),dimensions[coord].cast<long>()); //ici on ajoute la periodicité
+    m_lifetime+=1;
+    double dist=euclidian_distance(m_pos);
+
+    if(dist>m_max){
+        m_max=dist;
+    }
+
+    if(verbose==1){
+        cout << "coordinates : ( " ;
+        for(int i=0;i<m_d;i++)
+            cout << m_pos[i] << " ";
+        cout << ")" <<endl;
+    }
+}
+
+//this function is essentially the same as above but we are looking for speed iprovement here and want to bypass the cast part. Polymorphism should apply straighforwardly here
+void
+DiscreteWalker::move_bounded(const vector<long> &dimensions,int verbose){
+    int coord = gsl_rng_uniform_int(m_rng,m_d); //choose which direction we gonna move
+    int m = gsl_ran_bernoulli(m_rng, 0.5); //the basic move is +1 or -1 with equal probability
+    m_pos[coord]=MOD(m_pos[coord]+(1-2*m),dimensions[coord]); //ici on ajoute la periodicité
+    m_lifetime+=1;
+    double dist=euclidian_distance(m_pos);
+
+    if(dist>m_max){
+        m_max=dist;
+    }
+
+    if(verbose==1){
+        cout << "coordinates : ( " ;
+        for(int i=0;i<m_d;i++)
+            cout << m_pos[i] << " ";
+        cout << ")" <<endl;
+    }
+}
+
 //other funtions
 void
 DiscreteWalker::move_til_death(int verbose){
@@ -121,62 +173,44 @@ DiscreteWalker::move_til_death(int verbose){
     }
 }
 
-/*
 void
-DiscreteWalker::move_til_death_bounded(long N,int verbose)
+DiscreteWalker::move_til_death_bounded(const pybind11::list &dimensions, int verbose) //the dimensions give the size of the hypercube we are moving in
 {
+    // fill the C++ vecor
+    vector<long> tmp;
+    for(int i=0;i<m_d;i++)
+        tmp.push_back(dimensions[i].cast<long>());
+
     while(isAlive()){
-        move(verbose);
-        if (m_pos>=N){
-            //cout << "old position : " << m_pos << endl;
-            m_pos=(long) m_pos%(N); //encore un probleme à corriger ici
-            //cout << "relocating position : " << m_pos << endl;
-        }
-        else if (m_pos<0)
-        {
-            //cout << "old position : " << m_pos << endl;
-            m_pos = (long)((((N)-((-m_pos)%(N))))%N);
-            //cout << "relocating position : " << m_pos << endl;
-        }
+        move_bounded(tmp,verbose);
     }
 }
 
 long
-DiscreteWalker::move_til_death_bounded_record_territory(long N,int verbose)
+DiscreteWalker::move_til_death_bounded_record_territory(const pybind11::list &dimensions,int verbose)
 {
-    vector<int> territory(N); //the territory on which we walk
-    long i=0;
-    for(;i<N;i++)
-        territory[i]=0;
+    // once again substitute list to vector
 
-    while(isAlive()){
-        move(verbose);
-        if (m_pos>=N){
-            //cout << "old position : " << m_pos << endl;
-            m_pos=(long) m_pos%(N); //encore un probleme à corriger ici
-            //cout << "relocating position : " << m_pos << endl;
-        }
-        else if (m_pos<0)
-        {
-            //cout << "old position : " << m_pos << endl;
-            m_pos = (long)((((N)-((-m_pos)%(N))))%N);
-            //cout << "relocating position : " << m_pos << endl;
-        }
-        territory[m_pos]+=1;
+    vector<long> tmp;
+    for(int i=0;i<m_d;i++){
+        tmp.push_back(dimensions[i].cast<long>());
     }
 
-    long result=0; // parcourons le tableau de sortie
-    for(i=0;i<N;i++)
-        if(territory[i]>0)
-            result+=1;
+    //we use sets which are built in hash tables. We would prefer unordered_set but seems like the hash is harder to put in place so let's stick with that for now.
+    set< vector<long> > territory;
 
-    return result;
+    territory.insert(m_pos); //put the first position
+    while(isAlive()){
+        move_bounded(tmp,verbose);
+        territory.insert(m_pos); ///put it in the set, should be average constant time, doesn't do anything if already exists
+    }
+
+    return (long) territory.size();
 }
-*/
 
 bool DiscreteWalker::isAlive() const
 {
-    return (euclidian_distance(m_pos)>0); //strict inequality here
+    return (euclidian_distance(m_pos)>=1); //strict inequality here and should take care of rounding errors
 }
 
 /*

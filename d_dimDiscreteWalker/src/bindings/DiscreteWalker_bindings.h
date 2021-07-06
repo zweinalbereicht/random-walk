@@ -48,10 +48,29 @@ py::class_<DiscreteWalker>(handle, "DiscreteWalker")
             ,py::arg("verbose")=0
             ,"a function that makes the walker perform a single step, the default choice being any of the d_dimensional directions")
 
+    //need to do this if we want polymorphism activated
+    .def("move_bounded",static_cast<void (DiscreteWalker::*)(const pybind11::list &, int)>(&DiscreteWalker::move_bounded)
+            ,py::call_guard<py::scoped_ostream_redirect>()
+            ,py::arg("dimensions")=0
+            ,py::arg("verbose")=0
+            ,"a function that makes the walker perform a single step on a periodic d-dimensionnal lattice, the default choice being any of the d_dimensional directions")
+
     .def("move_til_death",&DiscreteWalker::move_til_death
             ,py::call_guard<py::scoped_ostream_redirect>()
             ,py::arg("verbose")=0
             ,"a function that makes the walker walk until it reaches zero")
+
+    .def("move_til_death_bounded",&DiscreteWalker::move_til_death_bounded
+            ,py::call_guard<py::scoped_ostream_redirect>()
+            ,py::arg("dimensions")
+            ,py::arg("verbose")=0
+            ,"a function that makes the walker walk until it reaches zero on a periodic lattices with sizes defined in the dimensions list")
+
+    .def("move_til_death_bounded_record_territory",&DiscreteWalker::move_til_death_bounded_record_territory
+            ,py::call_guard<py::scoped_ostream_redirect>()
+            ,py::arg("dimensions")
+            ,py::arg("verbose")=0
+            ,"a function that makes the walker walk until it reaches zero on a periodic lattices with sizes defined in the dimensions list, and returns the number of sites visited")
 
     .def("isAlive",&DiscreteWalker::isAlive
             ,"a function that says if the walker is still alive")

@@ -9,9 +9,6 @@
 #include <gsl/gsl_rng.h>
 
 #include "../walkers/DiscreteWalker.h"
-#include "../walkers/BiasedWalker.h"
-#include "../walkers/SATWWalker.h"
-#include "../walkers/RiemannWalker.h"
 
 #include "Observables.h"
 
@@ -19,14 +16,14 @@ using namespace std;
 namespace py = pybind11;
 
 py::list
-fpt_arrival_bounded_distribution(const long s0,const long N,DiscreteWalker &walker, const int n)
+fpt_arrival_bounded_distribution(const pybind11::list &s0,const pybind11::list &dimensions,DiscreteWalker &walker, const int n)
 {
     vector<long> result(n);
     for(int i=0;i<n;i++)
     {
         walker.set_lifetime(0);
         walker.set_pos(s0);
-        walker.move_til_death_bounded(N);
+        walker.move_til_death_bounded(dimensions);
         result[i]=walker.get_lifetime();
     }
 
@@ -35,14 +32,14 @@ fpt_arrival_bounded_distribution(const long s0,const long N,DiscreteWalker &walk
 }
 
 double
-fpt_arrival_bounded_global_mean(const long N,DiscreteWalker &walker, const int n)
+fpt_arrival_bounded_global_mean(const pybind11::list &dimensions,DiscreteWalker &walker, const int n)
 {
     vector<long> result(n);
     for(int i=0;i<n;i++)
     {
         walker.set_lifetime(0);
-        walker.set_random_pos(N);
-        walker.move_til_death_bounded(N);
+        walker.set_random_pos(dimensions);
+        walker.move_til_death_bounded(dimensions);
         result[i]=walker.get_lifetime();
     }
 
@@ -56,14 +53,14 @@ fpt_arrival_bounded_global_mean(const long N,DiscreteWalker &walker, const int n
 }
 
 double
-fpt_arrival_bounded_mean(const long s0,const long N,DiscreteWalker &walker, const int n)
+fpt_arrival_bounded_mean(const pybind11::list &s0,const pybind11::list &dimensions,DiscreteWalker &walker, const int n)
 {
     vector<long> result(n);
     for(int i=0;i<n;i++)
     {
         walker.set_lifetime(0);
         walker.set_pos(s0);
-        walker.move_til_death_bounded(N);
+        walker.move_til_death_bounded(dimensions);
         result[i]=walker.get_lifetime();
     }
 
@@ -77,14 +74,14 @@ fpt_arrival_bounded_mean(const long s0,const long N,DiscreteWalker &walker, cons
 }
 
 py::list
-territory_distribution(const long s0, const long N, DiscreteWalker &walker, const int n)
+territory_distribution(const pybind11::list &s0, const pybind11::list &dimensions, DiscreteWalker &walker, const int n)
 {
     vector<long> result(n);
     for(int i=0;i<n;i++)
     {
         walker.set_lifetime(0);
         walker.set_pos(s0);
-        result[i]=walker.move_til_death_bounded_record_territory(N); // a implementer
+        result[i]=walker.move_til_death_bounded_record_territory(dimensions); // a implementer
     }
 
     py::list ret = py::cast(result);
@@ -92,15 +89,14 @@ territory_distribution(const long s0, const long N, DiscreteWalker &walker, cons
 }
 
 double
-territory_global_mean(const long N,DiscreteWalker &walker, const int n)
+territory_mean(const pybind11::list &s0,const pybind11::list &dimensions,DiscreteWalker &walker, const int n)
 {
     vector<long> result(n);
     for(int i=0;i<n;i++)
     {
         walker.set_lifetime(0);
-        walker.set_random_pos(N);
-        result[i]=walker.move_til_death_bounded_record_territory(N); // a implementer
-
+        walker.set_pos(s0);
+        result[i]=walker.move_til_death_bounded_record_territory(dimensions);
     }
 
     double m;
@@ -112,15 +108,17 @@ territory_global_mean(const long N,DiscreteWalker &walker, const int n)
     return (double) m/n;
 }
 
+
 double
-territory_mean(const long s0,const long N,DiscreteWalker &walker, const int n)
+territory_global_mean(const pybind11::list &dimensions, DiscreteWalker &walker, const int n)
 {
     vector<long> result(n);
     for(int i=0;i<n;i++)
     {
         walker.set_lifetime(0);
-        walker.set_pos(s0);
-        result[i]=walker.move_til_death_bounded_record_territory(N); // a implementer
+        walker.set_random_pos(dimensions);
+        result[i]=walker.move_til_death_bounded_record_territory(dimensions); // a implementer
+
     }
 
     double m;

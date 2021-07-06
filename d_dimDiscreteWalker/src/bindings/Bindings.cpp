@@ -16,7 +16,7 @@
 //#include "../walkers/RiemannWalker.h"
 //#include "../walkers/ZipfWalker.h"
 //
-//#include "../observables/Observables.h" //specific histogram creations
+#include "../observables/Observables.h" //specific histogram creations
 
 namespace py = pybind11;
 using namespace std;
@@ -46,6 +46,6 @@ PYBIND11_MODULE(module_d_dimDiscreteWalker,handle){
    // //#include "DiscreteWalker_pcg_bindings.h"
 
    // // these methods will be for very specific usecases, such as providing data for histograms for instance
-   // #include "Observables_bindings.h"
+    #include "Observables_bindings.h"
 
 }
