@@ -232,11 +232,9 @@ DiscreteWalker::move_til_death_fixed_time_record_territory(int verbose,const int
     }
 
     // chexk how we terminated
-    if(m_lifetime == max_time){
+    if(!isAlive()){
         return 0.0;
-        //LOG("in there");
     } else {
-        //LOG((long) territory.size());
         return (long) territory.size();
     }
 }
