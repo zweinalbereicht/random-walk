@@ -17,12 +17,14 @@ using namespace std;
 GraphWalker::GraphWalker() : m_pos(0),m_lifetime(0),m_seed(1),m_graph(1){
     m_rng = gsl_rng_alloc(gsl_rng_mt19937);
     gsl_rng_set(m_rng,m_seed);
+    m_filename = "graph with a single node";
 }
 
 GraphWalker::GraphWalker(std::string filename, int pos,int seed) : m_pos(pos), m_seed(seed), m_lifetime(0),m_graph(filename)
 {
     m_rng = gsl_rng_alloc(gsl_rng_mt19937);
     gsl_rng_set(m_rng,m_seed);
+    m_filename = filename;
 }
 
 GraphWalker::~GraphWalker()
@@ -35,6 +37,7 @@ GraphWalker::print_details() const
 {
     cout << "position : " << m_pos << endl;
     cout << "age : " << m_lifetime << endl;
+    cout << "filename : " << m_filename << endl;
     cout << "seed : " << m_seed << endl;
 }
 
@@ -45,6 +48,10 @@ int GraphWalker::get_pos() const {
 
 long GraphWalker::get_lifetime() const {
     return m_lifetime;
+}
+
+std::string GraphWalker::get_filename() const {
+     return m_filename;
 }
 
 int GraphWalker::get_seed() const {
@@ -140,6 +147,31 @@ GraphWalker::move_til_death_record_territory(const int target,int verbose)
         if(territory[i]>0)
             result+=1;
     return result;
+}
+
+long
+GraphWalker::move_til_death_fixed_time_record_territory(const int target,const int max_time,int verbose)
+{
+    vector<int> territory(m_graph.get_n()); //the territory on which we walk
+    long i=0;
+    for(;i<m_graph.get_n();i++)
+        territory[i]=0;
+
+    territory[m_pos]+=1; //setting the first position
+    while(isAlive(target) && m_lifetime<max_time){
+        move(verbose);
+        territory[m_pos]+=1;
+    }
+
+    if(m_pos!=target){
+        return 0;
+    } else {
+        int result=0; // parcourons le tableau de sortie
+        for(i=0;i<m_graph.get_n();i++)
+            if(territory[i]>0)
+                result+=1;
+        return result;
+    }
 }
 
 void

@@ -141,6 +141,91 @@ territory_global_mean(const int target,GraphWalker &walker, const int n)
 }
 
 py::list
+territory_fixed_time_distribution(const int s0, const int target, GraphWalker &walker,const int max_time, const int n)
+{
+    assert(s0<walker.get_graph_size()),
+    assert(target<walker.get_graph_size());
+    vector<long> result_tmp(n);
+    vector<long> result;
+    for(int i=0;i<n;i++)
+    {
+        walker.set_lifetime(0);
+        walker.set_pos(s0);
+        result_tmp[i]=walker.move_til_death_fixed_time_record_territory(target,max_time); 
+    }
+
+    for(auto el: result_tmp){
+        if(el>0){
+            result.push_back(el);
+        }
+    }
+
+    py::list ret = py::cast(result);
+    return ret;
+}
+
+double
+territory_fixed_time_mean(const int s0, const int target , GraphWalker &walker,const int max_time, const int n)
+{
+    assert(s0<walker.get_graph_size()),
+    assert(target<walker.get_graph_size());
+    vector<long> result_tmp(n);
+    vector<long> result;
+    for(int i=0;i<n;i++)
+    {
+        walker.set_lifetime(0);
+        walker.set_pos(s0);
+        result_tmp[i]=walker.move_til_death_fixed_time_record_territory(target,max_time); // a implementer
+    }
+
+    for(auto el: result_tmp){
+        if(el>0){
+            result.push_back(el);
+        }
+    }
+
+    double m=0.0;
+    if(result.size()>0){
+        for (int i=0;i<n;i++){
+            m+=(double) result[i];
+        }
+        return m/((double) result.size());
+    } else{
+        return 0.0;
+    }
+}
+
+double
+territory_fixed_time_global_mean(const int target,GraphWalker &walker,const int max_time, const int n)
+{
+    assert(target<walker.get_graph_size());
+    vector<long> result_tmp(n);
+    vector<long> result;
+    for(int i=0;i<n;i++)
+    {
+        walker.set_lifetime(0);
+        walker.set_random_pos();
+        result_tmp[i]=walker.move_til_death_fixed_time_record_territory(target,max_time); // a implementer
+    }
+
+    for(auto el: result_tmp){
+        if(el>0){
+            result.push_back(el);
+        }
+    }
+
+    double m=0.0;
+    if(result.size()>0){
+        for (int i=0;i<n;i++){
+            m+=(double) result[i];
+        }
+        return m/((double) result.size());
+    } else{
+        return 0.0;
+    }
+}
+
+py::list
 max_dist_territory_distribution(const int s0, const int target, GraphWalker &walker,const int n,const string filename)
 {
     assert(s0<walker.get_graph_size()),

@@ -46,6 +46,32 @@ handle.def("territory_global_mean"
         ,py::arg("n")
         ,"returns the global mean territory on a ring of size N, over n trials, with the starting position averaged over the whole ring");
 
+handle.def("territory_fixed_time_distribution"
+        ,&territory_fixed_time_distribution
+        ,py::arg("s0")
+        ,py::arg("target")
+        ,py::arg("walker")
+        ,py::arg("max_time")
+        ,py::arg("n")
+        , "returns an array of n covered territories, starting from s0, on the graph with a max_time threshold, after which the walker dies and the function returns an empty array");
+
+handle.def("territory_fixed_time_mean"
+        ,&territory_fixed_time_mean
+        ,py::arg("s0")
+        ,py::arg("target")
+        ,py::arg("walker")
+        ,py::arg("max_time")
+        ,py::arg("n")
+        ,"returns the mean territory covered starting from s0 on the graph before hitting the target, averaged over n trials,with a max_time threshold, after which the function returns zero ");
+
+handle.def("territory_fixed_time_global_mean"
+        ,&territory_fixed_time_global_mean
+        ,py::arg("target")
+        ,py::arg("walker")
+        ,py::arg("max_time")
+        ,py::arg("n")
+        ,"returns the global mean territory on the graph, over n trials, with a max_time threshold, after which the function returns zero ");
+
 handle.def("max_dist_territory_distribution"
         ,&max_dist_territory_distribution
         ,py::arg("s0")

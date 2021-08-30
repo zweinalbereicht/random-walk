@@ -20,6 +20,9 @@ py::class_<GraphWalker>(handle, "GraphWalker")
     .def("get_lifetime",&GraphWalker::get_lifetime
             ,"a getter function for the  walker's lifetime")
 
+    .def("get_filename",&GraphWalker::get_filename
+            ,"a getter function for the  walker's graph filename")
+
     .def("get_seed",&GraphWalker::get_seed
             ,"a getter function for the  walker's seed")
 

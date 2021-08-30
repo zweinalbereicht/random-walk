@@ -32,6 +32,16 @@ territory_mean(const int s0, const int target , GraphWalker &walker, const int n
 double
 territory_global_mean(const int target, GraphWalker &walker, const int n);
 
+//same as above but with a time limit
+py::list
+territory_fixed_time_distribution(const int s0, const int target, GraphWalker &walker,const int max_time, const int n);
+
+double
+territory_fixed_time_mean(const int s0, const int target , GraphWalker &walker,const int max_time, const int n);
+
+double
+territory_fixed_time_global_mean(const int target, GraphWalker &walker,const int max_time, const int n);
+
 py::list
 max_dist_territory_distribution(const int s0, const int target, GraphWalker &walker,const int n,const string filename);
 

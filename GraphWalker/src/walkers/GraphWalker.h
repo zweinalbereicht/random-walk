@@ -25,6 +25,7 @@ class GraphWalker
     protected:
 
     std::string m_name;
+    std::string m_filename;
     int m_pos;
     long m_lifetime;
     int m_seed; //each walker will have it's own seed
@@ -46,6 +47,7 @@ class GraphWalker
     //fonctions getters
     int get_pos() const ;
     long get_lifetime() const ;
+    std::string get_filename() const ;
     int get_seed() const ;
     int get_graph_size() const;
 
@@ -64,7 +66,7 @@ class GraphWalker
     void move_til_death(const int target, int verbose=0);
     int move_fixed_time(const int target,long time);
     int move_til_death_record_territory(const int target, int verbose=0);
-    //results are stored into tmp
+    long move_til_death_fixed_time_record_territory(const int target,const int max_time,int verbose=0);
     void move_til_death_territory_max_dist(const int target,vector<int> &tmp,const vector<int> &SP);
 
 };
