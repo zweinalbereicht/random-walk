@@ -1,7 +1,8 @@
 #/bin/bash
 
 #for a in $(ls | grep Walker)
-for a in d_dimDiscreteWalker #GraphWalker Graphs DiscreteWalker ContinuousWalker
+echo $PATH
+for a in d_dimDiscreteWalker GraphWalker Graphs DiscreteWalker ContinuousWalker
 do
     echo $a
     cd $a
@@ -22,3 +23,4 @@ echo  TESTING THE LOAD
 #python tests/load_module_test.py
 
 echo ===============
+echo $PATH

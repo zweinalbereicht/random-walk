@@ -36,3 +36,9 @@ territory_global_mean(const pybind11::list &dimensions, DiscreteWalker &walker, 
 
 double
 territory_mean(const pybind11::list &s0, const pybind11::list &dimensions, DiscreteWalker &walker, const int n);
+
+py::list
+territory_unbounded_fixed_time_distribution(const pybind11::list &s0, DiscreteWalker &walker, const int max_time,const int n);
+
+double
+territory_unbounded_fixed_time_mean(const pybind11::list &s0, DiscreteWalker &walker, const int max_time, const int n);

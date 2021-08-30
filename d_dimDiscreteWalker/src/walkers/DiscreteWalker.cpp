@@ -173,10 +173,21 @@ DiscreteWalker::move_til_death(int verbose){
     }
 }
 
+/*
+//other funtions
+//move til death with time threashold, to ensure that simulations in infinite spaces terminate
+void
+DiscreteWalker::move_til_death(int verbose, const int max_time){
+    while(isAlive() && m_lifetime < max_time){
+        move(verbose);
+    }
+}
+*/
+
 void
 DiscreteWalker::move_til_death_bounded(const pybind11::list &dimensions, int verbose) //the dimensions give the size of the hypercube we are moving in
 {
-    // fill the C++ vecor
+    // fill the C++ vector
     vector<long> tmp;
     for(int i=0;i<m_d;i++)
         tmp.push_back(dimensions[i].cast<long>());
@@ -208,6 +219,28 @@ DiscreteWalker::move_til_death_bounded_record_territory(const pybind11::list &di
     return (long) territory.size();
 }
 
+long
+DiscreteWalker::move_til_death_fixed_time_record_territory(int verbose,const int max_time)
+{
+    //we use sets which are built in hash tables. We would prefer unordered_set but seems like the hash is harder to put in place so let's stick with that for now.
+    set< vector<long> > territory;
+
+    territory.insert(m_pos); //put the first position
+    while(isAlive() && m_lifetime < max_time){
+        move(verbose);
+        territory.insert(m_pos); ///put it in the set, should be average constant time, doesn't do anything if already exists
+    }
+
+    // chexk how we terminated
+    if(m_lifetime == max_time){
+        return 0.0;
+        //LOG("in there");
+    } else {
+        //LOG((long) territory.size());
+        return (long) territory.size();
+    }
+}
+
 bool DiscreteWalker::isAlive() const
 {
     return (euclidian_distance(m_pos)>=1); //strict inequality here and should take care of rounding errors
@@ -228,7 +261,7 @@ int DiscreteWalker::move_fixed_max(long borne)
 }
 */
 
-int  DiscreteWalker::move_fixed_time(long time)
+int DiscreteWalker::move_fixed_time(long time)
 {
 
     while(isAlive() && m_lifetime<=time){

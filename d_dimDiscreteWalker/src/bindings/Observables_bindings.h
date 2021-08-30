@@ -46,3 +46,18 @@ handle.def("territory_mean"
         ,py::arg("n")
         ,"returns the mean territory covered starting from s0 on a periodic lattice defined by dimensions, averaged over n trials");
 
+handle.def("territory_unbounded_fixed_time_distribution"
+        ,&territory_unbounded_fixed_time_distribution
+        ,py::arg("s0")
+        ,py::arg("walker")
+        ,py::arg("max_time")
+        ,py::arg("n")
+        , "returns an array of n covered territories before hitting the origin, starting from s0, in the infinite space of dimension the walker's dimension? time is limited to max time");
+
+handle.def("territory_unbounded_fixed_time_mean"
+        ,&territory_unbounded_fixed_time_mean
+        ,py::arg("s0")
+        ,py::arg("walker")
+        ,py::arg("max_time")
+        ,py::arg("n")
+        , "returns the mean territory covered starting from s0 in an infinite space. time is limited to max_time");

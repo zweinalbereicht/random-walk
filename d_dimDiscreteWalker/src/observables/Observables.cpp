@@ -12,6 +12,8 @@
 
 #include "Observables.h"
 
+#define LOG(x) cout << x << endl;
+
 using namespace std;
 namespace py = pybind11;
 
@@ -130,3 +132,59 @@ territory_global_mean(const pybind11::list &dimensions, DiscreteWalker &walker, 
     return (double) m/n;
 }
 
+py::list
+territory_unbounded_fixed_time_distribution(const pybind11::list &s0, DiscreteWalker &walker, const int max_time,const int n)
+{
+    vector<long> result_tmp(n);
+    vector<long> result;
+    for(int i=0;i<n;i++)
+    {
+        walker.set_lifetime(0);
+        walker.set_pos(s0);
+        //set the verbosity to one here
+        int verbose = 0;
+        result_tmp[i]=walker.move_til_death_fixed_time_record_territory(verbose,max_time); 
+    }
+
+    for(auto el : result_tmp){
+        if(el>0){
+            LOG(el);
+            result.push_back(el);
+        }
+    }
+
+    py::list ret = py::cast(result);
+    return ret;
+}
+
+double
+territory_unbounded_fixed_time_mean(const pybind11::list &s0,DiscreteWalker &walker, const int max_time, const int n)
+{
+    vector<long> result_tmp(n);
+    vector<long> result_fin;
+    //setting verbosity
+    int verbose = 0;
+    for(int i=0;i<n;i++)
+    {
+        walker.set_lifetime(0);
+        walker.set_pos(s0);
+        result_tmp[i]=walker.move_til_death_fixed_time_record_territory(verbose,max_time); 
+    }
+    for(auto el : result_tmp){
+        if(el>0){
+            result_fin.push_back(el);
+        }
+    }
+
+    double m=0.0;
+
+    for (int i=0;i<result_fin.size();i++){
+       m+=(double) result_fin[i];
+    }
+
+    if(m==0.0){
+        return 0.0;
+    } else{
+        return (double) m/((double)result_fin.size());
+    }
+}
