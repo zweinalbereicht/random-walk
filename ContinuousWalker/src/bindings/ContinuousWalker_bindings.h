@@ -6,8 +6,9 @@ py::class_<ContinuousWalker>(handle, "ContinuousWalker")
 
 	.def(py::init<string,double,int>(),"takes entry name(string), position(double), random seed(int)")
 
-	.def("print_details",&ContinuousWalker::print_details,
-        "a function that prints details on the walker")
+	.def("print_details",&ContinuousWalker::print_details
+        ,py::call_guard<py::scoped_ostream_redirect>()//redirects cout to stdout in jupyter notebook
+        ,"a function that prints details on the walker")
 
 	.def("get_pos",&ContinuousWalker::get_pos,
         "a getter function for the  walker's position")
