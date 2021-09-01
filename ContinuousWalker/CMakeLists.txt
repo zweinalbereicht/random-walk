@@ -4,10 +4,23 @@ project(ContinuousWalker)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 
-set(SOURCE_FILES src/ContinuousWalker.cpp src/ContinuousWalker.h src/LevyWalker.cpp src/LevyWalker.h src/LaplaceWalker.cpp src/LaplaceWalker.h src/GammaWalker.cpp src/GammaWalker.h src/Bindings.cpp)
+set(WALKER_PATH src/walkers/)
+set(WALKERS ${WALKER_PATH}ContinuousWalker.cpp ${WALKER_PATH}ContinuousWalker.h ${WALKER_PATH}LevyWalker.cpp ${WALKER_PATH}LevyWalker.h ${WALKER_PATH}LaplaceWalker.cpp ${WALKER_PATH}LaplaceWalker.h ${WALKER_PATH}GammaWalker.cpp ${WALKER_PATH}GammaWalker.h )
+
+set(BINDING_PATH src/bindings/)
+set(BINDINGS ${BINDING_PATH}Bindings.cpp ${BINDING_PATH}GammaWalker_bindings.h ${BINDING_PATH}LevyWalker_bindings.h ${BINDING_PATH}ContinuousWalker_bindings.h ${BINDING_PATH}LaplaceWalker_bindings.h ${BINDING_PATH}Observables_bindings.h)
+
+set(OBSERVABLE_PATH src/observables/)
+set(OBSERVABLES ${OBSERVABLE_PATH}Observables.cpp ${OBSERVABLE_PATH}Observables.h)
+
+set(SOURCE_FILES ${OBSERVABLE_PATH} ${BINDINGS} ${WALKERS})
+
+
 
 add_subdirectory(../pybind11 build)
 pybind11_add_module(module_ContinuousWalker ${SOURCE_FILES})
 
 find_package(GSL REQUIRED)    # See below (2)
 target_link_libraries(module_ContinuousWalker PUBLIC GSL::gsl GSL::gslcblas)
+
+
