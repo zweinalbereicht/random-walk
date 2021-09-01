@@ -89,7 +89,7 @@ void  ContinuousWalker::set_seed(long seed){
 }
 
 //the basic move function
-void ContinuousWalker::move(int verbose=0){
+void ContinuousWalker::move(int verbose){
     double m = gsl_ran_gaussian(m_rng, 1.0); //the basic move is a gaussian step
     m_pos=m_pos+((double) m);
     m_lifetime+=1;

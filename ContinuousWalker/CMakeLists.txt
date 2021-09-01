@@ -13,7 +13,7 @@ set(BINDINGS ${BINDING_PATH}Bindings.cpp ${BINDING_PATH}GammaWalker_bindings.h $
 set(OBSERVABLE_PATH src/observables/)
 set(OBSERVABLES ${OBSERVABLE_PATH}Observables.cpp ${OBSERVABLE_PATH}Observables.h)
 
-set(SOURCE_FILES ${OBSERVABLE_PATH} ${BINDINGS} ${WALKERS})
+set(SOURCE_FILES ${OBSERVABLES} ${BINDINGS} ${WALKERS})
 
 
 

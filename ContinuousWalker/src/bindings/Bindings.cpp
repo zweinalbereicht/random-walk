@@ -8,6 +8,7 @@
 #include "../walkers/LevyWalker.h"
 #include "../walkers/LaplaceWalker.h"
 #include "../walkers/GammaWalker.h"
+#include "../observables/Observables.h"
 
 using namespace std;
 namespace py = pybind11;
