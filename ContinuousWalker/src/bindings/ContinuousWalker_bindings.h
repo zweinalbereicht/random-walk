@@ -6,9 +6,10 @@ py::class_<ContinuousWalker>(handle, "ContinuousWalker")
 
 	.def(py::init<string,double,int>(),"takes entry name(string), position(double), random seed(int)")
 
-	.def("print_details",&ContinuousWalker::print_details
-        ,py::call_guard<py::scoped_ostream_redirect>()//redirects cout to stdout in jupyter notebook
-        ,"a function that prints details on the walker")
+	.def("print_details"
+            ,&ContinuousWalker::print_details
+            ,py::call_guard<py::scoped_ostream_redirect>()//redirects cout to stdout in jupyter notebook
+            ,"a function that prints details on the walker")
 
 	.def("get_pos",&ContinuousWalker::get_pos,
         "a getter function for the  walker's position")
@@ -40,14 +41,17 @@ py::class_<ContinuousWalker>(handle, "ContinuousWalker")
 	.def("set_seed",&ContinuousWalker::set_seed,
         "a setter function for the  walker's seed")
 
-	.def("move",
-        &ContinuousWalker::move,
-        "a function that makes the walker perform a single step, the default choice being a the normal distribution",
-        py::arg("verbose")=0)
+	.def("move"
+            ,&ContinuousWalker::move
+            ,py::call_guard<py::scoped_ostream_redirect>()
+            ,"a function that makes the walker perform a single step, the default choice being a the normal distribution"
+            ,py::arg("verbose")=0)
 
-	.def("move_til_death",&ContinuousWalker::move_til_death,
-        "a function that makes the walker walk until it reaches zero",
-        py::arg("verbose")=0)
+	.def("move_til_death"
+            ,&ContinuousWalker::move_til_death
+            ,py::call_guard<py::scoped_ostream_redirect>()
+            ,"a function that makes the walker walk until it reaches zero"
+            ,py::arg("verbose")=0)
 
 	.def("isAlive",&ContinuousWalker::isAlive,
         "a function that says if the walker is still alive")

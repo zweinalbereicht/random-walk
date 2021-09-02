@@ -105,7 +105,7 @@ void ContinuousWalker::move(int verbose){
 }
 
 //other funtions
-void ContinuousWalker::move_til_death(int verbose=0){
+void ContinuousWalker::move_til_death(int verbose){
     while(isAlive()){
         move(verbose);
     }
