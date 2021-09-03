@@ -5,7 +5,7 @@ py::class_<LaplaceWalker,ContinuousWalker>(handle, "LaplaceWalker")
 
     .def(py::init<>(),"default constructor")
 
-    .def(py::init<double>(),"takes entry a(double)")
+    .def(py::init<double>(),"takes entry a(double) the caracteristic jump length")
 
     .def(py::init<string,double,int,double>(),"takes entry initial position(double), random seed(int), a(double)")
 
