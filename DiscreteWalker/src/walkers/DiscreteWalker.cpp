@@ -192,9 +192,7 @@ int DiscreteWalker::move_fixed_max(long borne)
     if (!isAlive() && m_max==borne){
         return 0; //if success
     }
-    else{
-        return 1;
-    }
+    return 1;
 }
 
 int  DiscreteWalker::move_fixed_time(long time)
@@ -205,7 +203,7 @@ int  DiscreteWalker::move_fixed_time(long time)
         move();
         step++;
     }
-    if (!isAlive() && time==time){
+    if (!isAlive() && step==time){
         return 0; //if success
     }
     return 1;
