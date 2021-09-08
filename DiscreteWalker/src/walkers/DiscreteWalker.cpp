@@ -73,6 +73,10 @@ int DiscreteWalker::get_seed() const {
     return m_seed;
 }
 
+gsl_rng* DiscreteWalker::get_rng() const {
+    return m_rng;
+}
+
 //setters
 void DiscreteWalker::set_pos(long pos){
      m_pos=pos;
@@ -192,18 +196,20 @@ int DiscreteWalker::move_fixed_max(long borne)
         return 1;
     }
 }
+
 int  DiscreteWalker::move_fixed_time(long time)
 {
 
-    while(isAlive() && m_lifetime<=time){
+    long step = 0;
+    while(isAlive() && step<time){ //on s'arrete lorqu'on est mort ou qu'on a marché assez
         move();
+        step++;
     }
-    if (!isAlive() && m_lifetime==time){
+    if (!isAlive() && time==time){
         return 0; //if success
     }
-    else{
-        return 1;
-    }
+    return 1;
+    
 }
 
 

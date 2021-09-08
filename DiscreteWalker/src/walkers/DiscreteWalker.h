@@ -44,6 +44,7 @@ class DiscreteWalker
     long get_min() const ;
     long get_lifetime() const ;
     int get_seed() const ;
+    gsl_rng* get_rng() const;
 
     //fonctions setters
     void set_pos(long pos);
