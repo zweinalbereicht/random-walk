@@ -186,6 +186,7 @@ bool DiscreteWalker::isAlive() const
 
 int DiscreteWalker::move_fixed_max(long borne)
 {
+    m_max = m_pos;
     while(isAlive() && m_pos<=borne){
         move();
     }
@@ -195,19 +196,11 @@ int DiscreteWalker::move_fixed_max(long borne)
     return 1;
 }
 
-int  DiscreteWalker::move_fixed_time(long time)
+void  DiscreteWalker::move_fixed_time(long time)
 {
-
-    long step = 0;
-    while(isAlive() && step<time){ //on s'arrete lorqu'on est mort ou qu'on a marché assez
+    for(long i =0;i<time;i++){
         move();
-        step++;
     }
-    if (!isAlive() && step==time){
-        return 0; //if success
-    }
-    return 1;
-    
 }
 
 

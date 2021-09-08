@@ -127,19 +127,11 @@ int ContinuousWalker::move_fixed_max(double borne)
     return 1;
 }
 
-int  ContinuousWalker::move_fixed_time(long time)
+void  ContinuousWalker::move_fixed_time(long time)
 {
-
-    long step = 0;
-    while(isAlive() && step<time){
+    for(long i =0;i<time;i++){
         move();
-        step++;
     }
-    if (!isAlive() && step==time){
-        return 0;
-    }
-    return 1;
-
 }
 
 

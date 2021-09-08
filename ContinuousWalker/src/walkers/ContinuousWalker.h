@@ -52,7 +52,7 @@ class ContinuousWalker
     bool isAlive() const;
     void move_til_death(int verbose=0);
     int move_fixed_max(double borne);
-    int move_fixed_time(long time);
+    void move_fixed_time(long time);
     double split_prob(double s0, double s1,double s2, int n);
 
 };
