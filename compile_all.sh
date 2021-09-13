@@ -9,7 +9,7 @@ do
     rm -rf build
     mkdir build
     cd build
-    cmake ..
+    cmake ../
     make
     export PATH="$(pwd):$PATH"
     cd ..
@@ -24,3 +24,11 @@ echo  TESTING THE LOAD
 
 echo ===============
 echo $PATH
+path=/home/invites/klinger/Libraries/random-walk/
+path2=/users/invites/klinger/Projects/Libraries/random-walk/
+cd $path2
+rm -rf *
+cp $(find $path -name module*.so) .
+cd $path
+echo "modules copied to" $path2
+
