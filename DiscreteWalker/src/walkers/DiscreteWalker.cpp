@@ -1,19 +1,19 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include <random>
-#include <math.h>
-#include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
+#include <gsl/gsl_rng.h>
+#include <iostream>
+#include <math.h>
+#include <random>
 #include <stdlib.h>
+#include <string>
+#include <vector>
 
 //#include "../../pcg-cpp-0.98/include/pcg_test.h"
 
 
 #include "DiscreteWalker.h"
 #include "BiasedWalker.h"
-#include "SATWWalker.h"
 #include "RiemannWalker.h"
+#include "SATWWalker.h"
 
 
 using namespace std;
