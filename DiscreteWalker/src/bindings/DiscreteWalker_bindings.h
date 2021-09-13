@@ -78,7 +78,7 @@ py::class_<DiscreteWalker>(handle, "DiscreteWalker")
 
     .def("move_fixed_time",&DiscreteWalker::move_fixed_time
             ,py::arg("time")
-            ,"a function that makes the walker for a fixed time period. The function returns 0 if the walker died exactly on its nth step, 1 else.")
+            ,"a function that makes the walker for a fixed time period.")
 
     .def("split_prob",&DiscreteWalker::split_prob
             ,py::arg("starting point s0")

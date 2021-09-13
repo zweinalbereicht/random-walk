@@ -124,21 +124,13 @@ int ContinuousWalker::move_fixed_max(double borne)
     if (!isAlive() && m_max==borne){
         return 0;
     }
-    else{
-        return 1;
-    }
+    return 1;
 }
-int  ContinuousWalker::move_fixed_time(long time)
-{
 
-    while(isAlive() && m_lifetime<=time){
+void  ContinuousWalker::move_fixed_time(long time)
+{
+    for(long i =0;i<time;i++){
         move();
-    }
-    if (!isAlive() && m_lifetime==time){
-        return 0;
-    }
-    else{
-        return 1;
     }
 }
 

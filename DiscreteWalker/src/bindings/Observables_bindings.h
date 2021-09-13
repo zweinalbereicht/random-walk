@@ -46,3 +46,12 @@ handle.def("territory_mean"
         ,py::arg("n")
         ,"returns the mean territory covered starting from s0 on a ring of size N, averaged over n trials");
 
+handle.def("rosenstock_fixed_time"
+        ,&rosenstock_fixed_time
+        ,py::arg("s0")
+        ,py::arg("walker")
+        ,py::arg("time")
+        ,py::arg("rho")
+        ,py::arg("n")
+        ,py::arg("verbose")=0
+        ,"returns the probability of a walker to have reacted with geometrically distributed targets of parameter rho kowning that it returned at the origin at time=time exactly. This estimation is averaged over n trials. We first record the maximum and then compute the probability of reaction");

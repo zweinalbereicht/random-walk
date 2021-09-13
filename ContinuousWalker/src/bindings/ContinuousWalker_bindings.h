@@ -60,7 +60,7 @@ py::class_<ContinuousWalker>(handle, "ContinuousWalker")
         "a function that makes the walker walk until death with two absorbing boundaries. If the function returns 0 than tha walker has exactly reached the fixed max value without bypassing it, 1 else.")
 
 	.def("move_fixed_time",&ContinuousWalker::move_fixed_time,
-        "a function that makes the walker for a fixed time period. The function returns 0 if the walker died exactly on its nth step, 1 else.")
+        "a function that makes the walker for a fixed time period.")
 
 	.def("split_prob",&ContinuousWalker::split_prob,
         "args : (s0,s1,s2,n) -  a function that returns the splitting probability to reach s2 before s1 starting from s0, averaged over n trials.")

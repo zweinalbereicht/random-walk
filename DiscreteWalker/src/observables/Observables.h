@@ -36,3 +36,6 @@ territory_mean(const long s0, const long N, DiscreteWalker &walker, const int n)
 
 double
 territory_global_mean(const long N, DiscreteWalker &walker, const int n);
+
+double
+rosenstock_fixed_time(const long s0, DiscreteWalker &walker, const int time, const double rho, const int n,const int verbose=0);
