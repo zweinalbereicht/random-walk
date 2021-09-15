@@ -5,9 +5,18 @@ py::class_<LevyWalker,ContinuousWalker>(handle, "LevyWalker")
 
     .def(py::init<>(),"default constructor")
 
-    .def(py::init<double,double>(),"takes entry c(double), alpha(double)")
+    .def(py::init<double,double>()
+        ,py::arg("c")
+        ,py::arg("alpha")
+        ,"takes entry c(double) which is the corresponding a_mu, alpha(double) the levy exponent, also the walk dimension")
 
-    .def(py::init<string,double,int,double,double>(),"takes entry initial position(double), random seed(int), c(double),alpha(double)")
+    .def(py::init<string,double,int,double,double>()
+        ,py::arg("name")
+        ,py::arg("position")
+        ,py::arg("seed")
+        ,py::arg("c")
+        ,py::arg("alpha")
+        ,"takes entry initial position(double), random seed(int), c(double),alpha(double)")
 
     .def("print_details",&LevyWalker::print_details,
             "a function that prints details on the walker")
