@@ -65,7 +65,7 @@ conditional_fpt_distribution(const double x0,const double x, ContinuousWalker &w
             walker.move();
         }
         if(target==0 && !walker.isAlive()){ //si on sort en zero
-            cout << walker.get_lifetime() << endl;
+            //cout << walker.get_lifetime() << endl;
             result[nb_success]=walker.get_lifetime();
             nb_success++;
         }
