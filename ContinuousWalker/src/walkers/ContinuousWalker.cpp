@@ -7,9 +7,9 @@
 #include <stdlib.h>
 
 #include "ContinuousWalker.h"
-#include "LevyWalker.h"
-#include "LaplaceWalker.h"
 #include "GammaWalker.h"
+#include "LaplaceWalker.h"
+#include "LevyWalker.h"
 
 using namespace std;
 

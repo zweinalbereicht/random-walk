@@ -8,7 +8,7 @@ py::class_<LevyWalker,ContinuousWalker>(handle, "LevyWalker")
     .def(py::init<double,double>()
         ,py::arg("c")
         ,py::arg("alpha")
-        ,"takes entry c(double) which is the corresponding a_mu, alpha(double) the levy exponent, also the walk dimension")
+        ,"takes entry c(double) which is the corresponding a_mu, alpha(double) the levy exponent, which also corresponds to the the walk dimension")
 
     .def(py::init<string,double,int,double,double>()
         ,py::arg("name")
