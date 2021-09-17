@@ -55,3 +55,39 @@ handle.def("rosenstock_fixed_time"
         ,py::arg("n")
         ,py::arg("verbose")=0
         ,"returns the probability of a walker to have reacted with geometrically distributed targets of parameter rho kowning that it returned at the origin at time=time exactly. This estimation is averaged over n trials. We first record the maximum and then compute the probability of reaction");
+
+handle.def("conditional_fpt_distribution"
+        ,&conditional_fpt_distribution        
+        ,py::arg("s0")
+        ,py::arg("x")
+        ,py::arg("walker")
+        ,py::arg("N")
+        ,py::arg("target")=1
+        ,"returns N condtional fpt to 0 exactly if target = 0, or to x exactly if target = 1. the walker starts from s0. The program exists if the walker staets already on 0 or x or outside the interval");
+
+handle.def("conditional_fpt_mean"
+        ,&conditional_fpt_mean        
+        ,py::arg("s0")
+        ,py::arg("x")
+        ,py::arg("walker")
+        ,py::arg("N")
+        ,py::arg("target")=1
+        ,"returns an averaged (over N trails) fpt to 0 exactly if target = 0, or to x exactly if target = 1. the walker starts from s0. The program exists if the walker staets already on 0 or x or outside the interval");
+
+
+handle.def("survival_probability"
+        ,&survival_probability
+        ,py::arg("s0")
+        ,py::arg("n")
+        ,py::arg("walker")
+        ,py::arg("N")
+        ,"returns the survival probability after n steps, (the walker dies if he touches 0 excatly), averaged over N trials");
+
+
+handle.def("splitting_probability"
+        ,&splitting_probability
+        ,py::arg("s0")
+        ,py::arg("x")
+        ,py::arg("walker")
+        ,py::arg("N")
+        ,"returns the splitting probability to reach x before zero (the walker stops when he touches exactly either boundary), averaged over N trials");

@@ -23,8 +23,7 @@ survival_probability(const double x0,const long n, ContinuousWalker &walker, con
     for(int i=0;i<N;i++){
         walker.set_lifetime(0);
         walker.set_pos(x0);
-        long elapsed_time = 0;
-        while(walker.isAlive() && elapsed_time<n){
+        while(walker.isAlive() && walker.get_lifetime()<n){
             walker.move();
         }
         probability+=walker.isAlive();

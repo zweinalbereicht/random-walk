@@ -168,3 +168,101 @@ rosenstock_fixed_time(const long s0, DiscreteWalker &walker, const int time, con
         return 0.0;
 return survival_probability/((double) n);
 }
+
+py::list
+conditional_fpt_distribution(const long s0,const long x, DiscreteWalker &walker, const long N,const bool target){
+
+    if(s0<=0 || s0>=x){
+        exit(1);
+    }
+
+    vector<long> result(N);
+    long nb_success = 0;
+
+    while(nb_success < N){
+        walker.set_lifetime(0);
+        walker.set_pos(s0);
+        while(walker.get_pos()<x && walker.get_pos()>0){ //on bouge jusqu'à sortir de l'intervalle
+            walker.move();
+        }
+        if(target==0 && !walker.isAlive()){ //si on sort en zero, on doit toucher zero exactement
+            result[nb_success]=walker.get_lifetime();
+            nb_success++;
+        }
+        else if(target==1 && walker.isAlive()){ //si on sort en x
+            result[nb_success]=walker.get_lifetime();
+            nb_success++;
+        }
+    }
+
+    py::list ret = py::cast(result);
+    return ret;
+
+}
+
+//renvoie la moyenne du temps de passage conditionnel à travers target(0=0,1=x), entre x et 0 
+double
+conditional_fpt_mean(const double s0,const double x, DiscreteWalker &walker, const long N,const bool target){
+
+    if(s0<=0 || s0>=x){
+        exit(1);
+    }
+
+    vector<long> result;
+    long nb_success = 0;
+    double mean=0.0;
+
+    while(nb_success <= N){
+        walker.set_lifetime(0);
+        walker.set_pos(s0);
+        while(walker.get_pos()<x && walker.get_pos()>0){ //on bouge jusqu'à sortir de l'intervalle, en touchant exactement le bord
+            walker.move();
+        }
+        if(target==0 && !walker.isAlive()){ //si on sort en zero
+            result.push_back(walker.get_lifetime());
+            nb_success++;
+        }
+        else if(target==1 && walker.isAlive()){ //si on sort en x
+            result.push_back(walker.get_lifetime());
+            nb_success++;
+        }
+    }
+
+    for(auto el : result){
+        mean+=el;
+    }
+    return mean/((double) N);
+}
+
+double
+survival_probability(const double s0,const long n, DiscreteWalker &walker, const long N){
+    double probability = 0.0;
+
+    for(int i=0;i<N;i++){
+        walker.set_lifetime(0);
+        walker.set_pos(s0);
+        while(walker.isAlive() && walker.get_lifetime()<n){
+            walker.move();
+        }
+        probability+=walker.isAlive();
+    }
+    return probability/((double) N);
+}
+
+double
+splitting_probability(const double s0,const double x, DiscreteWalker &walker, const long N){
+
+    double probability = 0.0;
+
+    for(int i=0;i<N;i++){
+        walker.set_lifetime(0);
+        walker.set_pos(s0);
+        long elapsed_time = 0;
+        //on s'arrete lorqu'on touche exactement 0 ou x (on est dans un setup discret ici)
+        while(walker.get_pos()<x && walker.get_pos()>0){
+            walker.move();
+        }
+        probability+=(walker.isAlive()); //c'est bien la split de toucher x avant 0 ici
+    }
+    return probability/((double) N);
+}
