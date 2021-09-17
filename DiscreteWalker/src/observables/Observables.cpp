@@ -235,7 +235,7 @@ conditional_fpt_mean(const double s0,const double x, DiscreteWalker &walker, con
 }
 
 double
-survival_probability(const double s0,const long n, DiscreteWalker &walker, const long N){
+survival_probability(const long s0,const long n, DiscreteWalker &walker, const long N){
     double probability = 0.0;
 
     for(int i=0;i<N;i++){
@@ -250,7 +250,7 @@ survival_probability(const double s0,const long n, DiscreteWalker &walker, const
 }
 
 double
-splitting_probability(const double s0,const double x, DiscreteWalker &walker, const long N){
+splitting_probability(const long s0,const double x, DiscreteWalker &walker, const long N){
 
     double probability = 0.0;
 
