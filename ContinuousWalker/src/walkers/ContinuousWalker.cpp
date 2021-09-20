@@ -112,8 +112,8 @@ void ContinuousWalker::move_til_death(int verbose){
 }
 
 bool ContinuousWalker::isAlive() const
-{
-    return (m_pos>0);
+{//cela nous permet de prendre la convention crossing en compte, de toute manière on ne tombera jamais sur zero pile
+    return (m_pos>=0); 
 }
 
 int ContinuousWalker::move_fixed_max(double borne)

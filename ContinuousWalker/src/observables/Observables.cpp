@@ -42,7 +42,7 @@ splitting_probability(const double x0,const double x,ContinuousWalker &walker, c
         long elapsed_time = 0;
         //encore une fois attention aux inegalités
         //en convention crossing
-        while(walker.get_pos()<x && walker.get_pos()>=0){
+        while(walker.get_pos()<=x && walker.get_pos()>=0){
             walker.move();
         }
         probability+=(walker.isAlive());
