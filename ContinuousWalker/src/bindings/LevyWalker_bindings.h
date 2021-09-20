@@ -18,8 +18,10 @@ py::class_<LevyWalker,ContinuousWalker>(handle, "LevyWalker")
         ,py::arg("alpha")
         ,"takes entry initial position(double), random seed(int), c(double),alpha(double)")
 
-    .def("print_details",&LevyWalker::print_details,
-            "a function that prints details on the walker")
+    .def("print_details"
+        ,&LevyWalker::print_details
+        ,py::call_guard<py::scoped_ostream_redirect>()//redirects cout to stdout in jupyter notebook
+        ,"a function that prints details on the walker")
 
     .def("get_alpha",&LevyWalker::get_alpha,
             "a getter function for the  walker's alpha")

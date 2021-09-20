@@ -9,8 +9,10 @@ py::class_<LaplaceWalker,ContinuousWalker>(handle, "LaplaceWalker")
 
     .def(py::init<string,double,int,double>(),"takes entry initial position(double), random seed(int), a(double)")
 
-    .def("print_details",&LaplaceWalker::print_details,
-            "a function that prints details on the walker")
+    .def("print_details"
+        ,&LaplaceWalker::print_details
+        ,py::call_guard<py::scoped_ostream_redirect>()//redirects cout to stdout in jupyter notebook
+        ,"a function that prints details on the walker")
 
     .def("get_a",&LaplaceWalker::get_a,
             "a getter function for the  walker's a parameter")

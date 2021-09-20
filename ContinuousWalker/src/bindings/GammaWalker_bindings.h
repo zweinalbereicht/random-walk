@@ -10,8 +10,10 @@ py::class_<GammaWalker,ContinuousWalker>(handle, "GammaWalker")
     .def(py::init<string,double,int,double,double>()
             ,"takes entry initial position(double), random seed(int), scale(double),exponent(double), as defined in the GSL library")
 
-    .def("print_details",&GammaWalker::print_details,
-            "a function that prints details on the walker")
+    .def("print_details"
+        ,&GammaWalker::print_details
+        ,py::call_guard<py::scoped_ostream_redirect>()//redirects cout to stdout in jupyter notebook
+        ,"a function that prints details on the walker")
 
     .def("get_scale",&GammaWalker::get_scale,
             "a getter function for the  walker's scale parameter")
