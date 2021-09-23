@@ -11,8 +11,8 @@
 
 #include "../walkers/DiscreteWalker.h"
 #include "../walkers/BiasedWalker.h"
-#include "../walkers/SATWWalker.h"
 #include "../walkers/RiemannWalker.h"
+#include "../walkers/SATWWalker.h"
 
 //#include "DiscreteWalker_pcg.h"
 #include "../walkers/ZipfWalker.h"
@@ -50,4 +50,4 @@ double
 survival_probability(const long s0,const long n, DiscreteWalker &walker, const long N);
 
 double
-splitting_probability(const long s0,const double x, DiscreteWalker &walker, const long N);
+splitting_probability(const long s0,const long x, DiscreteWalker &walker, const long N);
