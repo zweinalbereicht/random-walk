@@ -17,7 +17,7 @@ class ZipfWalker : public DiscreteWalker
 
         //constructors
         ZipfWalker();
-        ZipfWalker( double alpha);
+        ZipfWalker(double alpha);
         ZipfWalker(std::string name, long pos, int seed,  double alpha);
 
         //print functions

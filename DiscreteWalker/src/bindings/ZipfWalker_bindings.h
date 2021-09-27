@@ -6,7 +6,7 @@ py::class_<ZipfWalker,DiscreteWalker>(handle, "ZipfWalker")
         ,"default constructor")
 
 .def(py::init<double>()
-        ,py::arg("beta")
+        ,py::arg("alpha")
         ,"takes entry alpha(double)")
 
 .def(py::init<string,long,int,double>()
@@ -14,7 +14,7 @@ py::class_<ZipfWalker,DiscreteWalker>(handle, "ZipfWalker")
         ,py::arg("position")
         ,py::arg("seed")
         ,py::arg("alpha")
-        ,"takes entry initial position(long), random seed(int),  alpha(double)")
+        ,"takes entry name(string) ,initial position(long), random seed(int),  alpha(double)")
 
     .def("print_details",&ZipfWalker::print_details
             ,"a function that prints details on the walker")

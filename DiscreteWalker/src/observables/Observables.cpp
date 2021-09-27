@@ -256,6 +256,13 @@ survival_probability(const long s0,const long n, DiscreteWalker &walker, const l
 double
 splitting_probability(const long s0,const long x, DiscreteWalker &walker, const long N){
 
+    if(s0==0){ //in case we start from the absorbing site on the left
+        return 0.0;
+    }
+    if(s0==x){ //in case we start from the absorbing site on the right
+        return 1.0;
+    }
+
     double probability = 0.0;
 
     for(int i=0;i<N;i++){
