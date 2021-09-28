@@ -1,22 +1,22 @@
 //#include <config.h>
-#include <iostream>
-#include <math.h>
-#include <gsl/gsl_rng.h>
-#include <gsl/gsl_randist.h>
 #include <fstream>
+#include <gsl/gsl_randist.h>
+#include <gsl/gsl_rng.h>
+#include <iostream>
 #include <limits>
+#include <math.h>
 #include <vector>
 
-#include "Zipf.h"
+#include "../Zipf/Zipf.h"
 
 int main()
 {
 
-    int n=30000000;
+    int n=3000;
 
     std::vector<int> results(n);
 
-    double a=1.3;
+    double a=0.5;
     gsl_rng *r = gsl_rng_alloc(gsl_rng_mt19937);
     int i=0;
     for(;i<n;i++)
@@ -33,5 +33,4 @@ int main()
         myfile << results[i] << "\n";
     }
     myfile.close();
-
 }
