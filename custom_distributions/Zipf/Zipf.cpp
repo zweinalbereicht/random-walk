@@ -6,7 +6,7 @@
 #include <math.h>
 
 #include "Zipf.h"
-const int max_int=1000000;
+const int max_int=100000000;
 
 unsigned int //que veux t-on vraiment renvoyer à la fin?
 gsl_ran_zipf(const gsl_rng * r, double a)
@@ -29,7 +29,7 @@ gsl_ran_zipf(const gsl_rng * r, double a)
          * long. Since this is a straightforward rejection algorithm, we can
          * just reject this value. This function then models a Zipf
          * distribution truncated to sys.maxint.num --> on voudrait plutot des longs nous...
-        */ 
+        */
         if (X > (double)max_int || X < 1.0) {
             continue; //on saute l'etape suivante ici
         }
