@@ -6,7 +6,7 @@ handle.def("splitting_probability"
         ,py::arg("x")
         ,py::arg("walker")
         ,py::arg("N")
-        ,"returns the splitting probability to reach x before zero (crossing convention), averaged over N trials");
+        ,"returns the splitting probability to reach x before zero (crossing convention), averaged over N trials.");
 
 handle.def("survival_probability"
         ,&survival_probability
@@ -14,7 +14,7 @@ handle.def("survival_probability"
         ,py::arg("n")
         ,py::arg("walker")
         ,py::arg("N")
-        ,"returns the survival probability after n steps, (crossing convention), averaged over N trials");
+        ,"returns the survival probability after n steps, (crossing convention), averaged over N trials.");
 
 handle.def("conditional_fpt_distribution"
         ,&conditional_fpt_distribution
