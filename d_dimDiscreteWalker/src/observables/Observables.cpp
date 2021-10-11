@@ -148,7 +148,7 @@ territory_unbounded_fixed_time_distribution(const pybind11::list &s0, DiscreteWa
 
     for(auto el : result_tmp){
         if(el>0){
-            LOG(el);
+            //LOG(el);
             result.push_back(el);
         }
     }
