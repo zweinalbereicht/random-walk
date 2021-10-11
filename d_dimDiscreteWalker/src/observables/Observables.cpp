@@ -143,7 +143,7 @@ territory_unbounded_fixed_time_distribution(const pybind11::list &s0, DiscreteWa
         walker.set_pos(s0);
         //set the verbosity to one here
         int verbose = 0;
-        result_tmp[i]=walker.move_til_death_fixed_time_record_territory(verbose,max_time); 
+        result_tmp[i]=walker.move_til_death_fixed_time_record_territory(max_time,verbose); 
     }
 
     for(auto el : result_tmp){
@@ -168,7 +168,7 @@ territory_unbounded_fixed_time_mean(const pybind11::list &s0,DiscreteWalker &wal
     {
         walker.set_lifetime(0);
         walker.set_pos(s0);
-        result_tmp[i]=walker.move_til_death_fixed_time_record_territory(verbose,max_time); 
+        result_tmp[i]=walker.move_til_death_fixed_time_record_territory(max_time,verbose); 
     }
     for(auto el : result_tmp){
         if(el>0){

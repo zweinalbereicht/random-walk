@@ -7,12 +7,12 @@
 #include <math.h>
 #include <vector>
 
-#include "../Zipf/Zipf.h"
+#include "Zipf.h"
 
 int main()
 {
 
-    int n=3000;
+    int n=3;
 
     std::vector<int> results(n);
 

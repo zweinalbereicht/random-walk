@@ -220,7 +220,7 @@ DiscreteWalker::move_til_death_bounded_record_territory(const pybind11::list &di
 }
 
 long
-DiscreteWalker::move_til_death_fixed_time_record_territory(int verbose,const int max_time)
+DiscreteWalker::move_til_death_fixed_time_record_territory(const int max_time,const int verbose)
 {
     //we use sets which are built in hash tables. We would prefer unordered_set but seems like the hash is harder to put in place so let's stick with that for now.
     set< vector<long> > territory;
