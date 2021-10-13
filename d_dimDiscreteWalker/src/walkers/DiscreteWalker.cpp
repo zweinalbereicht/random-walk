@@ -89,7 +89,8 @@ void DiscreteWalker::set_random_pos(long N){
      m_pos=1+gsl_rng_uniform_int(m_rng,N-1);
 }
 */
-void  DiscreteWalker::set_max(long max){
+void  
+DiscreteWalker::set_max(long max){
     m_max=max;
 }
 

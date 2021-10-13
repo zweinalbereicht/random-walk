@@ -21,7 +21,7 @@ class GaussianWalker
     std::vector<double> m_direction;
     std::vector<double> m_pos;
     double m_lifetime;
-    double m_max; //max distance from the target
+    double m_max; //max distance from the origin
     int m_seed; //each walker will have it's own seed
     gsl_rng* m_rng; //and own random generator
 
@@ -41,7 +41,6 @@ class GaussianWalker
     std::vector<double> get_pos() const ;
     std::vector<double> get_direction() const;
     double get_max() const ;
-    double get_min() const ;
     double get_lifetime() const ;
     int get_seed() const ;
 
@@ -60,7 +59,7 @@ class GaussianWalker
     virtual void move(int verbose=0); //only virtual function a priori
 
     virtual void move_bounded(const pybind11::list &dimensions, int verbose=0); //the dimensions give the size of the hypercube we are moving in and we want to impose periodic boundary conditions
-    virtual void move_bounded(const std::vector<long> &dimensions, int verbose=0); //the dimensions give the size of the hypercube we are moving in and we want to impose periodic boundary conditions
+    //virtual void move_bounded(const std::vector<long> &dimensions, int verbose=0); //the dimensions give the size of the hypercube we are moving in and we want to impose periodic boundary conditions
 
     bool isAlive() const;
     void move_til_death(int verbose=0);
@@ -78,4 +77,4 @@ double
 euclidian_distance(const std::vector<double> &a);
 
 void
-sphere_direction(const int d, std::vector<double> &dir, gsl_rng &rng);
+sphere_direction(const int d, std::vector<double> &dir, gsl_rng* rng);

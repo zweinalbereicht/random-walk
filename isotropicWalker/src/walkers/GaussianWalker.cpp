@@ -20,12 +20,15 @@ using namespace std;
 //default is a 2_dimensional walker starting from the origin, seeded at 1
 GaussianWalker::GaussianWalker(): m_name("a simple isotropic gaussian walker"), m_pos(0.0,0.0), m_direction(0.0,0.0),m_max(0.0), m_lifetime(0.0), m_seed(1),m_d(2)
 {
-    m_max=0;
+    for(int i=0;i<2;i++){
+        m_direction.push_back(0.0); 
+        m_pos.push_back(0.0); 
+    }
     m_rng = gsl_rng_alloc(gsl_rng_mt19937); //on prend le mersenne un peu par default
     gsl_rng_set(m_rng,m_seed);
 }
 
-GaussianWalker::GaussianWalker(string name,int d, const pybind11::list &pos,int seed): m_name(name),m_seed(seed),m_lifetime(0),m_d(d)
+GaussianWalker::GaussianWalker(string name,int d, const pybind11::list &pos,int seed): m_name(name),m_seed(seed),m_lifetime(0.0),m_d(d)
 {
     //on essaye tant bien que mal d'extraire cette merde
     for(int i=0;i<d;i++)
@@ -115,9 +118,9 @@ void
 GaussianWalker::move(int verbose)
 {
     // start by updating the direction on the unit sphere
-    sphere_direction(m_direction,m_rng);
+    sphere_direction(m_d,m_direction,m_rng);
     // draw a random length
-    double jump_length=gsl_rng_uniform_int(m_rng,m_d); //have to change this
+    double jump_length=gsl_ran_gaussian(m_rng,1.0); //just doing a gaussian step here for now
     //update all coordinates
     for(int i=0;i<m_d;i++){
         m_pos[i]+=jump_length*m_direction[i]; // move according to the jump drawn
@@ -143,10 +146,10 @@ GaussianWalker::move_bounded(const pybind11::list &dimensions,int verbose)
     // start by updating the direction on the unit sphere
     sphere_direction(m_d,m_direction,m_rng);
     // draw a random length
-    double jump_length=gsl_rng_uniform_int(m_rng,m_d); //have to change this
+    double jump_length=gsl_ran_gaussian(m_rng,1.0); //just doing a gaussian step here for now
     //update all coordinates
     for(int i=0;i<m_d;i++){
-        m_pos[i]+=MOD(jump_length*m_direction[i],dimension[i]; // move according to the jump drawn
+        m_pos[i]+=fmod(jump_length*m_direction[i],dimensions[i].cast<double>()); // move according to the jump drawn
     }
     m_lifetime+=1; //for now, in the case of instantaneous jumps
     double dist=euclidian_distance(m_pos);
@@ -163,8 +166,8 @@ GaussianWalker::move_bounded(const pybind11::list &dimensions,int verbose)
     }
 }
 
-
-//other funtions
+//other funtions 
+//these move til death are gonna lead to infinite buckles, we will need to change them
 void
 GaussianWalker::move_til_death(int verbose)
 {
@@ -176,13 +179,8 @@ GaussianWalker::move_til_death(int verbose)
 void
 GaussianWalker::move_til_death_bounded(const pybind11::list &dimensions, int verbose) //the dimensions give the size of the hypercube we are moving in
 {
-    // fill the C++ vector
-    vector<long> tmp;
-    for(int i=0;i<m_d;i++)
-        tmp.push_back(dimensions[i].cast<long>());
-
     while(isAlive()){
-        move_bounded(tmp,verbose);
+        move_bounded(dimensions,verbose);
     }
 }
 
@@ -220,15 +218,15 @@ euclidian_distance(const std::vector<double> &a)
 
 //takes a point on the unit sphere
 void
-sphere_direction(const int d, std::vector<double> &dir, gsl_rng &rng)
+sphere_direction(const int d, std::vector<double> &dir, gsl_rng* rng)
 {
     double S=0.0;
     for(int i=0;i<d;i++){
-        double x=gsl_ran_gaussian(rng,1.0/sqrt(d));
+        double x=gsl_ran_gaussian(rng,1.0/((double)sqrt(d)));
         dir[i]=x;
         S+=pow(x,2);
     }
     for(int i=0;i<d;i++){
-        dir[i]=dir[i]/sqrt(S);
+        dir[i]=dir[i]/((double) sqrt(S));
     }
 }
