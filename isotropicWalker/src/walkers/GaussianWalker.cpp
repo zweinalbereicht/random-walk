@@ -190,7 +190,7 @@ bool GaussianWalker::isAlive() const
     return (euclidian_distance(m_pos)>=0); //For now this function is not working
 }
 
-void GaussianWalker::move_fixed_time(long time) // performs a certain number of steps
+void GaussianWalker::move_fixed_time(long time) // performs a certain number of steps --> the true time evolution is different
 {
     for(long k=0;k<time;k++)
         move();
