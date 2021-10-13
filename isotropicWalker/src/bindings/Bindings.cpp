@@ -10,6 +10,7 @@
 //#include "../../pcg-cpp-0.98/include/pcg_random_walk.h"
 
 #include "../walkers/GaussianWalker.h"
+#include "../walkers/RTLWalker.h"
 //#include "DiscreteWalker_pcg.h"
 //#include "../walkers/BiasedWalker.h"
 //#include "../walkers/SATWWalker.h"
@@ -30,8 +31,8 @@ PYBIND11_MODULE(module_isotropicWalker,handle){
     // DiscreteWalker bindings
     #include "GaussianWalker_bindings.h"
 
-   // //Biased walker bindings
-   // #include "BiasedWalker_bindings.h"
+   // //Run and Tumble particle with continuous time parameter
+    #include "RTLWalker_bindings.h"
 
    // //SATW walker bindings
    // #include "SATWWalker_bindings.h"
