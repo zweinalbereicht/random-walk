@@ -20,7 +20,7 @@ class DiscreteWalker
     int m_d; //the dimension of the hypercube
     std::vector<long> m_pos;
     long m_lifetime;
-    long m_max; //max distance from the target
+    double m_max; //max distance from the target
     int m_seed; //each walker will have it's own seed
     gsl_rng* m_rng; //and own random generator
 
@@ -37,7 +37,8 @@ class DiscreteWalker
     virtual void print_details() const;
 
     //fonctions getters
-    std::vector<long> get_pos() const ;
+    
+    pybind11::list get_pos() const ;
     long get_max() const ;
     long get_min() const ;
     long get_lifetime() const ;
@@ -45,7 +46,7 @@ class DiscreteWalker
 
     //fonctions setters
     void set_pos(const pybind11::list &pos);
-    void set_max(long max);
+    void set_max(double max);
     void set_lifetime(long lifetime);
     void set_seed(long seed);
 

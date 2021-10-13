@@ -20,7 +20,7 @@ using namespace std;
 //default is a 2_dimensional walker
 DiscreteWalker::DiscreteWalker(): m_name("a simple 2 dimensional walker"), m_pos(2,0), m_max(0), m_lifetime(0), m_seed(1),m_d(2)
 {
-    m_max=0;
+    m_max=0.0;
     m_rng = gsl_rng_alloc(gsl_rng_mt19937);
     gsl_rng_set(m_rng,m_seed);
 }
@@ -56,9 +56,9 @@ DiscreteWalker::print_details() const
 
 //getters
 
-vector<long>
+pybind11::list
 DiscreteWalker::get_pos() const {
-    return m_pos;
+    return pybind11::cast(m_pos);
 }
 
 long DiscreteWalker::get_max() const {
@@ -77,6 +77,12 @@ int DiscreteWalker::get_seed() const {
 void DiscreteWalker::set_pos(const pybind11::list &pos){
     for(int i=0;i<m_pos.size();i++)
         m_pos[i]=pos[i].cast<long>();
+
+    double dis = euclidian_distance(m_pos);
+
+    if (dis>m_max){
+        m_max=dis;
+    }
 }
 
 void DiscreteWalker::set_random_pos(const pybind11::list &dimensions){
@@ -90,7 +96,7 @@ void DiscreteWalker::set_random_pos(long N){
 }
 */
 void  
-DiscreteWalker::set_max(long max){
+DiscreteWalker::set_max(double max){
     m_max=max;
 }
 
