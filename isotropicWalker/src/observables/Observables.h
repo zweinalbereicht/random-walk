@@ -9,7 +9,7 @@
 #include <string>
 #include <stdlib.h>
 
-#include "../walkers/DiscreteWalker.h"
+#include "../walkers/GaussianWalker.h"
 //#include "../walkers/BiasedWalker.h"
 //#include "../walkers/SATWWalker.h"
 //#include "../walkers/RiemannWalker.h"
@@ -19,29 +19,6 @@
 
 namespace py = pybind11;
 
-py::list
-fpt_arrival_bounded_distribution(const pybind11::list &s0,const pybind11::list &dimensions,DiscreteWalker &walker, const int n);
-
-double
-fpt_arrival_bounded_mean(const pybind11::list &s0,const pybind11::list &dimensions,DiscreteWalker &walker, const int n);
-
-double
-fpt_arrival_bounded_global_mean(const pybind11::list &dimensions,DiscreteWalker &walker, const int n);
-
-py::list
-territory_distribution(const pybind11::list &s0, const pybind11::list &dimensions, DiscreteWalker &walker, const int n);
-
-double
-territory_global_mean(const pybind11::list &dimensions, DiscreteWalker &walker, const int n);
-
-double
-territory_mean(const pybind11::list &s0, const pybind11::list &dimensions, DiscreteWalker &walker, const int n);
-
-py::list
-territory_unbounded_fixed_time_distribution(const pybind11::list &s0, DiscreteWalker &walker, const int max_time,const int n);
-
-double
-territory_unbounded_fixed_time_mean(const pybind11::list &s0, DiscreteWalker &walker, const int max_time, const int n);
-
-double
-rosenstock_fixed_time(const long s0, DiscreteWalker &walker, const int time, const double rho, const int n);
+// returns the probability to reach the hyperplane x before 0, starting from x0. The default choice of x0 is on the hyperplane
+double 
+split_prob_hyperplane(const double x0, const double x, GaussianWalker &walker, const int n);

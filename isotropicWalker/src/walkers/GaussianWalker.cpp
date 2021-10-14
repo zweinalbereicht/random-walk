@@ -83,6 +83,10 @@ int GaussianWalker::get_seed() const {
     return m_seed;
 }
 
+int GaussianWalker::get_dimension() const {
+    return m_d;
+}
+
 //setters
 void GaussianWalker::set_pos(const pybind11::list &pos){
     for(int i=0;i<m_pos.size();i++)
@@ -111,6 +115,10 @@ void  GaussianWalker::set_lifetime(double lifetime){
 void  GaussianWalker::set_seed(int seed){
     m_seed=seed;
     gsl_rng_set(m_rng,m_seed);
+}
+
+void  GaussianWalker::set_coord(int c,double x){
+    m_pos[c]=x;
 }
 
 //the basic move function

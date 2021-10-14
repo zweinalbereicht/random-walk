@@ -29,7 +29,7 @@ class RTLWalker : public GaussianWalker
         void set_v(double v);
 
         //specific move function
-        virtual void move(int verbose);
+        virtual void move(int verbose=0);
 
 };
 

@@ -30,6 +30,9 @@ py::class_<GaussianWalker>(handle, "GaussianWalker")
     .def("get_seed",&GaussianWalker::get_seed
             ,"a getter function for the  walker's seed")
 
+    .def("get_dimension",&GaussianWalker::get_dimension
+            ,"a getter function for the dimension of the walker's space")
+
     .def("set_pos",&GaussianWalker::set_pos
             ,py::arg("pos")
             ,"a setter function for the  walker's positonn")

@@ -14,13 +14,19 @@ using namespace std;
 namespace py = pybind11;
 
 RTLWalker::RTLWalker() : GaussianWalker() ,m_v(1.0),m_g(1.0)
-{}
+{
+    m_name="A simple run and tumble particle";
+}
 
 RTLWalker::RTLWalker(double g,double v) : GaussianWalker(),m_g(g),m_v(v)
-{}
+{
+    m_name="A simple run and tumble particle";
+}
 
 RTLWalker::RTLWalker(string name,int dim, const pybind11::list &pos,int seed,double g,double v) : GaussianWalker(name, dim,pos, seed) ,m_g(g),m_v(v)
-{}
+{
+    m_name="A simple run and tumble particle";
+}
 
 void RTLWalker::print_details() const
 {

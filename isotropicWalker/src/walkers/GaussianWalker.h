@@ -43,6 +43,7 @@ class GaussianWalker
     double get_max() const ;
     double get_lifetime() const ;
     int get_seed() const ;
+    int get_dimension() const ;
 
     //fonctions setters
     void set_pos(const pybind11::list &pos);
@@ -50,6 +51,7 @@ class GaussianWalker
     void set_max(double max);
     void set_lifetime(double lifetime);
     void set_seed(int seed);
+    void set_coord(int c,double x); //change the value in one coordinate (useful for in C code)
 
     //other setter functions
     void set_random_pos(const pybind11::list &dimensions); //uniform inital pos in the box
