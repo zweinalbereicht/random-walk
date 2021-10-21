@@ -15,8 +15,8 @@ class GammaWalker : public ContinuousWalker
 
         //constructors
         GammaWalker();
-        GammaWalker(double exponent, double scale);
-        GammaWalker(std::string name, double pos, int seed ,double exponent, double scale);
+        GammaWalker(double scale,double exponent );
+        GammaWalker(std::string name, double pos, int seed , double scale,double exponent);
 
         //print functions
         void print_details() const;
