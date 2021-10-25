@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "ContinuousWalker.h"
+#include "../../../custom_distributions/Alex/Alex.h"
 
 class FWalker : public ContinuousWalker
 //should inherit most continuous walker methods

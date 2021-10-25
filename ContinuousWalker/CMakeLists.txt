@@ -13,7 +13,7 @@ set(BINDINGS ${BINDING_PATH}Bindings.cpp ${BINDING_PATH}GammaWalker_bindings.h $
 set(OBSERVABLE_PATH src/observables/)
 set(OBSERVABLES ${OBSERVABLE_PATH}Observables.cpp ${OBSERVABLE_PATH}Observables.h)
 
-set(SOURCE_FILES ${OBSERVABLES} ${BINDINGS} ${WALKERS})
+set(SOURCE_FILES ../custom_distributions/Alex/Alex.h ../custom_distributions/Alex/Alex.cpp ${OBSERVABLES} ${BINDINGS} ${WALKERS})
 
 add_subdirectory(../pybind11 build)
 pybind11_add_module(module_ContinuousWalker ${SOURCE_FILES})
