@@ -9,6 +9,7 @@
 #include "../walkers/LaplaceWalker.h"
 #include "../walkers/GammaWalker.h"
 #include "../walkers/FWalker.h"
+#include "../walkers/AlexWalker.h"
 #include "../walkers/UniformWalker.h"
 #include "../observables/Observables.h"
 
@@ -36,6 +37,9 @@ PYBIND11_MODULE(module_ContinuousWalker,handle){
 
     //FWalker bindings
     #include "FWalker_bindings.h"
+
+    //AlexWalker bindings
+    #include "AlexWalker_bindings.h"
 
     //Observables bindings --> none at the moment
     #include "Observables_bindings.h"
