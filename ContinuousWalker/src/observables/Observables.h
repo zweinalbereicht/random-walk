@@ -32,3 +32,8 @@ conditional_fpt_distribution(const double x0,const double x, ContinuousWalker &w
 double
 conditional_fpt_mean(const double x0,const double x, ContinuousWalker &walker, const long N,const bool target=0);
 
+//renvoie la probabilité de sortir coté target au temps n exactement
+double
+conditional_fpt_probability(const double x0,const double x, ContinuousWalker &walker, const long n,const long N,const bool target=0);
+
+

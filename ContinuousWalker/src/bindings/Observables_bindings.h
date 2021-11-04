@@ -34,3 +34,13 @@ handle.def("conditional_fpt_mean"
         ,py::arg("target")=0
         ,"returns the mean conditional first passage time through 0 if target = 0, or through x if target = 1, averaged over N trials. the walker starts from x0");
 
+handle.def("conditional_fpt_probability"
+        ,&conditional_fpt_probability
+        ,py::arg("x0")
+        ,py::arg("x")
+        ,py::arg("walker")
+        ,py::arg("n")
+        ,py::arg("N")
+        ,py::arg("target")=0
+        ,"returns the probability to escape through 0 if target = 0, or through x if target = 1, at time n exactly, averaged over N trials. the walker starts from x0");
+
