@@ -109,6 +109,25 @@ conditional_fpt_mean(const double x0,const double x, ContinuousWalker &walker, c
     return mean/((double) N);
 }
 
+//renvoie la probabilité de sortir à travers 0 au temps n exactement
+double
+fpt_probability(const double x0, ContinuousWalker &walker, const long n,const long N){
+
+    double probability;
+
+    for(long i=0;i<N;i++){
+        walker.set_lifetime(0);
+        walker.set_pos(x0);
+        while(walker.get_pos()>=0 && walker.get_lifetime()<n){ //on bouge jusqu'à traverser 0
+            walker.move();
+        }
+        if(!walker.isAlive() && walker.get_lifetime()==n){ //si on sort en zero
+            probability+=1;
+        }
+    }
+    return probability/((double) N);
+}
+
 //renvoie la probabilité de sortir coté target au temps n exactement
 double
 conditional_fpt_probability(const double x0,const double x, ContinuousWalker &walker, const long n,const long N,const bool target){
