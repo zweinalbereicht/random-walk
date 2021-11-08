@@ -16,9 +16,13 @@
 
 namespace py = pybind11;
 
-//renvoie la probability d'etre toujours en vie après n pas
 double
+//renvoie la probability d'etre toujours en vie après n pas
 survival_probability(const double x0,const long n, ContinuousWalker &walker, const long N);
+
+//renvoie la probability d'etre toujours en vie après n pas dans un intervalle
+double
+survival_probability_bounded(const double x0, const double x, const long n, ContinuousWalker &walker, const long N);
 
 //renvoie la probability de traverser x avant 0, partant de x0. On attend avant d'avoir N valeurs... -> ça peut prendre du temps
 double
@@ -40,5 +44,10 @@ fpt_probability(const double x0, ContinuousWalker &walker, const long n,const lo
 //renvoie la probabilité de sortir coté target au temps n exactement
 double
 conditional_fpt_probability(const double x0,const double x, ContinuousWalker &walker, const long n,const long N,const bool target=0);
+
+//renvoie la probabilité de sortir d'un intervalle au temps n exactement
+double
+unconditional_fpt_probability(const double x0,const double x, ContinuousWalker &walker, const long n,const long N);
+
 
 

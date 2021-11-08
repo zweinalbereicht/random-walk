@@ -32,6 +32,22 @@ survival_probability(const double x0,const long n, ContinuousWalker &walker, con
     return probability/((double) N);
 }
 
+//renvoie la probability d'etre toujours en vie après n pas dans un intervalle
+double
+survival_probability_bounded(const double x0, const double x, const long n, ContinuousWalker &walker, const long N){
+
+    double probability = 0.0;
+    for(int i=0;i<N;i++){
+        walker.set_lifetime(0);
+        walker.set_pos(x0);
+        while(walker.isAlive() && walker.get_pos()<=x && walker.get_lifetime()<n){
+            walker.move();
+        }
+        probability+=(walker.isAlive() && walker.get_pos()<=x);
+    }
+    return probability/((double) N);
+}
+
 double
 splitting_probability(const double x0,const double x,ContinuousWalker &walker, const long N){
     double probability = 0.0;
@@ -151,3 +167,26 @@ conditional_fpt_probability(const double x0,const double x, ContinuousWalker &wa
     return probability/((double) N);
 }
 
+//renvoie la probabilité de sortir d'un intervalle au temps n exactement
+double
+unconditional_fpt_probability(const double x0,const double x, ContinuousWalker &walker, const long n,const long N){
+
+    double probability;
+
+    for(long i=0;i<N;i++){
+        walker.set_lifetime(0);
+        walker.set_pos(x0);
+        while(walker.get_pos()<=x && walker.get_pos()>=0 && walker.get_lifetime()<n){ //on bouge jusqu'à sortir de l'intervalle mais on ne bouge pas plus que le temps n
+            walker.move();
+        }
+        if(walker.get_lifetime()==n){ //si on sort pile après le bon nombre de pas
+            if (!walker.isAlive() || walker.get_pos()>x){
+                probability+=1;
+            }
+        }
+    }
+
+    return probability/((double) N);
+
+
+}
