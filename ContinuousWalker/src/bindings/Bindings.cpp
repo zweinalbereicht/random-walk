@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 #include "../walkers/ContinuousWalker.h"
+#include "../walkers/ContinuousAdaptativeWalker.h"
 #include "../walkers/LevyWalker.h"
 #include "../walkers/LaplaceWalker.h"
 #include "../walkers/GammaWalker.h"
@@ -22,6 +23,9 @@ PYBIND11_MODULE(module_ContinuousWalker,handle){
 
     //ContinuousWalker bindings
     #include "ContinuousWalker_bindings.h"
+
+    //ContinuousWalker bindings
+    #include "ContinuousAdaptativeWalker_bindings.h"
 
     //Levy walker bindings
     #include "LevyWalker_bindings.h"
