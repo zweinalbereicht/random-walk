@@ -70,3 +70,11 @@ handle.def("unconditional_fpt_probability"
         ,py::arg("N")
         ,"returns the probability to escape the interval at time n exactly, averaged over N trials. the walker starts from x0");
 
+handle.def("max_on_last_step_distribution"
+        ,&max_on_last_step_distribution
+        ,py::arg("x0 : initial position")
+        ,py::arg("walker : our walker")
+        ,py::arg("n : nb of steps the walker takes")
+        ,py::arg("N : number of maximums for our statistics")
+        ,py::arg("bounded_below")=0
+        ,"returns N maxes attaigned exactly on the nth step, which is the last one. The walker startes from x0. If bounded_below is activated, the walker cannot go below 0.");

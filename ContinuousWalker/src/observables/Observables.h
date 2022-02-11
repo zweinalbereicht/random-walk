@@ -50,4 +50,7 @@ double
 unconditional_fpt_probability(const double x0,const double x, ContinuousWalker &walker, const long n,const long N);
 
 
+//renvoie la distribution du max s'il est atteint au n-ième pas. L'option bounded_below permet de mettre une bnarrière absorvante en 0.
+py::list
+max_on_last_step_distribution(const double x0, ContinuousWalker &walker, const long n,const long N,const bool bounded_below=0);
 

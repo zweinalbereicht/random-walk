@@ -190,3 +190,37 @@ unconditional_fpt_probability(const double x0,const double x, ContinuousWalker &
 
 
 }
+
+py::list
+max_on_last_step_distribution(const double x0, ContinuousWalker &walker, const long n,const long N,const bool bounded_below){
+
+    vector<double> result(N);
+    long nb_success = 0;
+
+    while(nb_success < N){
+        walker.set_lifetime(0);
+        walker.set_pos(x0);
+        walker.set_max(x0);
+        walker.set_min(x0);
+        // si il n'y a pas de bord absorbant en zero
+        if (!bounded_below){
+            walker.move_fixed_time(n);
+            if(walker.get_max()==walker.get_pos()){ // si le max est atteint au dernier pas
+                result[nb_success]=walker.get_pos();
+                nb_success++;
+            }
+        }
+        // s'il y a une barriere absorbante en 0
+        else {
+            while(walker.get_lifetime()<n && walker.isAlive()){
+                walker.move();
+            }
+            if(walker.isAlive() && walker.get_max()==walker.get_pos()){ // si le max est atteint au dernier pas
+                result[nb_success]=walker.get_pos();
+                nb_success++;
+            }
+        }
+    }
+    py::list ret = py::cast(result);
+    return ret;
+}
