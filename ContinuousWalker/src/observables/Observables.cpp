@@ -243,7 +243,7 @@ time_conditioned_max_before_exit_distribution(const double x0, ContinuousWalker 
         if(currentMax==walker.get_pos() && walker.get_min()>=0){ // si on est au max et pas encore mort
             walker.move_til_death();
             if(currentMax==walker.get_max()){ // si le max n'a pas été dépassé
-                result[nb_success]=walker.get_pos();
+                result[nb_success]=currentMax;
                 nb_success++;
             }
         }
@@ -269,7 +269,7 @@ time_conditioned_max_distribution(const double x0, ContinuousWalker &walker, con
         if(currentMax==walker.get_pos()){ // si on est au max
             walker.move_fixed_time(nMax-n);
             if(currentMax==walker.get_max()){ // si le max n'a pas été dépassé
-                result[nb_success]=walker.get_pos();
+                result[nb_success]=currentMax;
                 nb_success++;
             }
         }
