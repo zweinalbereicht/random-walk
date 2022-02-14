@@ -78,3 +78,20 @@ handle.def("max_on_last_step_distribution"
         ,py::arg("N : number of maximums for our statistics")
         ,py::arg("bounded_below")=0
         ,"returns N maxes attaigned exactly on the nth step, which is the last one. The walker startes from x0. If bounded_below is activated, the walker cannot go below 0.");
+
+handle.def("time_conditioned_max_before_exit_distribution"
+        ,&time_conditioned_max_before_exit_distribution
+        ,py::arg("x0 : initial position")
+        ,py::arg("walker : our walker")
+        ,py::arg("n : step at which the max is reached")
+        ,py::arg("N : number of maximums for our statistics")
+        ,"returns N maxes attaigned exactly on the nth step,before the first exit time. The walker startes from x0.");
+
+handle.def("time_conditioned_max_distribution"
+        ,&time_conditioned_max_distribution
+        ,py::arg("x0 : initial position")
+        ,py::arg("walker : our walker")
+        ,py::arg("n : step at which the max is reached")
+        ,py::arg("nMax : total number of steps")
+        ,py::arg("N : number of maximums for our statistics")
+        ,"returns N maxes attaigned exactly on the nth step, in a trajectory of nMax steps. The walker startes from x0.");

@@ -224,3 +224,56 @@ max_on_last_step_distribution(const double x0, ContinuousWalker &walker, const l
     py::list ret = py::cast(result);
     return ret;
 }
+
+//renvoie la distribution du max avant de traverser 0 pour la premiere fois, s'il est atteint au n-ième pas.  
+py::list
+time_conditioned_max_before_exit_distribution(const double x0, ContinuousWalker &walker, const long n,const long N){
+
+    vector<double> result(N);
+    long nb_success = 0;
+
+    while(nb_success < N){
+        walker.set_lifetime(0);
+        walker.set_pos(x0);
+        walker.set_max(x0);
+        walker.set_min(x0);
+        // si il n'y a pas de bord absorbant en zero
+        walker.move_fixed_time(n);
+        double currentMax=walker.get_max();
+        if(currentMax==walker.get_pos() && walker.get_min()>=0){ // si on est au max et pas encore mort
+            walker.move_til_death();
+            if(currentMax==walker.get_max()){ // si le max n'a pas été dépassé
+                result[nb_success]=walker.get_pos();
+                nb_success++;
+            }
+        }
+    }
+    py::list ret = py::cast(result);
+    return ret;
+}
+
+py::list
+time_conditioned_max_distribution(const double x0, ContinuousWalker &walker, const long n,const long nMax,const long N){
+
+    vector<double> result(N);
+    long nb_success = 0;
+
+    while(nb_success < N){
+        walker.set_lifetime(0);
+        walker.set_pos(x0);
+        walker.set_max(x0);
+        walker.set_min(x0);
+        // si il n'y a pas de bord absorbant en zero
+        walker.move_fixed_time(n);
+        double currentMax=walker.get_max();
+        if(currentMax==walker.get_pos()){ // si on est au max
+            walker.move_fixed_time(nMax-n);
+            if(currentMax==walker.get_max()){ // si le max n'a pas été dépassé
+                result[nb_success]=walker.get_pos();
+                nb_success++;
+            }
+        }
+    }
+    py::list ret = py::cast(result);
+    return ret;
+}
