@@ -57,7 +57,7 @@ py::class_<ContinuousWalker>(handle, "ContinuousWalker")
         "a function that says if the walker is still alive")
 
 	.def("move_fixed_max",&ContinuousWalker::move_fixed_max,
-        "a function that makes the walker walk until death with two absorbing boundaries. If the function returns 0 than tha walker has exactly reached the fixed max value without bypassing it, 1 else.")
+        "a function that makes the walker walk until death with two absorbing boundaries. If the function returns 0 than the walker has exactly reached the fixed max value without bypassing it, 1 else.")
 
 	.def("move_fixed_time",&ContinuousWalker::move_fixed_time,
         "a function that makes the walker for a fixed time period.")

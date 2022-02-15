@@ -241,7 +241,7 @@ time_conditioned_max_before_exit_distribution(const double x0, ContinuousWalker 
         walker.move_fixed_time(n);
         double currentMax=walker.get_max();
         if(currentMax==walker.get_pos() && walker.get_min()>=0){ // si on est au max et pas encore mort
-            //si on fait un move til death ici ce sera trop long, on fait un move fixed max (en gros c'est un move til death bounded)
+            //si on fait un move til death ici ce sera trop long, on fait un move fixed max (en gros c'est un move til death bounded, mais pas tout à fait)
             int exitSide = walker.move_fixed_max(currentMax); // exitside egal 0 si on traverse d'abord 0
             if(!exitSide){ // si le max n'a pas été dépassé
                 result[nb_success]=currentMax;
