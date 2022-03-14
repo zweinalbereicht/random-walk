@@ -3,7 +3,7 @@
 
 py::class_<BiasedWalker,ContinuousWalker>(handle, "BiasedWalker")
 
-    .def(py::init<>(),"default constructor")
+    .def(py::init<>(),"creates a gaussianwalker with constant drift bias")
     .def("print_details"
         ,&BiasedWalker::print_details
         ,py::call_guard<py::scoped_ostream_redirect>()//redirects cout to stdout in jupyter notebook
@@ -21,7 +21,7 @@ py::class_<BiasedWalker,ContinuousWalker>(handle, "BiasedWalker")
 
 py::class_<BiasedLevyWalker,LevyWalker>(handle, "BiasedLevyWalker")
 
-    .def(py::init<>(),"default constructor")
+    .def(py::init<>(),"creates a levywalker with constant drift bias")
     .def("print_details"
         ,&BiasedLevyWalker::print_details
         ,py::call_guard<py::scoped_ostream_redirect>()//redirects cout to stdout in jupyter notebook
