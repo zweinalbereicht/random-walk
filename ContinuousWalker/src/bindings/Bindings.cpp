@@ -13,6 +13,7 @@
 #include "../walkers/FWalker.h"
 #include "../walkers/AlexWalker.h"
 #include "../walkers/UniformWalker.h"
+#include "../walkers/BiasedWalker.h"
 #include "../observables/Observables.h"
 
 using namespace std;
@@ -48,6 +49,9 @@ PYBIND11_MODULE(module_ContinuousWalker,handle){
 
     //AlexWalker bindings
     #include "AlexWalker_bindings.h"
+
+    //BiasedWalker bindings
+    #include "BiasedWalker_bindings.h"
 
     //Observables bindings --> none at the moment
     #include "Observables_bindings.h"
