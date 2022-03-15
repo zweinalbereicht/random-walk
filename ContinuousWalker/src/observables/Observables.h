@@ -28,6 +28,10 @@ survival_probability_bounded(const double x0, const double x, const long n, Cont
 double
 splitting_probability(const double x0,const double x, ContinuousWalker &walker, const long N);
 
+//renvoie la probabilité d'obaserver une trajectoire de type strip, dont le max est plus grand que x
+double
+strip_probability(double x, ContinuousWalker &walker, const long nbSteps, const long nbSimus);
+
 //renvoie la distribution du temps de passage conditinnel à travers target(0=0,1=x), entre x et 0 
 py::list
 conditional_fpt_distribution(const double x0,const double x, ContinuousWalker &walker, const long N,const bool target=0);
@@ -61,3 +65,4 @@ time_conditioned_max_before_exit_distribution(const double x0, ContinuousWalker 
 //renvoie la distribution du max s'il est atteint au n-ième pas.  
 py::list
 time_conditioned_max_distribution(const double x0, ContinuousWalker &walker, const long n,const long nMax,const long N);
+

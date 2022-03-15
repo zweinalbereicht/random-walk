@@ -16,6 +16,14 @@ handle.def("survival_probability"
         ,py::arg("N")
         ,"returns the survival probability after n steps, (crossing convention), averaged over N trials.");
 
+handle.def("strip_probability"
+        ,&strip_probability
+        ,py::arg("x")
+        ,py::arg("walker")
+        ,py::arg("nbSteps")
+        ,py::arg("nbSimus")
+        ,"returns the probability to observe a nbSteps long strip trajectory, whose max is greater than x, starting from 0.");
+
 handle.def("survival_probability_bounded"
         ,&survival_probability_bounded
         ,py::arg("x0")

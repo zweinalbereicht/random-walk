@@ -67,6 +67,29 @@ splitting_probability(const double x0,const double x,ContinuousWalker &walker, c
     return probability/((double) N);
 }
 
+//renvoie la probabilité d'obaserver une trajectoire de type strip, dont le max est plus grand que x
+double
+strip_probability(double x, ContinuousWalker &walker, const long nbSteps, const long nbSimus){
+
+    double probability = 0.0;
+
+    for(int i=0;i<nbSimus;i++){
+        walker.set_lifetime(0);
+        walker.set_pos(0);
+        walker.set_max(0);
+        walker.set_min(0);
+        //encore une fois attention aux inegalités
+        //en convention crossing
+        while(walker.isAlive() && walker.get_lifetime()<nbSteps){
+            walker.move();
+        }
+        double max=walker.get_max();
+        // si on sort de la boucle en mourrant ce n'est pas tres grave, la condition ne sera jamais satisfaite dans tous les cas.
+        probability+=(walker.get_pos()==max && max>x);
+    }
+    return probability/((double) nbSimus);
+}
+
 py::list
 conditional_fpt_distribution(const double x0,const double x, ContinuousWalker &walker, const long N,const bool target){
 
