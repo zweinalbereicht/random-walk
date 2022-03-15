@@ -9,6 +9,8 @@
 #include "ContinuousWalker.h"
 #include "LevyWalker.h"
 #include "BiasedWalker.h"
+#include "AlexWalker.h"
+#include "LaplaceWalker.h"
 
 using namespace std;
 namespace py = pybind11;
@@ -63,4 +65,56 @@ void BiasedLevyWalker::move(int verbose)
 {
     m_pos+=m_bias;
     LevyWalker::move(verbose);
+}
+
+//Biased Alex
+BiasedAlexWalker::BiasedAlexWalker() : AlexWalker() ,m_bias(0.0)
+{}
+void BiasedAlexWalker::print_details() const
+{
+    AlexWalker::print_details();
+    cout << "bias param : " << m_bias << endl;
+}
+
+
+double BiasedAlexWalker::get_bias() const
+{
+    return m_bias;
+}
+
+void BiasedAlexWalker::set_bias(const double bias)
+{
+    m_bias=bias;
+}
+
+void BiasedAlexWalker::move(int verbose)
+{
+    m_pos+=m_bias;
+    AlexWalker::move(verbose);
+}
+
+//Biased Laplace
+BiasedLaplaceWalker::BiasedLaplaceWalker() : LaplaceWalker() ,m_bias(0.0)
+{}
+void BiasedLaplaceWalker::print_details() const
+{
+    LaplaceWalker::print_details();
+    cout << "bias param : " << m_bias << endl;
+}
+
+
+double BiasedLaplaceWalker::get_bias() const
+{
+    return m_bias;
+}
+
+void BiasedLaplaceWalker::set_bias(const double bias)
+{
+    m_bias=bias;
+}
+
+void BiasedLaplaceWalker::move(int verbose)
+{
+    m_pos+=m_bias;
+    LaplaceWalker::move(verbose);
 }

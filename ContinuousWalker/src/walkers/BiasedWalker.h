@@ -3,6 +3,8 @@
 
 #include "ContinuousWalker.h"
 #include "LevyWalker.h"
+#include "AlexWalker.h"
+#include "LaplaceWalker.h"
 
 class BiasedWalker : public ContinuousWalker
 //should inherit most continuous walker methods
@@ -31,6 +33,42 @@ class BiasedLevyWalker : public LevyWalker
     public :
         //constructors
         BiasedLevyWalker();
+        //print functions
+        void print_details() const;
+        //setters and getters
+        double  get_bias() const;
+        void set_bias(const double bias);
+        //specific move function
+        virtual void move(int verbose);
+};
+
+class BiasedAlexWalker : public AlexWalker
+//should inherit most continuous walker methods
+{
+    protected :
+        //we will use the standart GSL library and pass in the parameter as defined there
+        double m_bias; //the length in whitch the absolute value of the jump distribution lives
+    public :
+        //constructors
+        BiasedAlexWalker();
+        //print functions
+        void print_details() const;
+        //setters and getters
+        double  get_bias() const;
+        void set_bias(const double bias);
+        //specific move function
+        virtual void move(int verbose);
+};
+
+class BiasedLaplaceWalker : public LaplaceWalker
+//should inherit most continuous walker methods
+{
+    protected :
+        //we will use the standart GSL library and pass in the parameter as defined there
+        double m_bias; //the length in whitch the absolute value of the jump distribution lives
+    public :
+        //constructors
+        BiasedLaplaceWalker();
         //print functions
         void print_details() const;
         //setters and getters
