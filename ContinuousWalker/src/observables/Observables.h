@@ -28,6 +28,10 @@ survival_probability_bounded(const double x0, const double x, const long n, Cont
 double
 splitting_probability(const double x0,const double x, ContinuousWalker &walker, const long N);
 
+//splitting probability when both boundaries are escaping, with signed speeds vleft and vright
+double
+splitting_probability_escaping_boundaries(const double x0,const double x,const double vleft, const double vright,ContinuousWalker &walker, const long N);
+
 //renvoie la probabilité d'obaserver une trajectoire de type strip, dont le max est plus grand que x
 double
 strip_probability(double x, ContinuousWalker &walker, const long nbSteps, const long nbSimus);

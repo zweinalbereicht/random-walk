@@ -8,6 +8,16 @@ handle.def("splitting_probability"
         ,py::arg("N")
         ,"returns the splitting probability to reach x before zero (crossing convention), averaged over N trials.");
 
+handle.def("splitting_probability_escaping_boundaries"
+        ,&splitting_probability_escaping_boundaries
+        ,py::arg("x0")
+        ,py::arg("x")
+        ,py::arg("vleft")
+        ,py::arg("vright")
+        ,py::arg("walker")
+        ,py::arg("N")
+        ,"returns the splitting probability to reach the rightmost boundary before the leftmost one. At each time step the rightboundary moves by a quantity vright (positive vright makes the boundary go rightwards) and the leftward_boundary moves by a quantity vleft (same convention). The results are averaged over N trials.");
+
 handle.def("survival_probability"
         ,&survival_probability
         ,py::arg("x0")

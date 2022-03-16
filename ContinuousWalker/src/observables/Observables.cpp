@@ -67,7 +67,30 @@ splitting_probability(const double x0,const double x,ContinuousWalker &walker, c
     return probability/((double) N);
 }
 
-//renvoie la probabilité d'obaserver une trajectoire de type strip, dont le max est plus grand que x
+//splitting probability when both boundaries are escaping, with signed speeds vleft and vright
+double
+splitting_probability_escaping_boundaries(const double x0,const double x,const double vleft, const double vright,ContinuousWalker &walker, const long N){
+    double probability = 0.0;
+
+    for(int i=0;i<N;i++){
+        double right_boundary=x;
+        double left_boundary=0;
+        walker.set_lifetime(0);
+        walker.set_pos(x0);
+        long elapsed_time = 0;
+        //encore une fois attention aux inegalités
+        //en convention crossing
+        while(walker.get_pos()<=right_boundary && walker.get_pos()>=left_boundary){
+            walker.move();
+            right_boundary+=vright;
+            left_boundary+=vleft;
+        }
+        probability+=(walker.get_pos()>right_boundary);
+    }
+
+    return probability/((double) N);
+}
+//renvoie la probabilité d'observer une trajectoire de type strip, dont le max est plus grand que x
 double
 strip_probability(double x, ContinuousWalker &walker, const long nbSteps, const long nbSimus){
 
