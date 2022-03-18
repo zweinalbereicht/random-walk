@@ -330,7 +330,7 @@ time_conditioned_max_distribution(const double x0, ContinuousWalker &walker, con
 py::list
 condtiional_position_distribution(const double x0, ContinuousWalker &walker, const long nbSteps,const long nbSimus,const double x){
 
-    vector<long> result(nbSimus);
+    vector<double> result(nbSimus);
     long nb_success = 0;
 
     while(nb_success < nbSimus){
@@ -341,7 +341,7 @@ condtiional_position_distribution(const double x0, ContinuousWalker &walker, con
         while((x==0 || walker.get_pos()<=x) && walker.get_pos()>=0 && walker.get_lifetime()<nbSteps){ //on bouge jusqu'à sortir de l'intervalle, avec un petit check si x=0
             walker.move();
         }
-        if(walker.get_lifetime()==nbSteps){ 
+        if((x==0 || walker.get_pos()<=x) && walker.get_pos()>=0 && walker.get_lifetime()==nbSteps){ 
             result[nb_success]=walker.get_pos();
             nb_success++;
         }
