@@ -113,3 +113,12 @@ handle.def("time_conditioned_max_distribution"
         ,py::arg("nMax : total number of steps")
         ,py::arg("N : number of maximums for our statistics")
         ,"returns N maxes attaigned exactly on the nth step, in a trajectory of nMax steps. The walker startes from x0.");
+
+handle.def("condtiional_position_distribution"
+        ,&condtiional_position_distribution
+        ,py::arg("x0 : initial position")
+        ,py::arg("walker : our walker")
+        ,py::arg("nbSteps :number of steps at which the propagator is evaluated")
+        ,py::arg("nbSimus :number of positions for our statistics.")
+        ,py::arg("x : rightward boundary")=0
+        ,"returns nbSimus positions attaigned exactly on the nth step, in a semi infinite or bounded trajectory. The walker startes from x0.");

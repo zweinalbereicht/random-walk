@@ -3,6 +3,7 @@
 #include <pybind11/numpy.h>
 #include <pybind11/stl.h>
 #include <iostream>
+#include <limits>
 #include <vector>
 #include <string>
 #include <stdlib.h>
@@ -323,4 +324,30 @@ time_conditioned_max_distribution(const double x0, ContinuousWalker &walker, con
     }
     py::list ret = py::cast(result);
     return ret;
+}
+
+// returns a distribution of N positions enforcing absorbing boundary conditions. Setting x to 0 rpresents e semi infinite propagator. Otherwise it's a bounded propagator
+py::list
+condtiional_position_distribution(const double x0, ContinuousWalker &walker, const long nbSteps,const long nbSimus,const double x){
+
+    vector<long> result(nbSimus);
+    long nb_success = 0;
+
+    while(nb_success < nbSimus){
+        walker.set_lifetime(0);
+        walker.set_pos(x0);
+        walker.set_max(x0);
+        walker.set_min(x0);
+        while((x==0 || walker.get_pos()<=x) && walker.get_pos()>=0 && walker.get_lifetime()<nbSteps){ //on bouge jusqu'à sortir de l'intervalle, avec un petit check si x=0
+            walker.move();
+        }
+        if(walker.get_lifetime()==nbSteps){ 
+            result[nb_success]=walker.get_lifetime();
+            nb_success++;
+        }
+    }
+
+    py::list ret = py::cast(result);
+    return ret;
+
 }

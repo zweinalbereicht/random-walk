@@ -70,3 +70,6 @@ time_conditioned_max_before_exit_distribution(const double x0, ContinuousWalker 
 py::list
 time_conditioned_max_distribution(const double x0, ContinuousWalker &walker, const long n,const long nMax,const long N);
 
+// returns a distribution of N positions enforcing absorbing boundary conditions. Setting x to 0 rpresents e semi infinite propagator. Otherwise it's a bounded propagator
+py::list
+condtiional_position_distribution(const double x0, ContinuousWalker &walker, const long nbSteps,const long nbSimus,const double x=0);
