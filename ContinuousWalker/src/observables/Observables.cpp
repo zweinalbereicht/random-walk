@@ -342,7 +342,7 @@ condtiional_position_distribution(const double x0, ContinuousWalker &walker, con
             walker.move();
         }
         if(walker.get_lifetime()==nbSteps){ 
-            result[nb_success]=walker.get_lifetime();
+            result[nb_success]=walker.get_pos();
             nb_success++;
         }
     }
