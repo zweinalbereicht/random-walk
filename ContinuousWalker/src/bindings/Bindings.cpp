@@ -14,6 +14,7 @@
 #include "../walkers/AlexWalker.h"
 #include "../walkers/UniformWalker.h"
 #include "../walkers/BiasedWalker.h"
+#include "../walkers/ParetoWalker.h"
 #include "../observables/Observables.h"
 
 using namespace std;
@@ -37,7 +38,7 @@ PYBIND11_MODULE(module_ContinuousWalker,handle){
 
     //Laplace walker bindings
     #include "LaplaceWalker_bindings.h"
-    
+
     //Gamma walker bindings
     #include "GammaWalker_bindings.h"
 
@@ -52,6 +53,9 @@ PYBIND11_MODULE(module_ContinuousWalker,handle){
 
     //BiasedWalker bindings
     #include "BiasedWalker_bindings.h"
+
+    //ParetoWalker bindings
+    #include "ParetoWalker_bindings.h"
 
     //Observables bindings --> none at the moment
     #include "Observables_bindings.h"

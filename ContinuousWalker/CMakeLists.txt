@@ -25,7 +25,9 @@ set(WALKERS
     ${WALKER_PATH}LevyWalkerSkewed.cpp
     ${WALKER_PATH}LevyWalkerSkewed.h
     ${WALKER_PATH}BiasedWalker.cpp
-    ${WALKER_PATH}BiasedWalker.h)
+    ${WALKER_PATH}BiasedWalker.h
+    ${WALKER_PATH}ParetoWalker.cpp
+    ${WALKER_PATH}ParetoWalker.h)
 
 set(BINDING_PATH
     src/bindings/)
@@ -41,6 +43,7 @@ set(BINDINGS
     ${BINDING_PATH}ContinuousAdaptativeWalker_bindings.h
     ${BINDING_PATH}LevyWalkerSkewed_bindings.h
     ${BINDING_PATH}BiasedWalker_bindings.h
+    ${BINDING_PATH}ParetoWalker_bindings.h
     ${BINDING_PATH}Observables_bindings.h)
 
 set(OBSERVABLE_PATH
