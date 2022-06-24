@@ -1,12 +1,12 @@
-#include <pybind11/pybind11.h>
+#include <gsl/gsl_rng.h>
+#include <iostream>
 #include <pybind11/iostream.h>
 #include <pybind11/numpy.h>
+#include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
-#include <iostream>
-#include <vector>
-#include <string>
 #include <stdlib.h>
-#include <gsl/gsl_rng.h>
+#include <string>
+#include <vector>
 
 #include "../walkers/GaussianWalker.h"
 
@@ -14,29 +14,64 @@
 
 #define LOG(x) cout << x << endl;
 
+// this is a constant to make sure our program terminates because we have
+// infinite mean return time. 1 billion might actually be big.
+#define CONST MAX_SIMU_STEPS = 1000000000;
+
 using namespace std;
 namespace py = pybind11;
 
-double
-split_prob_hyperplane(const double x0,const double x, GaussianWalker &walker, const int n)
-{
-    vector<int> result_tmp(n);
-    double run=0;
-    for(int i=0;i<n;i++)
-    {
-        //prepare for the run
-        walker.set_lifetime(0);
-        walker.set_coord(0,x0);
-        int d=walker.get_dimension();
-        for(int k=1;k<d;k++)
-            walker.set_coord(k,0.0);
+double split_prob_hyperplane(const double x0, const double x,
+                             GaussianWalker &walker, const int n) {
+  vector<int> result_tmp(n);
+  double run = 0;
+  for (int i = 0; i < n; i++) {
+    // prepare for the run
+    walker.set_lifetime(0);
+    walker.set_coord(0, x0);
+    int d = walker.get_dimension();
+    for (int k = 1; k < d; k++)
+      walker.set_coord(k, 0.0);
 
-        //run
-        while(walker.get_pos()[0]>=0 && walker.get_pos()[0]<=x)
-        {
-            walker.move();
-        }
-        run+=(walker.get_pos()[0]>0);
+    // run
+    while (walker.get_pos()[0] >= 0 && walker.get_pos()[0] <= x) {
+      walker.move();
     }
-    return(run/((double) n));
+    run += (walker.get_pos()[0] > 0);
+  }
+  return (run / ((double)n));
+}
+
+py::list radial_distance_when_crossing_hyperplan_distribution(
+    const double x0, const double x, GaussianWalker &walker, const int n) {
+  vector<float> distances(n);
+  for (int i = 0; i < n; i++) {
+    // prepare for the run
+    walker.set_lifetime(0);
+    walker.set_coord(0, x0);
+    int d = walker.get_dimension();
+    for (int k = 1; k < d; k++)
+      walker.set_coord(k, 0.0);
+
+    // run until we cross 0. Watch out as this can never terminate, we need to
+    // input manually an upper bound on the number of steps to make sure out
+    // program doesn't run for too long.
+    while (walker.get_pos()[0] >= 0 && walker.get_lifetime() < MAX_SIMU_STEPS) {
+      walker.move();
+    }
+    //
+    // calculate the distance by projecting and then computing the
+    // euclidian distance to 0, which is the projected distance of the
+    // starting point.
+    if walker // this formatting looks like rust, its quite weird, we should change this at some point.
+      .get_lifetime() == MAX_SIMU_STEPS {
+        distances[i] = 0; // set to zero, shoudn't have much impact.
+      }
+    else {
+      walker.set_coord(0, 0);
+      distances[i] = euclidian_distance(walker.get_pos());
+    }
+  }
+  py::list ret = py::cast(distances);
+  return ret;
 }

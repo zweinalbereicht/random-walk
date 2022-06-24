@@ -22,3 +22,9 @@ namespace py = pybind11;
 // returns the probability to reach the hyperplane x before 0, starting from x0. The default choice of x0 is on the hyperplane
 double 
 split_prob_hyperplane(const double x0, const double x, GaussianWalker &walker, const int n);
+
+// returns a distribution of radial distances when crossing an hyperplane, with respect
+// to the projection of the initial distance.
+py::list
+radial_distance_when_crossing_hyperplan_distribution(const double x0, const double x, GaussianWalker &walker, const int n);
+
