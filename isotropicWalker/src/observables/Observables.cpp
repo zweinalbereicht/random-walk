@@ -16,7 +16,7 @@
 
 // this is a constant to make sure our program terminates because we have
 // infinite mean return time. 1 billion might actually be big.
-#define CONST MAX_SIMU_STEPS = 1000000000;
+#define MAX_SIMU_STEPS 1000000000
 
 using namespace std;
 namespace py = pybind11;
@@ -63,11 +63,9 @@ py::list radial_distance_when_crossing_hyperplan_distribution(
     // calculate the distance by projecting and then computing the
     // euclidian distance to 0, which is the projected distance of the
     // starting point.
-    if walker // this formatting looks like rust, its quite weird, we should change this at some point.
-      .get_lifetime() == MAX_SIMU_STEPS {
-        distances[i] = 0; // set to zero, shoudn't have much impact.
-      }
-    else {
+    if (walker.get_lifetime() == MAX_SIMU_STEPS) {
+      distances[i] = 0; // set to zero, shoudn't have much impact.
+    } else {
       walker.set_coord(0, 0);
       distances[i] = euclidian_distance(walker.get_pos());
     }

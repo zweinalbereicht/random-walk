@@ -2,7 +2,7 @@
 
 #for a in $(ls | grep Walker)
 #echo $PATH
-for a in ContinuousWalker #DiscreteWalker d_dimDiscreteWalker GraphWalker Graphs isotropicWalker
+for a in ContinuousWalker DiscreteWalker d_dimDiscreteWalker GraphWalker Graphs isotropicWalker
 do
     echo $a
     cd $a
