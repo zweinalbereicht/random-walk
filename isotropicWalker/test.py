@@ -1,6 +1,6 @@
 import numpy as np
 import sys
-import build.module_d_dimDiscreteWalker as md
+import module_d_dimDiscreteWalker as md
 
 walker = md.DiscreteWalker("just a simple walker", 2,
                            [1, 0], np.random.randint(100000))

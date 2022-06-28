@@ -15,12 +15,12 @@ namespace py = pybind11;
 
 AlexWalker::AlexWalker() : ContinuousWalker() 
 {
-    m_name="a sinple alex walker";
+    m_name="a simple alex walker";
 }
 
 AlexWalker::AlexWalker(string name, double pos, int seed) : ContinuousWalker(name, pos, seed) 
 {
-    m_name="a sinple alex walker";
+    m_name="a simple alex walker";
 }
 
 void AlexWalker::print_details() const

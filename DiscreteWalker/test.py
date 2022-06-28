@@ -1,6 +1,6 @@
 ### Just another python script
 import numpy as np
-import DiscreteWalker.build.module_DiscreteWalker as md
+import module_DiscreteWalker as md
 
 walker=md.RiemannWalker(2.0,0.5)
 walker.set_seed(np.random.randint(100000))

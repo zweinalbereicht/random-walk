@@ -1,6 +1,6 @@
 # Just another python script
 import numpy as np
-import ContinuousWalker.build.module_ContinuousWalker as md
+import module_ContinuousWalker as md
 
 walker = md.LaplaceWalker(100.0)
 walker.print_details()
