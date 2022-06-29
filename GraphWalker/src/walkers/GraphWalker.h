@@ -9,7 +9,7 @@
 #include <gsl/gsl_randist.h>
 
 //#include "../../pcg-cpp-0.98/include/pcg_test.h"
-#include "../../../Graphs/src/include/Graph.h"
+#include "Graph.h"
 using namespace std;
 
 

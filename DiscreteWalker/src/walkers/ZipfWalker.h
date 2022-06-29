@@ -3,7 +3,7 @@
 #include <iostream>
 #include "DiscreteWalker.h"
 
-#include "../../../custom_distributions/Zipf/Zipf.h"
+#include "Zipf.h"
 
 class ZipfWalker : public DiscreteWalker
 //should inherit most continuous walker methods

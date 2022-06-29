@@ -23,7 +23,7 @@
 using namespace std;
 namespace py = pybind11;
 
-PYBIND11_MODULE(module_ContinuousWalker,handle){
+PYBIND11_MODULE(ContinuousWalker,handle){
 
     handle.doc()="this is our C++ module for continuous 1 dimensional walkers";
 

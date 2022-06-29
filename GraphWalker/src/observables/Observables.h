@@ -10,7 +10,7 @@
 #include <stdlib.h>
 
 #include "../walkers/GraphWalker.h"
-#include "../../../Graphs/src/include/Graph.h"
+#include "../walkers/Graph.h"
 
 namespace py = pybind11;
 

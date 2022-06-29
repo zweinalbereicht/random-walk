@@ -24,7 +24,7 @@ using namespace std;
 
 PYBIND11_MAKE_OPAQUE(vector<long>);
 
-PYBIND11_MODULE(module_isotropicWalker,handle){
+PYBIND11_MODULE(isotropicWalker,handle){
 
     handle.doc()="this is our C++ module for continuous isotropic d dimensional walkers";
 

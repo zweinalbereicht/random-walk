@@ -1,14 +1,7 @@
 import numpy as np
 import sys
-import module_d_dimDiscreteWalker as md
+import isotropicWalker as md
 
-walker = md.DiscreteWalker("just a simple walker", 2,
-                           [1, 0], np.random.randint(100000))
+
+walker = md.GaussianWalker()
 walker.print_details()
-
-a = int(sys.argv[1])
-nb_sites = md.territory_unbounded_fixed_time_distribution(
-    [1, 0], walker, 1, a)
-
-print("mean nb of sites visited : \n")
-print(nb_sites)

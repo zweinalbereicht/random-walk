@@ -21,7 +21,7 @@
 namespace py = pybind11;
 using namespace std;
 
-PYBIND11_MODULE(module_DiscreteWalker,handle){
+PYBIND11_MODULE(DiscreteWalker,handle){
 
     handle.doc()="this is our C++ module for discrete 1 dimensional walkers";
 

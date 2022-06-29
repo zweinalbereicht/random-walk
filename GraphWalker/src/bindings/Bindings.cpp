@@ -16,7 +16,7 @@
 namespace py = pybind11;
 using namespace std;
 
-PYBIND11_MODULE(module_GraphWalker,handle){
+PYBIND11_MODULE(GraphWalker,handle){
 
     handle.doc()="this is our C++ module for generic random walkers on graphs";
 

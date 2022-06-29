@@ -23,7 +23,7 @@ using namespace std;
 
 PYBIND11_MAKE_OPAQUE(vector<long>);
 
-PYBIND11_MODULE(module_d_dimDiscreteWalker,handle){
+PYBIND11_MODULE(d_dimDiscreteWalker,handle){
 
     handle.doc()="this is our C++ module for discrete d dimensional walkers";
 

@@ -18,8 +18,8 @@ __version__ = "0.0.1"
 #   reproducible builds (https://github.com/pybind/python_example/pull/53)
 
 ext_modules = [
-    Pybind11Extension("module_DiscreteWalker",
-                      sorted(glob("src/*/.cpp")),
+    Pybind11Extension("DiscreteWalker",
+                      sorted(glob("src/*/*.cpp")),
                       # Example: passing in the version to the compiled code
                       include_dirs=['/usr/local/include'],
                       library_dirs=['usr/local/lib'],
@@ -29,7 +29,7 @@ ext_modules = [
 ]
 
 setup(
-    name="module_DiscreteWalker",
+    name="DiscreteWalker",
     version=__version__,
     author="Jeremie Klinger",
     author_email="jeremie.klinger@polytechnique.org",

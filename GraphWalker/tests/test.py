@@ -1,8 +1,8 @@
-import GraphWalker.build.module_GraphWalker as md
+import GraphWalker as md
 import numpy as np
 import os
 
-os.chdir("./GraphWalker/tests")
+os.chdir("./tests")
 walker = md.GraphWalker("../../Graphs/graph_files/graph5.txt")
 
 walker.print_details()
