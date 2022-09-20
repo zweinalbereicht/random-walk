@@ -83,6 +83,14 @@ handle.def("conditional_fpt_mean"
         ,"returns an averaged (over N trails) fpt to 0 exactly if target = 0, or to x exactly if target = 1. the walker starts from s0. The program exists if the walker staets already on 0 or x or outside the interval");
 
 
+handle.def("fpt_arrival_distribution"
+        ,&fpt_arrival_distribution
+        ,py::arg("s0")
+        ,py::arg("max steps")
+        ,py::arg("walker")
+        ,py::arg("N")
+        ,"returns an array of n arrival fpt, starting from s0, in the infinite geometry. We limit the number of steps to n_steps, so it will be a conditional distribution");
+
 handle.def("survival_probability"
         ,&survival_probability
         ,py::arg("s0")

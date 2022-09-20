@@ -144,15 +144,16 @@ long DiscreteWalker::move_til_death_bounded_record_territory(long N,
   return result;
 }
 
+// note that we stop upon arrival here
 // for this one we are going to need a set
 // we will iterate iuntil a max_steps value
-long DiscreteWalker::move_til_death_record_territory(long max_steps,
-                                                     int verbose) {
+long DiscreteWalker::move_til_death_arrival_record_territory(long max_steps,
+                                                             int verbose) {
   // we will store visited values in a set
   set<int> territory;
   territory.insert(m_pos);
   long i = 0;
-  while (isAlive() && i < max_steps) {
+  while (!(isArrived()) && i < max_steps) {
     move(verbose);
     i++;
     territory.insert(m_pos);
@@ -166,8 +167,31 @@ long DiscreteWalker::move_til_death_record_territory(long max_steps,
   }
 }
 
+// same as above, just don't record the territory
+// this is for arrival fpt observables.
+long DiscreteWalker::move_til_death_arrival_max_steps(long max_steps,
+                                                      int verbose) {
+  // we will store visited values in a set
+  long time = 0;
+  while (!(isArrived()) && time < max_steps) {
+    move(verbose);
+    time++;
+  }
+  if (time < max_steps) {
+    return time;
+  }
+  // in case we visit for too long
+  else {
+    return 0;
+  }
+}
+
 bool DiscreteWalker::isAlive() const {
   return (m_pos > 0); // strict inequality here
+}
+
+bool DiscreteWalker::isArrived() const {
+  return (m_pos == 0); // strict inequality here
 }
 
 int DiscreteWalker::move_fixed_max(long borne) {

@@ -92,8 +92,8 @@ py::list territory_distribution_infinite(const long s0, const long max_steps,
   for (int i = 0; i < n; i++) {
     walker.set_lifetime(0);
     walker.set_pos(s0);
-    result[i] =
-        walker.move_til_death_record_territory(max_steps); // a implementer
+    result[i] = walker.move_til_death_arrival_record_territory(
+        max_steps); // a implementer
   }
 
   py::list ret = py::cast(result);
@@ -238,6 +238,20 @@ double conditional_fpt_mean(const double s0, const double x,
     mean += el;
   }
   return mean / ((double)N);
+}
+
+py::list fpt_arrival_distribution(const long s0, const long max_steps,
+                                  DiscreteWalker &walker, const int n) {
+  vector<long> result(n);
+  for (int i = 0; i < n; i++) {
+    walker.set_lifetime(0);
+    walker.set_pos(s0);
+    result[i] =
+        walker.move_til_death_arrival_max_steps(max_steps); 
+  }
+
+  py::list ret = py::cast(result);
+  return ret;
 }
 
 double survival_probability(const long s0, const long n, DiscreteWalker &walker,

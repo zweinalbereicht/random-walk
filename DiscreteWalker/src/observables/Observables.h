@@ -52,5 +52,8 @@ conditional_fpt_mean(const double s0,const double x, DiscreteWalker &walker, con
 double
 survival_probability(const long s0,const long n, DiscreteWalker &walker, const long N);
 
+py::list
+fpt_arrival_distribution(const long s0, const long max_steps, DiscreteWalker &walker, const int n);
+
 double
 splitting_probability(const long s0,const long x, DiscreteWalker &walker, const long N);
