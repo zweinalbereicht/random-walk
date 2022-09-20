@@ -31,6 +31,14 @@ handle.def("territory_distribution"
         ,py::arg("n")
         , "returns an array of n covered territories, starting from s0, on a ring of size N");
 
+handle.def("territory_distribution_infinite"
+        ,&territory_distribution_infinite
+        ,py::arg("s0")
+        ,py::arg("max steps")
+        ,py::arg("walker")
+        ,py::arg("n")
+        , "returns an array of n covered territories, starting from s0, in the infinite geometry. We limit the number of steps to n_steps");
+
 handle.def("territory_global_mean"
         ,&territory_global_mean
         ,py::arg("N")

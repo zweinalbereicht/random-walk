@@ -31,6 +31,9 @@ fpt_arrival_bounded_global_mean(const long N,DiscreteWalker &walker, const int n
 py::list
 territory_distribution(const long s0, const long N, DiscreteWalker &walker, const int n);
 
+py::list
+territory_distribution_infinite(const long s0, const long max_steps, DiscreteWalker &walker, const int n);
+
 double
 territory_mean(const long s0, const long N, DiscreteWalker &walker, const int n);
 
