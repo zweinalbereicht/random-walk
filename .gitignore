@@ -1,10 +1,1 @@
-#let us not track the build directories as they contain the compiled stuff wich changes with hardware.
-#.cache directories are not relevant to speed up the stuff here.
-
-compile_all.sh
-
-*/build/
-*/build/*
-
-*/.cache/
-*/.cache/*
+compile_all_setup.sh
