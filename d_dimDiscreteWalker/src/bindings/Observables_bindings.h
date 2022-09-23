@@ -54,6 +54,14 @@ handle.def("territory_unbounded_fixed_time_distribution"
         ,py::arg("n")
         , "returns an array of n covered territories before hitting the origin, starting from s0, in the infinite space of dimension the walker's dimension. Time is limited to max time");
 
+handle.def("fpt_unbounded_fixed_time_distribution"
+        ,&fpt_unbounded_fixed_time_distribution
+        ,py::arg("s0")
+        ,py::arg("walker")
+        ,py::arg("max_time")
+        ,py::arg("n")
+        , "returns an array of n fpt to the origin, starting from s0, in the infinite space of dimension the walker's dimension. Time is limited to max time");
+
 handle.def("territory_unbounded_fixed_time_mean"
         ,&territory_unbounded_fixed_time_mean
         ,py::arg("s0")

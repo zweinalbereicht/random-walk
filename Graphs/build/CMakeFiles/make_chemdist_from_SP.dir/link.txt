@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.0 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/make_chemdist_from_SP.dir/src/executables/make_chemdist_from_SP.cpp.o CMakeFiles/make_chemdist_from_SP.dir/src/include/Graph.cpp.o -o make_chemdist_from_SP 

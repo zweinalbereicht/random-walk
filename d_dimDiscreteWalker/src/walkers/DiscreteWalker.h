@@ -72,6 +72,7 @@ class DiscreteWalker
     int move_fixed_time(long time);
 
     long move_til_death_fixed_time_record_territory(const int max_time,const int verbose=0);
+    long move_til_death_fixed_time(const int max_time,const int verbose=0);
 
 };
 

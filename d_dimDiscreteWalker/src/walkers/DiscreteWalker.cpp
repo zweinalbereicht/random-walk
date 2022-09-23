@@ -238,6 +238,20 @@ long DiscreteWalker::move_til_death_fixed_time_record_territory(
   return (long)territory.size();
 }
 
+long DiscreteWalker::move_til_death_fixed_time(const int max_time,
+                                               const int verbose) {
+
+  while (isAlive() && m_lifetime < max_time) {
+    move(verbose);
+  }
+
+  // chexk how we terminated
+  if (isAlive()) {
+    return 0.0;
+  }
+  return (long)m_lifetime;
+}
+
 bool DiscreteWalker::isAlive() const {
   return (euclidian_distance(m_pos) >=
           1); // strict inequality here and should take care of rounding errors

@@ -150,6 +150,31 @@ py::list territory_unbounded_fixed_time_distribution(const pybind11::list &s0,
   return ret;
 }
 
+py::list fpt_unbounded_fixed_time_distribution(const pybind11::list &s0,
+                                               DiscreteWalker &walker,
+                                               const int max_time,
+                                               const int n) {
+  vector<long> result_tmp(n);
+  vector<long> result;
+  for (int i = 0; i < n; i++) {
+    walker.set_lifetime(0);
+    walker.set_pos(s0);
+    // set the verbosity to one here
+    int verbose = 0;
+    result_tmp[i] = walker.move_til_death_fixed_time(max_time, verbose);
+  }
+
+  for (auto el : result_tmp) {
+    if (el > 0) {
+      // LOG(el);
+      result.push_back(el);
+    }
+  }
+
+  py::list ret = py::cast(result);
+  return ret;
+}
+
 double territory_unbounded_fixed_time_mean(const pybind11::list &s0,
                                            DiscreteWalker &walker,
                                            const int max_time, const int n) {

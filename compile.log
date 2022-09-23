@@ -1,0 +1,21 @@
+DiscreteWalker
+Processing /Users/jeremie/SandBox/Libraries/random-walk/DiscreteWalker
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+    Preparing wheel metadata: started
+    Preparing wheel metadata: finished with status 'done'
+Building wheels for collected packages: DiscreteWalker
+  Building wheel for DiscreteWalker (PEP 517): started
+  Building wheel for DiscreteWalker (PEP 517): finished with status 'done'
+  Created wheel for DiscreteWalker: filename=DiscreteWalker-0.0.1-cp39-cp39-macosx_10_14_x86_64.whl size=115216 sha256=7d58f32e960651bd3c40d0ab8444b1abb962c5764c189b8d8e1dd9dd5c73a004
+  Stored in directory: /private/var/folders/d5/cxwpjz3x41b74d7jc_ks7gt40000gn/T/pip-ephem-wheel-cache-0sa40axx/wheels/04/b1/d2/4cf1c61b634ce6d22f5682ae2eabbe2e11176dea21d51352a0
+Successfully built DiscreteWalker
+Installing collected packages: DiscreteWalker
+  Attempting uninstall: DiscreteWalker
+    Found existing installation: DiscreteWalker 0.0.1
+    Uninstalling DiscreteWalker-0.0.1:
+      Successfully uninstalled DiscreteWalker-0.0.1
+Successfully installed DiscreteWalker-0.0.1
+===============
