@@ -69,3 +69,12 @@ handle.def("territory_unbounded_fixed_time_mean"
         ,py::arg("max_time")
         ,py::arg("n")
         , "returns the mean territory covered starting from s0 in an infinite space. time is limited to max_time");
+
+handle.def("cover_time_distribution"
+        ,&cover_time_distribution
+        ,py::arg("dimensions")
+        ,py::arg("s0")
+        ,py::arg("walker")
+        ,py::arg("max_time")
+        ,py::arg("n")
+        , "returns an array of n cover_times to the origin, starting from s0, in the infinite space of dimension the walker's dimension. Time is limited to max time");

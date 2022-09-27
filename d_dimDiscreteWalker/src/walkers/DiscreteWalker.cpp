@@ -284,6 +284,36 @@ int DiscreteWalker::move_fixed_time(long time) {
   }
 }
 
+long DiscreteWalker::move_til_fully_covered(const pybind11::list &dimensions,
+                                            int max_time, int verbose) {
+  // once again substitute list to vector
+
+  vector<long> tmp;
+  long territory_size = 1;
+  for (int i = 0; i < m_d; i++) {
+    tmp.push_back(dimensions[i].cast<long>());
+    territory_size = territory_size * dimensions[i].cast<long>();
+  }
+
+  // we use sets which are built in hash tables. We would prefer unordered_set
+  // but seems like the hash is harder to put in place so let's stick with that
+  // for now.
+  set<vector<long>> territory;
+
+  territory.insert(m_pos); // put the first position
+  while (territory.size() < territory_size && m_lifetime < max_time) {
+    move_bounded(tmp, verbose);
+    territory.insert(m_pos); /// put it in the set, should be average constant
+                             /// time, doesn't do anything if already exists
+  }
+
+  if (m_lifetime < max_time) {
+    return m_lifetime;
+  } else {
+    return 0;
+  }
+}
+
 /*
 double DiscreteWalker::split_prob(long s0, long s1,long s2, long const n)
 {

@@ -42,7 +42,7 @@ double fpt_arrival_bounded_global_mean(const pybind11::list &dimensions,
     result[i] = walker.get_lifetime();
   }
 
-  double m;
+  double m = 0;
 
   for (int i = 0; i < n; i++) {
     m += result[i];
@@ -62,7 +62,7 @@ double fpt_arrival_bounded_mean(const pybind11::list &s0,
     result[i] = walker.get_lifetime();
   }
 
-  double m;
+  double m = 0;
 
   for (int i = 0; i < n; i++) {
     m += result[i];
@@ -96,7 +96,7 @@ double territory_mean(const pybind11::list &s0,
     result[i] = walker.move_til_death_bounded_record_territory(dimensions);
   }
 
-  double m;
+  double m = 0;
 
   for (int i = 0; i < n; i++) {
     m += result[i];
@@ -115,7 +115,7 @@ double territory_global_mean(const pybind11::list &dimensions,
         dimensions); // a implementer
   }
 
-  double m;
+  double m = 0;
 
   for (int i = 0; i < n; i++) {
     m += result[i];
@@ -205,4 +205,30 @@ double territory_unbounded_fixed_time_mean(const pybind11::list &s0,
   } else {
     return (double)m / ((double)result_fin.size());
   }
+}
+
+py::list cover_time_distribution(const pybind11::list &dimensions,
+                                 const pybind11::list &s0,
+                                 DiscreteWalker &walker, const int max_time,
+                                 const int n) {
+  vector<long> result_tmp(n);
+  vector<long> result;
+  for (int i = 0; i < n; i++) {
+    walker.set_lifetime(0);
+    walker.set_pos(s0);
+    // set the verbosity to one here
+    int verbose = 0;
+    result_tmp[i] =
+        walker.move_til_fully_covered(dimensions, max_time, verbose);
+  }
+
+  for (auto el : result_tmp) {
+    if (el > 0) {
+      // LOG(el);
+      result.push_back(el);
+    }
+  }
+
+  py::list ret = py::cast(result);
+  return ret;
 }

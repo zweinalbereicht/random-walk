@@ -48,3 +48,6 @@ territory_unbounded_fixed_time_mean(const pybind11::list &s0, DiscreteWalker &wa
 
 double
 rosenstock_fixed_time(const long s0, DiscreteWalker &walker, const int time, const double rho, const int n);
+
+py::list
+cover_time_distribution(const pybind11::list &dimensions, const pybind11::list &s0, DiscreteWalker &walker, const int max_time, const int n);
