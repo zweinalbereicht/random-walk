@@ -342,3 +342,20 @@ py::list territory_discovery_time_distribution(const long s0, const long N,
   py::list ret = py::cast(territories);
   return ret;
 }
+
+py::list territory_infinite_discovery_time_distribution(const long s0,
+                                                        DiscreteWalker &walker,
+                                                        const long nb_steps,
+                                                        const long nb_simus) {
+
+  vector<vector<long>> territories;
+  for (int i = 0; i < nb_simus; i++) {
+    walker.set_lifetime(0);
+    walker.set_pos(s0);
+    territories.push_back(
+        walker.move_infinite_fixed_time_and_record_discovery_time(nb_steps));
+  }
+
+  py::list ret = py::cast(territories);
+  return ret;
+}

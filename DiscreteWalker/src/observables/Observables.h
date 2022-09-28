@@ -63,3 +63,6 @@ map_of_explored_territory_distribution(const long s0,const long N, DiscreteWalke
 
 py::list
 territory_discovery_time_distribution(const long s0,const long N, DiscreteWalker &walker, const long nb_steps, const long nb_simus);
+
+py::list
+territory_infinite_discovery_time_distribution(const long s0, DiscreteWalker &walker, const long nb_steps, const long nb_simus);

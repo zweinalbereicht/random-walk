@@ -72,6 +72,7 @@ class DiscreteWalker
     double max_prob(long s0,long s1, long const n);
     std::vector<long> move_fixed_time_and_draw_map(long N, long nb_steps);
     std::vector<long> move_fixed_time_and_record_discovery_time(long N, long nb_steps);
+    std::vector<long> move_infinite_fixed_time_and_record_discovery_time(long nb_steps);
 
 };
 

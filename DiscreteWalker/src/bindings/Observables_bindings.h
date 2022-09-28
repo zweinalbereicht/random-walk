@@ -72,6 +72,14 @@ handle.def("territory_discovery_time_distribution"
         ,py::arg("nb_simus")
         ,"returns an array of nb_simus timelines, where a timeline contains the times at which new sites were discovered. We limit the number of steps to nb_steps and evolve on a toroidal domain.");
 
+handle.def("territory_infinite_discovery_time_distribution"
+        ,&territory_infinite_discovery_time_distribution
+        ,py::arg("s0")
+        ,py::arg("walker")
+        ,py::arg("nb_steps")
+        ,py::arg("nb_simus")
+        ,"returns an array of nb_simus timelines, where a timeline contains the times at which new sites were discovered. We limit the number of steps to nb_steps and evolve in an infinite domain.");
+
 handle.def("rosenstock_fixed_time"
         ,&rosenstock_fixed_time
         ,py::arg("s0")
