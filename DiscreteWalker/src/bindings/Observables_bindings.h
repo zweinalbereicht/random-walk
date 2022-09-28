@@ -54,6 +54,24 @@ handle.def("territory_mean"
         ,py::arg("n")
         ,"returns the mean territory covered starting from s0 on a ring of size N, averaged over n trials");
 
+handle.def("map_of_explored_territory_distribution"
+        ,&map_of_explored_territory_distribution
+        ,py::arg("s0")
+        ,py::arg("N")
+        ,py::arg("walker")
+        ,py::arg("nb_steps")
+        ,py::arg("nb_simus")
+        ,"returns an array of nb_simus maps, where a visited site is indicated by a 1, 0 otherwise. The walker performs nb_steps on this toroidal territory");
+
+handle.def("territory_discovery_time_distribution"
+        ,&territory_discovery_time_distribution
+        ,py::arg("s0")
+        ,py::arg("N")
+        ,py::arg("walker")
+        ,py::arg("nb_steps")
+        ,py::arg("nb_simus")
+        ,"returns an array of nb_simus timelines, where a timeline contains the times at which new sites were discovered. We limit the number of steps to nb_steps and evolve on a toroidal domain.");
+
 handle.def("rosenstock_fixed_time"
         ,&rosenstock_fixed_time
         ,py::arg("s0")

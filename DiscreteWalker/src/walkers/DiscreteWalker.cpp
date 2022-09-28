@@ -115,6 +115,16 @@ void DiscreteWalker::move_til_death_bounded(long N, int verbose) {
   }
 }
 
+// enforcing periodic boundary conditions
+void DiscreteWalker::move_bounded(long N, int verbose) {
+  move(verbose);
+  if (m_pos >= N) {
+    m_pos = (long)m_pos % (N); // encore un probleme à corriger ici
+  } else if (m_pos < 0) {
+    m_pos = (long)((((N) - ((-m_pos) % (N)))) % N);
+  }
+}
+
 long DiscreteWalker::move_til_death_bounded_record_territory(long N,
                                                              int verbose) {
   vector<int> territory(N); // the territory on which we walk
@@ -165,6 +175,37 @@ long DiscreteWalker::move_til_death_arrival_record_territory(long max_steps,
   else {
     return 0;
   }
+}
+
+std::vector<long> DiscreteWalker::move_fixed_time_and_draw_map(long N,
+                                                               long nb_steps) {
+  // we will store visited values in a set
+  vector<long> territory(N, 0);
+  territory[m_pos] += 1;
+  int verbose = 0;
+  for (int i = 0; i < nb_steps; i++) {
+    move_bounded(N, verbose);
+    territory[m_pos] += 1;
+  }
+  return territory;
+}
+
+std::vector<long>
+DiscreteWalker::move_fixed_time_and_record_discovery_time(long N,
+                                                          long nb_steps) {
+  // we will store visited values in a set
+  vector<long> territory(N, 0);
+  vector<long> times;
+  territory[m_pos] += 1;
+  int verbose = 0;
+  for (int i = 0; i < nb_steps; i++) {
+    move_bounded(N, verbose);
+    if (territory[m_pos] == 0) {
+      times.push_back(m_lifetime);
+    }
+    territory[m_pos] += 1;
+  }
+  return times;
 }
 
 // same as above, just don't record the territory

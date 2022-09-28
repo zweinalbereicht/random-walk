@@ -6,6 +6,7 @@
 #include <math.h>
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
+#include <vector>
 
 //#include "../../pcg-cpp-0.98/include/pcg_test.h"
 
@@ -57,6 +58,7 @@ class DiscreteWalker
     void set_random_pos(long N);
 
     virtual void move(int verbose=0); //only virtual function a priori
+    void move_bounded(long N,int verbose=0); //This one is not virtual because it calls the virtual one
     bool isAlive() const;
     bool isArrived() const;
     void move_til_death(int verbose=0);
@@ -68,6 +70,8 @@ class DiscreteWalker
     void move_fixed_time(long time);
     double split_prob(long s0, long s1,long s2, long const n);
     double max_prob(long s0,long s1, long const n);
+    std::vector<long> move_fixed_time_and_draw_map(long N, long nb_steps);
+    std::vector<long> move_fixed_time_and_record_discovery_time(long N, long nb_steps);
 
 };
 

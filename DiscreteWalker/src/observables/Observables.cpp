@@ -246,8 +246,7 @@ py::list fpt_arrival_distribution(const long s0, const long max_steps,
   for (int i = 0; i < n; i++) {
     walker.set_lifetime(0);
     walker.set_pos(s0);
-    result[i] =
-        walker.move_til_death_arrival_max_steps(max_steps); 
+    result[i] = walker.move_til_death_arrival_max_steps(max_steps);
   }
 
   py::list ret = py::cast(result);
@@ -306,4 +305,40 @@ double splitting_probability(const long s0, const long x,
         (walker.isAlive()); // c'est bien la split de toucher x avant 0 ici
   }
   return probability / ((double)N);
+}
+
+py::list map_of_explored_territory_distribution(const long s0, const long N,
+                                                DiscreteWalker &walker,
+                                                const long nb_steps,
+                                                const long nb_simus) {
+
+  vector<vector<long>> territories;
+  for (int i = 0; i < nb_simus; i++) {
+    walker.set_lifetime(0);
+    walker.set_pos(s0);
+    // here we use a method that not only returns the number of visited sites
+    // but also which one were visited
+    territories.push_back(
+        walker.move_fixed_time_and_draw_map(N, nb_steps)); // a implementer
+  }
+
+  py::list ret = py::cast(territories);
+  return ret;
+}
+
+py::list territory_discovery_time_distribution(const long s0, const long N,
+                                               DiscreteWalker &walker,
+                                               const long nb_steps,
+                                               const long nb_simus) {
+
+  vector<vector<long>> territories;
+  for (int i = 0; i < nb_simus; i++) {
+    walker.set_lifetime(0);
+    walker.set_pos(s0);
+    territories.push_back(
+        walker.move_fixed_time_and_record_discovery_time(N, nb_steps));
+  }
+
+  py::list ret = py::cast(territories);
+  return ret;
 }

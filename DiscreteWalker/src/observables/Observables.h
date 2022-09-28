@@ -57,3 +57,9 @@ fpt_arrival_distribution(const long s0, const long max_steps, DiscreteWalker &wa
 
 double
 splitting_probability(const long s0,const long x, DiscreteWalker &walker, const long N);
+
+py::list
+map_of_explored_territory_distribution(const long s0,const long N, DiscreteWalker &walker, const long nb_steps, const long nb_simus);
+
+py::list
+territory_discovery_time_distribution(const long s0,const long N, DiscreteWalker &walker, const long nb_steps, const long nb_simus);
