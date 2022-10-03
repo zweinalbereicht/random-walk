@@ -23,6 +23,14 @@ handle.def("fpt_arrival_bounded_mean"
         ,py::arg("n")
         ,"returns the mean first passage time to zero starting from s0 on a ring of size N, averaged over N trials");
 
+handle.def("territory_distribution_fixed_time_infinite"
+        ,&territory_distribution_fixed_time_infinite
+        ,py::arg("s0")
+        ,py::arg("walker")
+        ,py::arg("nb_steps")
+        ,py::arg("nb_simus")
+        , "returns an array of nb_simus covered territories, starting from s0, after nb_steps taken in the infinite medium");
+
 handle.def("territory_distribution"
         ,&territory_distribution
         ,py::arg("s0")

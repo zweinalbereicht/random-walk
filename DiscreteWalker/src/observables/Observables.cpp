@@ -86,6 +86,22 @@ py::list territory_distribution(const long s0, const long N,
   return ret;
 }
 
+py::list territory_distribution_fixed_time_infinite(const long s0,
+                                                    DiscreteWalker &walker,
+                                                    const int nb_steps,
+                                                    const int nb_simus) {
+  vector<long> result(nb_simus);
+  for (int i = 0; i < nb_simus; i++) {
+    walker.set_lifetime(0);
+    walker.set_pos(s0);
+    result[i] = walker.move_infinite_fixed_time_and_record_territory(
+        nb_steps); // a implementer
+  }
+
+  py::list ret = py::cast(result);
+  return ret;
+}
+
 py::list territory_distribution_infinite(const long s0, const long max_steps,
                                          DiscreteWalker &walker, const int n) {
   vector<long> result(n);

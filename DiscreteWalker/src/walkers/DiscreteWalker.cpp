@@ -226,6 +226,21 @@ DiscreteWalker::move_infinite_fixed_time_and_record_discovery_time(
   return times;
 }
 
+long DiscreteWalker::move_infinite_fixed_time_and_record_territory(
+    long nb_steps) {
+  // we will store visited values in a set
+  set<long> territory;
+  vector<long> times;
+  territory.insert(m_pos);
+  int verbose = 0;
+  for (int i = 0; i < nb_steps; i++) {
+    move(verbose);
+    // if already present, nothing should happen
+    territory.insert(m_pos);
+  }
+  return territory.size();
+}
+
 // same as above, just don't record the territory
 // this is for arrival fpt observables.
 long DiscreteWalker::move_til_death_arrival_max_steps(long max_steps,

@@ -32,6 +32,9 @@ py::list
 territory_distribution(const long s0, const long N, DiscreteWalker &walker, const int n);
 
 py::list
+territory_distribution_fixed_time_infinite(const long s0, DiscreteWalker &walker, const int nb_steps, const int nb_simus);
+
+py::list
 territory_distribution_infinite(const long s0, const long max_steps, DiscreteWalker &walker, const int n);
 
 double
