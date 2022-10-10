@@ -122,3 +122,18 @@ handle.def("condtiional_position_distribution"
         ,py::arg("nbSimus :number of positions for our statistics.")
         ,py::arg("x : rightward boundary")=0
         ,"returns nbSimus positions attaigned exactly on the nth step, in a semi infinite or bounded trajectory. The walker startes from x0.");
+
+handle.def("territory_infinite_mean"
+        ,&territory_infinite_mean
+        ,py::arg("x0 : initial position")
+        ,py::arg("walker : our walker")
+        ,py::arg("nbsteps : nb steps taken")
+        ,py::arg("nbsimus")
+        ,"returns the mean of explored territories after nbsteps averaged over nbsimus .");
+
+handle.def("cover_time_mean"
+        ,&cover_time_mean
+        ,py::arg("walker : our walker")
+        ,py::arg("size : size of ring (should be a double)")
+        ,py::arg("nbsimus")
+        ,"returns the mean cover time of the ring of size size,averaged over nbsimus .");

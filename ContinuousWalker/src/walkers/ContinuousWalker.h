@@ -53,7 +53,11 @@ class ContinuousWalker
     void move_til_death(int verbose=0);
     int move_fixed_max(double borne);
     void move_fixed_time(long time);
+    long move_fixed_time_record_territory(long time);
+    long move_til_covered(double size);
+    void move_bounded_fixed_time(double size,long time);
     double split_prob(double s0, double s1,double s2, int n);
+    void move_bounded(double size, int verbose=0);
 
 };
 

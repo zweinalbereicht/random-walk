@@ -62,6 +62,15 @@ py::class_<ContinuousWalker>(handle, "ContinuousWalker")
 	.def("move_fixed_time",&ContinuousWalker::move_fixed_time,
         "a function that makes the walker for a fixed time period.")
 
+	.def("move_fixed_time_record_territory",&ContinuousWalker::move_fixed_time_record_territory,"a function that makes the walker for a fixed time period and record the territory it has seen, with discretization step 1 (ie we are flooring the position).")
+
+	.def("move_til_covered"
+      ,&ContinuousWalker::move_til_covered
+      ,"a function that makes the walker move until the underlying lattice is fully covered ")
+
+	.def("move_bounded_fixed_time",&ContinuousWalker::move_bounded_fixed_time,
+        "a function that makes the walker for a fixed time period on a ring.")
+
 	.def("split_prob",&ContinuousWalker::split_prob,
         "args : (s0,s1,s2,n) -  a function that returns the splitting probability to reach s2 before s1 starting from s0, averaged over n trials.")
 ;

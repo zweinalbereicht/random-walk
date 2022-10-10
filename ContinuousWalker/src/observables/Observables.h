@@ -73,3 +73,11 @@ time_conditioned_max_distribution(const double x0, ContinuousWalker &walker, con
 // returns a distribution of N positions enforcing absorbing boundary conditions. Setting x to 0 rpresents e semi infinite propagator. Otherwise it's a bounded propagator
 py::list
 condtiional_position_distribution(const double x0, ContinuousWalker &walker, const long nbSteps,const long nbSimus,const double x=0);
+
+
+// returns the mean number of visited sites after n steps, starting from x0, with discretization of size 1
+double
+territory_infinite_mean(double x0, ContinuousWalker &walker, const long nbSteps,const long nbSimus);
+
+// returns the mean cover time on a ring of size size.
+double cover_time_mean(ContinuousWalker &walker,const double size, const long nbSimus);
