@@ -141,3 +141,11 @@ handle.def("splitting_probability"
         ,py::arg("walker")
         ,py::arg("N")
         ,"returns the splitting probability to reach x before zero (the walker stops when he touches exactly either boundary), averaged over N trials");
+
+handle.def("cover_time_mean"
+        ,&cover_time_mean
+        ,py::arg("s0")
+        ,py::arg("size")
+        ,py::arg("walker")
+        ,py::arg("nb_simus")
+        ,"returns the mean ov the cover time for a walker on a ring of size size, over nb_simus.");

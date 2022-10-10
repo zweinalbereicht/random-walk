@@ -375,3 +375,21 @@ py::list territory_infinite_discovery_time_distribution(const long s0,
   py::list ret = py::cast(territories);
   return ret;
 }
+
+double cover_time_mean(const long s0, const long size, DiscreteWalker &walker,
+                       const int nb_simus) {
+
+  vector<long> result(nb_simus);
+  for (int i = 0; i < nb_simus; i++) {
+    walker.set_lifetime(0);
+    walker.set_pos(s0);
+    result[i] = walker.move_til_covered(size);
+  }
+
+  //  sum to obtain the mean
+  double m;
+  for (int i = 0; i < nb_simus; i++) {
+    m += result[i];
+  }
+  return (double)m / nb_simus;
+}

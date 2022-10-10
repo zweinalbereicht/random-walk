@@ -179,7 +179,6 @@ long DiscreteWalker::move_til_death_arrival_record_territory(long max_steps,
 
 std::vector<long> DiscreteWalker::move_fixed_time_and_draw_map(long N,
                                                                long nb_steps) {
-  // we will store visited values in a set
   vector<long> territory(N, 0);
   territory[m_pos] += 1;
   int verbose = 0;
@@ -239,6 +238,22 @@ long DiscreteWalker::move_infinite_fixed_time_and_record_territory(
     territory.insert(m_pos);
   }
   return territory.size();
+}
+
+long DiscreteWalker::move_til_covered(long size,int verbose){
+
+  vector<long> territory(size, 0);
+  territory[m_pos] += 1;
+  long territory_left = size-1;
+  while (territory_left!=0)
+  {
+    move_bounded(size, verbose);
+    if (territory[m_pos] == 0) {
+      territory_left-=1;
+      territory[m_pos]=1;
+    }
+  }
+  return m_lifetime;
 }
 
 // same as above, just don't record the territory

@@ -69,3 +69,7 @@ territory_discovery_time_distribution(const long s0,const long N, DiscreteWalker
 
 py::list
 territory_infinite_discovery_time_distribution(const long s0, DiscreteWalker &walker, const long nb_steps, const long nb_simus);
+
+double
+cover_time_mean(const long s0, const long N, DiscreteWalker &walker, const int n);
+
