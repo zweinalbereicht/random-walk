@@ -81,3 +81,6 @@ territory_infinite_mean(double x0, ContinuousWalker &walker, const long nbSteps,
 
 // returns the mean cover time on a ring of size size.
 double cover_time_mean(ContinuousWalker &walker,const double size, const long nbSimus);
+
+// returns the mean cover time on a ring of size size with the crossing convention
+double cover_time_crossing_mean(ContinuousWalker &walker,const double size, const long nbSimus);

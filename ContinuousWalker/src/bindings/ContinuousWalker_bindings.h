@@ -47,6 +47,19 @@ py::class_<ContinuousWalker>(handle, "ContinuousWalker")
             ,"a function that makes the walker perform a single step, the default choice being a the normal distribution"
             ,py::arg("verbose")=0)
 
+	.def("move_bounded_crossing"
+            ,&ContinuousWalker::move_bounded_crossing
+            ,py::call_guard<py::scoped_ostream_redirect>()
+            ,py::arg("size")=0
+            ,py::arg("verbose")=0
+            ,"a function that makes the walker perform a single step in the bounded crossing convention")
+
+	.def("move_til_covered_crossing"
+            ,&ContinuousWalker::move_til_covered_crossing
+            ,py::call_guard<py::scoped_ostream_redirect>()
+            ,py::arg("size")=0
+            ,"a function that makes the walker move until the ring has been fully visited, with the crossing convention")
+
 	.def("move_til_death"
             ,&ContinuousWalker::move_til_death
             ,py::call_guard<py::scoped_ostream_redirect>()

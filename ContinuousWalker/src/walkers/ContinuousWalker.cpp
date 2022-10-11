@@ -1,7 +1,9 @@
+#include <algorithm>
 #include <gsl/gsl_randist.h>
 #include <gsl/gsl_rng.h>
 #include <iostream>
 #include <math.h>
+#include <ostream>
 #include <set>
 #include <stdlib.h>
 #include <string>
@@ -96,6 +98,27 @@ void ContinuousWalker::move_bounded(double size, int verbose) {
   m_pos = mod_double(m_pos, size);
 }
 
+// This funciton encodes wether or not we loop while diffusing on the torus
+int ContinuousWalker::move_bounded_crossing(double size, int verbose) {
+  int status_code = 0;
+  double old_pos = m_pos;
+  move(verbose);
+  // cout << "position before torus : " << m_pos << endl;
+  if (0 <= m_pos && m_pos <= size) {
+    status_code = 0;
+  } else if (size <= m_pos && m_pos <= size + old_pos) {
+    status_code = 1;
+  } else if (size + old_pos <= m_pos) {
+    status_code = 2;
+  } else if (old_pos - size <= m_pos && m_pos <= 0) {
+    status_code = -1;
+  } else if (m_pos <= old_pos - size) {
+    status_code = -2;
+  }
+  m_pos = mod_double(m_pos, size);
+  return status_code;
+}
+
 // the basic move function on a torus
 void ContinuousWalker::move_bounded_fixed_time(double size, long time) {
   for (long i = 0; i < time; i++) {
@@ -127,6 +150,67 @@ long ContinuousWalker::move_til_covered(double size) {
   return m_lifetime;
 }
 
+// This one is tricky because we need to know how to fill in our array,
+// depending on our boundary and overshoot behaviour
+long ContinuousWalker::move_til_covered_crossing(double size) {
+
+  m_pos = 0;
+  vector<long> territory((long)size, 0);
+  territory[0] = 1;
+  long unvisited_territory = (long)size - 1;
+  int status_code;
+  double old_pos;
+  while (unvisited_territory > 0) {
+    // cout << "lifetime : " << m_lifetime << endl;
+    // cout << "position : " << m_pos << endl;
+    // cout << "univisited territory : " << unvisited_territory << endl;
+    old_pos = m_pos;
+    status_code = move_bounded_crossing(size);
+    if (status_code == 2 || status_code == -2) {
+      // cout << "BIG JUMP" << endl;
+      return m_lifetime;
+    } else if (status_code == 0) {
+      double max_pos = max(m_pos, old_pos);
+      double min_pos = min(m_pos, old_pos);
+      for (int j = floor(min_pos); j < floor(max_pos) + 1; j++) {
+        if (territory[j] == 0) {
+          unvisited_territory -= 1;
+          territory[j] = 1;
+        }
+      }
+    } else if (status_code == 1) {
+      for (int j = 0; j < floor(m_pos) + 1; j++) {
+        if (territory[j] == 0) {
+          unvisited_territory -= 1;
+          territory[j] = 1;
+        }
+      }
+      for (int j = floor(old_pos); j < territory.size(); j++) {
+        if (territory[j] == 0) {
+          unvisited_territory -= 1;
+          territory[j] = 1;
+        }
+      }
+    } else if (status_code == -1) {
+      // cout << "C'est la que ça foire" << endl;
+      for (int j = 0; j < floor(old_pos) + 1; j++) {
+        if (territory[j] == 0) {
+          unvisited_territory -= 1;
+          territory[j] = 1;
+        }
+      }
+      for (int j = floor(m_pos); j < territory.size(); j++) {
+        if (territory[j] == 0) {
+          unvisited_territory -= 1;
+          territory[j] = 1;
+        }
+      }
+    }
+  }
+  // cout << "last status : " << status_code << endl;
+  return m_lifetime;
+}
+
 // other funtions
 void ContinuousWalker::move_til_death(int verbose) {
   while (isAlive()) {
@@ -135,8 +219,8 @@ void ContinuousWalker::move_til_death(int verbose) {
 }
 
 bool ContinuousWalker::isAlive()
-    const { // cela nous permet de prendre la convention crossing en compte, de
-            // toute manière on ne tombera jamais sur zero pile
+    const { // cela nous permet de prendre la convention crossing en compte,
+            // de toute manière on ne tombera jamais sur zero pile
   return (m_pos >= 0);
 }
 
@@ -160,8 +244,8 @@ double ContinuousWalker::split_prob(double s0, double s1, double s2,
                                     int const n) {
   int i;
   // int result[n];
-  vector<int> result(n); // encore une autre version, ne pas oublier le #include
-                         // <vector> en haut sinon ça ne marche pas.
+  vector<int> result(n); // encore une autre version, ne pas oublier le
+                         // #include <vector> en haut sinon ça ne marche pas.
   // result=(int*) malloc(sizeof(int)*n); old C version
   for (i = 0; i < n; i++) {
     m_lifetime = 0;

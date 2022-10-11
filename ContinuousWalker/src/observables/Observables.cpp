@@ -424,3 +424,19 @@ double cover_time_mean(ContinuousWalker &walker, const double size,
   }
   return mean / ((double)nbSimus);
 }
+
+double cover_time_crossing_mean(ContinuousWalker &walker, const double size,
+                                const long nbSimus) {
+
+  vector<long> result(nbSimus, 0.0);
+  for (long i = 0; i < nbSimus; i++) {
+    walker.set_lifetime(0);
+    walker.set_pos(0.0);
+    result[i] = walker.move_til_covered_crossing(size);
+  }
+  double mean = 0.0;
+  for (auto el : result) {
+    mean += el;
+  }
+  return mean / ((double)nbSimus);
+}

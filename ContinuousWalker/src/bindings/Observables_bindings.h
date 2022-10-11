@@ -137,3 +137,10 @@ handle.def("cover_time_mean"
         ,py::arg("size : size of ring (should be a double)")
         ,py::arg("nbsimus")
         ,"returns the mean cover time of the ring of size size,averaged over nbsimus .");
+
+handle.def("cover_time_crossing_mean"
+        ,&cover_time_crossing_mean
+        ,py::arg("walker : our walker")
+        ,py::arg("size : size of ring (should be a double)")
+        ,py::arg("nbsimus")
+        ,"returns the mean cover time of the ring of size size,averaged over nbsimus, in the crossing convention .");
