@@ -149,3 +149,11 @@ handle.def("cover_time_mean"
         ,py::arg("walker")
         ,py::arg("nb_simus")
         ,"returns the mean ov the cover time for a walker on a ring of size size, over nb_simus.");
+
+handle.def("cover_time_fpt_ratio_distribution"
+        ,&cover_time_fpt_ratio_distribution
+        ,py::arg("s0")
+        ,py::arg("walker")
+        ,py::arg("size")
+        ,py::arg("nb_simus")
+        ,"returns a distribution of the ratio between the fpt to 0 and covertime for a discrete walker");

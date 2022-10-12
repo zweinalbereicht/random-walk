@@ -73,3 +73,6 @@ territory_infinite_discovery_time_distribution(const long s0, DiscreteWalker &wa
 double
 cover_time_mean(const long s0, const long N, DiscreteWalker &walker, const int n);
 
+
+py::list
+cover_time_fpt_ratio_distribution(const long s0, DiscreteWalker &walker,const long N, const long nb_simus);

@@ -240,20 +240,38 @@ long DiscreteWalker::move_infinite_fixed_time_and_record_territory(
   return territory.size();
 }
 
-long DiscreteWalker::move_til_covered(long size,int verbose){
+long DiscreteWalker::move_til_covered(long size, int verbose) {
 
   vector<long> territory(size, 0);
   territory[m_pos] += 1;
-  long territory_left = size-1;
-  while (territory_left!=0)
-  {
+  long territory_left = size - 1;
+  while (territory_left != 0) {
     move_bounded(size, verbose);
     if (territory[m_pos] == 0) {
-      territory_left-=1;
-      territory[m_pos]=1;
+      territory_left -= 1;
+      territory[m_pos] = 1;
     }
   }
   return m_lifetime;
+}
+
+double DiscreteWalker::move_til_covered_record_ratio(long size, int verbose) {
+
+  vector<long> territory(size, 0);
+  territory[m_pos] += 1;
+  long territory_left = size - 1;
+  long fpt = 0;
+  while (territory_left != 0) {
+    move_bounded(size, verbose);
+    if (territory[m_pos] == 0) {
+      territory_left -= 1;
+      territory[m_pos] = 1;
+    }
+    if (m_pos == 0) {
+      fpt = m_lifetime;
+    }
+  }
+  return ((double)fpt) / m_lifetime;
 }
 
 // same as above, just don't record the territory

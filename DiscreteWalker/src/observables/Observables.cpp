@@ -393,3 +393,18 @@ double cover_time_mean(const long s0, const long size, DiscreteWalker &walker,
   }
   return (double)m / nb_simus;
 }
+
+py::list cover_time_fpt_ratio_distribution(const long s0,
+                                           DiscreteWalker &walker,
+                                           const long size,
+                                           const long nb_simus) {
+  vector<double> result(nb_simus);
+  for (int i = 0; i < nb_simus; i++) {
+    walker.set_lifetime(0);
+    walker.set_pos(s0);
+    result[i] = walker.move_til_covered_record_ratio(size);
+  }
+
+  py::list ret = py::cast(result);
+  return ret;
+}
