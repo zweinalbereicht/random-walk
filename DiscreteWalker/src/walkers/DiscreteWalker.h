@@ -67,6 +67,7 @@ class DiscreteWalker
     long move_til_death_arrival_record_territory(long max_steps,int verbose=0);
     long move_til_covered(long size,int verbose=0);
     double move_til_covered_record_ratio(long size,int verbose=0);
+    std::vector<long> move_til_covered_record_discovery_time(long size,int verbose=0);
     long move_til_death_arrival_max_steps(long max_steps, int verbose=0);
     int move_fixed_max(long borne);
     void move_fixed_time(long time);

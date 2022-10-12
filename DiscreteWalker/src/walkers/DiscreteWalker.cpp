@@ -208,6 +208,23 @@ DiscreteWalker::move_fixed_time_and_record_discovery_time(long N,
 }
 
 std::vector<long>
+DiscreteWalker::move_til_covered_record_discovery_time(long N, int verbose) {
+  // we will store visited values in a set
+  vector<long> territory(N, 0);
+  territory[m_pos] += 1;
+  long territory_left = N - 1;
+  while (territory_left != 0) {
+    move_bounded(N, verbose);
+    if (territory[m_pos] == 0) {
+      territory_left -= 1;
+      territory[m_pos] = m_lifetime; /* we store in the array at what time the
+                                        guy was discovered. */
+    }
+  }
+  return territory;
+}
+
+std::vector<long>
 DiscreteWalker::move_infinite_fixed_time_and_record_discovery_time(
     long nb_steps) {
   // we will store visited values in a set

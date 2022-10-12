@@ -157,3 +157,11 @@ handle.def("cover_time_fpt_ratio_distribution"
         ,py::arg("size")
         ,py::arg("nb_simus")
         ,"returns a distribution of the ratio between the fpt to 0 and covertime for a discrete walker");
+
+handle.def("discovery_times_before_cover_time_distribution"
+        ,&discovery_times_before_cover_time_distribution
+        ,py::arg("s0")
+        ,py::arg("size")
+        ,py::arg("walker")
+        ,py::arg("nb_simus")
+        ,"returns territory maps containing the times at which each sites were visited.");
