@@ -1,5 +1,6 @@
 #include <gsl/gsl_rng.h>
 #include <iostream>
+#include <map>
 #include <pybind11/iostream.h>
 #include <pybind11/numpy.h>
 #include <pybind11/pybind11.h>
@@ -230,5 +231,28 @@ py::list cover_time_distribution(const pybind11::list &dimensions,
   }
 
   py::list ret = py::cast(result);
+  return ret;
+}
+
+py::list
+discovery_times_before_cover_distribution(const pybind11::list &dimensions,
+                                          const pybind11::list &s0,
+                                          DiscreteWalker &walker, const int n) {
+
+  vector <vector<long>>  result;
+
+  for (int i = 0; i < n; i++) {
+    walker.set_lifetime(0);
+    walker.set_pos(s0);
+    // set the verbosity to one here
+    int verbose = 0;
+    // std::cout << "right before the first round" << std::endl;
+    result.push_back(walker.move_til_fully_covered_record_discovery_times(
+        dimensions, verbose));
+    // std::cout << "We passed the first round!" << std::endl;
+  }
+
+  py::list ret = py::cast(result);
+  // std::cout << "we can cast!" << std::endl;
   return ret;
 }

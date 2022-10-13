@@ -78,3 +78,11 @@ handle.def("cover_time_distribution"
         ,py::arg("max_time")
         ,py::arg("n")
         , "returns an array of n cover_times to the origin, starting from s0, in the infinite space of dimension the walker's dimension. Time is limited to max time");
+
+handle.def("discovery_times_before_cover_distribution"
+        ,&discovery_times_before_cover_distribution
+        ,py::arg("dimensions")
+        ,py::arg("s0")
+        ,py::arg("walker")
+        ,py::arg("n")
+        ,"returns an array of n discovery time maps , starting from s0, until we fully cover the periodic lattice");

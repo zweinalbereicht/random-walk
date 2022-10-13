@@ -8,6 +8,8 @@
 #include <gsl/gsl_randist.h>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <map>
+#include <vector>
 
 
 class DiscreteWalker
@@ -74,7 +76,7 @@ class DiscreteWalker
     long move_til_death_fixed_time_record_territory(const int max_time,const int verbose=0);
     long move_til_death_fixed_time(const int max_time,const int verbose=0);
     long move_til_fully_covered(const pybind11::list &dimensions, const int max_time,const int verbose=0);
-
+    std::vector<long> move_til_fully_covered_record_discovery_times(const pybind11::list &dimensions, const int verbose=0);
 };
 
 //on surcharge ici pour eviter de redeclarer des vecteurs inutiles

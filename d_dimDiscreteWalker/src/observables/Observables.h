@@ -51,3 +51,6 @@ rosenstock_fixed_time(const long s0, DiscreteWalker &walker, const int time, con
 
 py::list
 cover_time_distribution(const pybind11::list &dimensions, const pybind11::list &s0, DiscreteWalker &walker, const int max_time, const int n);
+
+py::list
+discovery_times_before_cover_distribution(const pybind11::list &dimensions, const pybind11::list &s0, DiscreteWalker &walker, const int n);
