@@ -5,20 +5,20 @@ Available modules are:
 - DiscreteWalker (1d lattice random walks)
 - ContinuousWalker (jump processses on the real line)
 - d_dimDiscreteWalker (multi dimensionnal discrete random walks)
--IsotropicWalker (isotropic jump processes in R^2)
+- isotropicWalker (isotropic jump processes in R^2)
 - GraphWalker (nearest neighbor diffusion on arbitrary graphs)
 
 use the 
-`python
+```python
 import DiscreteWalker as md
 help(md)
-`
+```
 in any python interpreter to see a description of possibilities with the modules.
 
 ## installation
 
-Execute "bash compile_all_setup.sh" to compile, or run 
-`python
-pip install
-`
+Execute "bash compile_all_setup.sh" to compile all at once, or run 
+```python
+pip install .
+```
 in the desired module directory.
