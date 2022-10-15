@@ -22,3 +22,7 @@ Execute "bash compile_all_setup.sh" to compile all at once, or run
 pip install .
 ```
 in the desired module directory.
+
+## disclaimer
+
+I'm constantly updating, changing and trying things out, hence the chaotic structure of the repo...it might change some day 😬😬
