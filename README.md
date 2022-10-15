@@ -19,6 +19,6 @@ in any python interpreter to see a description of possibilities with the modules
 
 Execute "bash compile_all_setup.sh" to compile, or run 
 ```python
-pip install
+pip install .
 ```
 in the desired module directory.
