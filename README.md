@@ -25,4 +25,4 @@ in the desired module directory.
 
 ## disclaimer
 
-I'm consta,tly updating, changing and trying things out, hence the chaotic structure of the repo...it might change some day 😬😬
+I'm constantly updating, changing and trying things out, hence the chaotic structure of the repo...it might change some day 😬😬
