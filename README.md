@@ -17,7 +17,7 @@ in any python interpreter to see a description of possibilities with the modules
 
 ## installation
 
-Execute "bash compile_all_setup.sh" to compile, or run 
+Execute "bash compile_all_setup.sh" to compile all at once, or run 
 ```python
 pip install .
 ```
