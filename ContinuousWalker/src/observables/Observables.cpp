@@ -186,7 +186,7 @@ double conditional_fpt_mean(const double x0, const double x,
 double fpt_probability(const double x0, ContinuousWalker &walker, const long n,
                        const long N) {
 
-  double probability;
+  double probability = 0.0;
 
   for (long i = 0; i < N; i++) {
     walker.set_lifetime(0);
@@ -207,7 +207,7 @@ double conditional_fpt_probability(const double x0, const double x,
                                    ContinuousWalker &walker, const long n,
                                    const long N, const bool target) {
 
-  double probability;
+  double probability = 0.0;
 
   for (long i = 0; i < N; i++) {
     walker.set_lifetime(0);
@@ -235,7 +235,7 @@ double unconditional_fpt_probability(const double x0, const double x,
                                      ContinuousWalker &walker, const long n,
                                      const long N) {
 
-  double probability;
+  double probability = 0.0;
 
   for (long i = 0; i < N; i++) {
     walker.set_lifetime(0);
