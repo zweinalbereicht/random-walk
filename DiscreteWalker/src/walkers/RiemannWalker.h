@@ -28,6 +28,8 @@ class RiemannWalker : public DiscreteWalker
 
         void set_alpha(double alpha);
         void set_c(double c);
+        // the point of this one is to set c in order to mimick the zipf distribution tail wise
+        void set_c_zipf();
 
         //specific move function
         virtual void move(int verbose);

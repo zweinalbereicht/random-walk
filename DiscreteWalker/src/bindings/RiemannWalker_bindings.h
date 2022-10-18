@@ -30,6 +30,9 @@ py::class_<RiemannWalker,DiscreteWalker>(handle, "RiemannWalker")
             ,py::arg("c")
             ,"a setter function for the  walker's c")
 
+    .def("set_c_zipf",&RiemannWalker::set_c_zipf
+            ,"setting the walker's scale to match the exact Zipf distribution")
+
     .def("set_alpha",&RiemannWalker::set_alpha
             ,py::arg("alpha")
             ,"a setter function for the  walker's alpha")
