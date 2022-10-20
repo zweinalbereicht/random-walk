@@ -144,3 +144,11 @@ handle.def("cover_time_crossing_mean"
         ,py::arg("size : size of ring (should be a double)")
         ,py::arg("nbsimus")
         ,"returns the mean cover time of the ring of size size,averaged over nbsimus, in the crossing convention .");
+
+handle.def("bounded_overshoot_distribution"
+        ,&bounded_overshoot_distribution
+        ,py::arg("x0")
+        ,py::arg("size")
+        ,py::arg("walker : our walker")
+        ,py::arg("nbsimus")
+        ,"returns the distribution of overshoots when escaping the interval.");

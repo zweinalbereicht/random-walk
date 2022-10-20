@@ -440,3 +440,28 @@ double cover_time_crossing_mean(ContinuousWalker &walker, const double size,
   }
   return mean / ((double)nbSimus);
 }
+
+py::list bounded_overshoot_distribution(const double x0, const double x,
+                                        ContinuousWalker &walker,
+                                        const long N) {
+  vector<double> results(N, 0.0);
+
+  for (int i = 0; i < N; i++) {
+    walker.set_lifetime(0);
+    walker.set_pos(x0);
+    long elapsed_time = 0;
+    // encore une fois attention aux inegalités
+    // en convention crossing
+    while (walker.get_pos() <= x && walker.get_pos() >= 0) {
+      walker.move();
+    }
+    if (walker.isAlive()) {
+      results[i] = walker.get_pos() - x;
+    } else {
+      results[i] = -walker.get_pos();
+    }
+  }
+
+  py::list ret = py::cast(results);
+  return ret;
+}

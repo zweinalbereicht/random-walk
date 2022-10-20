@@ -84,3 +84,7 @@ double cover_time_mean(ContinuousWalker &walker,const double size, const long nb
 
 // returns the mean cover time on a ring of size size with the crossing convention
 double cover_time_crossing_mean(ContinuousWalker &walker,const double size, const long nbSimus);
+
+//renvoie la distribution  de l'overshoot sans specifier le coté
+py::list
+bounded_overshoot_distribution(const double x0, const double x, ContinuousWalker &walker, const long N);
