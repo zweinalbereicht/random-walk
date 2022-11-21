@@ -2,9 +2,12 @@
 import numpy as np
 import DiscreteWalker as md
 
-walker=md.RiemannWalker(2.0,0.5)
+# walker=md.RiemannWalker(2.0,0.5)
+walker=md.DiscreteWalker()
 walker.set_seed(np.random.randint(100000))
 walker.print_details()
+a=md.discovery_times_before_cover_time_distribution(0,10,walker,3)
+print(a)
 
 #print("\n")
 #

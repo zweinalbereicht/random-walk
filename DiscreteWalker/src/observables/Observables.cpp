@@ -34,6 +34,42 @@ py::list fpt_arrival_bounded_distribution(const long s0, const long N,
   return ret;
 }
 
+double fpt_arrival_bounded_probability(const long s0, const long N,
+                                       const long nbSteps,
+                                       DiscreteWalker &walker, const int n) {
+  double probability = 0.0;
+  for (int i = 0; i < n; i++) {
+    walker.set_lifetime(0);
+    walker.set_pos(s0);
+    while (walker.get_pos() != 0 && walker.get_lifetime() < nbSteps) {
+      walker.move_bounded(N);
+    }
+    if (walker.get_lifetime() == nbSteps && walker.get_pos() == 0) {
+      probability += 1.0;
+    }
+  }
+
+  return probability / n;
+}
+
+double survival_bounded_probability(const long s0, const long N,
+                                    const long nbSteps, DiscreteWalker &walker,
+                                    const int n) {
+  double probability = 0.0;
+  for (int i = 0; i < n; i++) {
+    walker.set_lifetime(0);
+    walker.set_pos(s0);
+    while (walker.get_pos() != 0 && walker.get_lifetime() < nbSteps) {
+      walker.move_bounded(N);
+    }
+    if (walker.get_pos() != 0) {
+      probability += 1.0;
+    }
+  }
+
+  return probability / n;
+}
+
 double fpt_arrival_bounded_global_mean(const long N, DiscreteWalker &walker,
                                        const int n) {
   vector<long> result(n);

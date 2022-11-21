@@ -465,3 +465,31 @@ py::list bounded_overshoot_distribution(const double x0, const double x,
   py::list ret = py::cast(results);
   return ret;
 }
+
+py::list conditional_bounded_overshoot_distribution(const double x0,
+                                                    const double x,
+                                                    ContinuousWalker &walker,
+                                                    const long N, int target) {
+
+  // insert -1.0 for easy count in cumulatives for instance
+  vector<double> results(N, -1.0);
+
+  for (int i = 0; i < N; i++) {
+    walker.set_lifetime(0);
+    walker.set_pos(x0);
+    long elapsed_time = 0;
+    // encore une fois attention aux inegalités
+    // en convention crossing
+    while (walker.get_pos() <= x && walker.get_pos() >= 0) {
+      walker.move();
+    }
+    if (walker.isAlive() && target == 1) {
+      results[i] = walker.get_pos();
+    } else if (!walker.isAlive() && target == 0) {
+      results[i] = walker.get_pos();
+    }
+
+    py::list ret = py::cast(results);
+    return ret;
+  }
+}

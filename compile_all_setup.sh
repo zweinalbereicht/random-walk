@@ -1,7 +1,7 @@
 #/bin/bash
 
 # compiles all modules
-for a in d_dimDiscreteWalker #DiscreteWalker #ContinuousWalker GraphWalker isotropicWalker
+for a in ContinuousWalker #d_dimDiscreteWalker #DiscreteWalker   GraphWalker isotropicWalker
 do
     echo $a
     cd $a

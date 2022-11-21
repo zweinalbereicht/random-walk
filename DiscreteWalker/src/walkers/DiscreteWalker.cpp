@@ -314,9 +314,7 @@ bool DiscreteWalker::isAlive() const {
   return (m_pos > 0); // strict inequality here
 }
 
-bool DiscreteWalker::isArrived() const {
-  return (m_pos == 0); // strict inequality here
-}
+bool DiscreteWalker::isArrived() const { return (m_pos == 0); }
 
 int DiscreteWalker::move_fixed_max(long borne) {
   m_max = m_pos;

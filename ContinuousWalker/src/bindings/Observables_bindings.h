@@ -152,3 +152,12 @@ handle.def("bounded_overshoot_distribution"
         ,py::arg("walker : our walker")
         ,py::arg("nbsimus")
         ,"returns the distribution of overshoots when escaping the interval.");
+
+handle.def("conditional_bounded_overshoot_distribution"
+        ,&conditional_bounded_overshoot_distribution
+        ,py::arg("x0")
+        ,py::arg("size")
+        ,py::arg("walker : our walker")
+        ,py::arg("nbsimus")
+        ,py::arg("target")
+        ,"returns the distribution of landing position when escaping the interval through target (1=x, 0=0).");

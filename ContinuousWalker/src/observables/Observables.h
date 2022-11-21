@@ -88,3 +88,7 @@ double cover_time_crossing_mean(ContinuousWalker &walker,const double size, cons
 //renvoie la distribution  de l'overshoot sans specifier le coté
 py::list
 bounded_overshoot_distribution(const double x0, const double x, ContinuousWalker &walker, const long N);
+
+//renvoie la distribution  de du point de sortie du coté target (1 = x, 0=0)
+py::list
+conditional_bounded_overshoot_distribution(const double x0, const double x, ContinuousWalker &walker, const long N, int target);

@@ -8,6 +8,24 @@ handle.def("fpt_arrival_bounded_distribution"
         py::arg("n")
         , "returns an array of n death times, starting from s0, on a ring of size N");
 
+handle.def("fpt_arrival_bounded_probability"
+        ,&fpt_arrival_bounded_probability,
+        py::arg("s0"),
+        py::arg("N"),
+        py::arg("nbsteps"),
+        py::arg("walker"),
+        py::arg("n")
+        , "returns the fpt probability to the origin on step nbstep, in a ring geometry");
+
+handle.def("survival_bounded_probability"
+        ,&survival_bounded_probability,
+        py::arg("s0"),
+        py::arg("N"),
+        py::arg("nbsteps"),
+        py::arg("walker"),
+        py::arg("n")
+        , "returns the the survival probability with absorption at the origin after nbstep, in a ring geometry");
+
 handle.def("fpt_arrival_bounded_global_mean"
         ,&fpt_arrival_bounded_global_mean
         ,py::arg("N")

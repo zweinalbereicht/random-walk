@@ -23,6 +23,12 @@ py::list
 fpt_arrival_bounded_distribution(const long s0,const long N,DiscreteWalker &walker, const int n);
 
 double
+fpt_arrival_bounded_probability(const long s0,const long N, const long nbSteps,DiscreteWalker &walker, const int n);
+
+double
+survival_bounded_probability(const long s0,const long N, const long nbSteps,DiscreteWalker &walker, const int n);
+
+double
 fpt_arrival_bounded_mean(const long s0,const long N,DiscreteWalker &walker, const int n);
 
 double
