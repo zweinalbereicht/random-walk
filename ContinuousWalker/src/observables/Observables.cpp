@@ -488,8 +488,7 @@ py::list conditional_bounded_overshoot_distribution(const double x0,
     } else if (!walker.isAlive() && target == 0) {
       results[i] = walker.get_pos();
     }
-
-    py::list ret = py::cast(results);
-    return ret;
   }
+  py::list ret = py::cast(results);
+  return ret;
 }
