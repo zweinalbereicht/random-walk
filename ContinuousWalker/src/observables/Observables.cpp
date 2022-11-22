@@ -466,12 +466,9 @@ py::list bounded_overshoot_distribution(const double x0, const double x,
   return ret;
 }
 
-py::list conditional_bounded_overshoot_distribution(const double x0,
-                                                    const double x,
-                                                    ContinuousWalker &walker,
-                                                    const long N, int target) {
+py::list bounded_landing_distribution(const double x0, const double x,
+                                      ContinuousWalker &walker, const long N) {
 
-  // insert -1.0 for easy count in cumulatives for instance
   vector<double> results(N, -1.0);
 
   for (int i = 0; i < N; i++) {
@@ -483,9 +480,9 @@ py::list conditional_bounded_overshoot_distribution(const double x0,
     while (walker.get_pos() <= x && walker.get_pos() >= 0) {
       walker.move();
     }
-    if (walker.isAlive() && target == 1) {
+    if (walker.isAlive()) {
       results[i] = walker.get_pos();
-    } else if (!walker.isAlive() && target == 0) {
+    } else if (!walker.isAlive()) {
       results[i] = walker.get_pos();
     }
   }

@@ -91,4 +91,4 @@ bounded_overshoot_distribution(const double x0, const double x, ContinuousWalker
 
 //renvoie la distribution  de du point de sortie du coté target (1 = x, 0=0)
 py::list
-conditional_bounded_overshoot_distribution(const double x0, const double x, ContinuousWalker &walker, const long N, int target);
+bounded_landing_distribution(const double x0, const double x, ContinuousWalker &walker, const long N);
