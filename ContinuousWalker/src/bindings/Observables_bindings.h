@@ -157,6 +157,6 @@ handle.def("bounded_landing_distribution"
         ,&bounded_landing_distribution
         ,py::arg("x0")
         ,py::arg("size")
-        ,py::arg("walker : our walker")
+        ,py::arg("walker")
         ,py::arg("nbsimus")
         ,"returns the distribution of landing position when escaping the interval through target (1=x, 0=0).");
