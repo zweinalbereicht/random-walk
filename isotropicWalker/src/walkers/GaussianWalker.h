@@ -67,7 +67,8 @@ class GaussianWalker
     void move_til_death(int verbose=0);
     void move_til_death_bounded(const pybind11::list &dimensions, int verbose=0); //the dimensions give the size of the hypercube we are moving in
     void move_fixed_time(long time); //impose a fixed number of steps (although the lifetime might be longer depending on the model)
-
+    
+    double get_angle();
 
 };
 

@@ -8,6 +8,15 @@ handle.def("split_prob_hyperplane"
         ,py::arg("n")
         , "return the splitting probability to cross the hyperplane defined by x before 0, starting from x0, evaluated using n trials");
 
+
+handle.def("split_prob_cone"
+        ,&split_prob_cone
+        ,py::arg("x0")
+        ,py::arg("theta")
+        ,py::arg("walker")
+        ,py::arg("n")
+        , "return the probability to escape through the upper side of the cone, defined by its angle theta");
+
 handle.def("radial_distance_when_crossing_hyperplan_distribution"
         ,&radial_distance_when_crossing_hyperplan_distribution
         ,py::arg("x0")
