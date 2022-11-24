@@ -11,7 +11,8 @@ handle.def("split_prob_hyperplane"
 
 handle.def("split_prob_cone"
         ,&split_prob_cone
-        ,py::arg("x0")
+        ,py::arg("r0")
+        ,py::arg("theta0")
         ,py::arg("theta")
         ,py::arg("walker")
         ,py::arg("n")

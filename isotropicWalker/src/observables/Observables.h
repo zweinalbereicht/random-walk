@@ -25,7 +25,7 @@ split_prob_hyperplane(const double x0, const double x, GaussianWalker &walker, c
 
 // returns the probability to escape via one side of the cone rather than the otherside (by default we put one side of the cone on the x-axis)
 double 
-split_prob_cone(const double x0, const double theta, GaussianWalker &walker, const int n);
+split_prob_cone(const double r0, const double theta0, const double theta, GaussianWalker &walker, const int n);
 
 // returns a distribution of radial distances when crossing an hyperplane, with respect
 // to the projection of the initial distance.

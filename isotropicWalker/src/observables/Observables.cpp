@@ -43,16 +43,17 @@ double split_prob_hyperplane(const double x0, const double x,
 }
 
 // the walker starts on the x axis, at distance x0 from the origin
-double split_prob_cone(const double x0, const double theta,
+double split_prob_cone(const double r0, const double theta0, const double theta,
                        GaussianWalker &walker, const int n) {
   vector<int> result_tmp(n);
   double run = 0;
   for (int i = 0; i < n; i++) {
     // prepare for the run
     walker.set_lifetime(0);
-    walker.set_coord(0, x0);
+    walker.set_coord(0, r0 * cos(theta0));
+    walker.set_coord(1, r0 * sin(theta0));
     int d = walker.get_dimension();
-    for (int k = 1; k < d; k++)
+    for (int k = 2; k < d; k++)
       walker.set_coord(k, 0.0);
 
     // run
