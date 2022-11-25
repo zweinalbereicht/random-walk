@@ -13,6 +13,7 @@
 #include "Observables.h"
 
 #define LOG(x) cout << x << endl;
+#define MOD(x) fmod(x + (2.0 * M_PI), (2.0 * M_PI))
 
 // this is a constant to make sure our program terminates because we have
 // infinite mean return time. 1 billion might actually be big.
@@ -63,7 +64,70 @@ double split_prob_cone(const double r0, const double theta0, const double theta,
     double angle = walker.get_angle();
     // This is not exact, there are some cases where we are not able to say
     // which side the cone was exited from, but it should be decent enough
-    run += (int)(not(angle > -M_PI + theta && angle < 0.0));
+    run += (int)(angle > theta);
+  }
+  return (run / ((double)n));
+}
+
+// the walker starts on the x axis, at distance x0 from the origin
+double split_prob_reflecting_cone(const double r0, const double theta0,
+                                  const double theta, const double R,
+                                  GaussianWalker &walker, const int n) {
+  vector<int> result_tmp(n);
+  double run = 0;
+  for (int i = 0; i < n; i++) {
+    // prepare for the run
+    walker.set_lifetime(0);
+    walker.set_coord(0, r0 * cos(theta0));
+    walker.set_coord(1, r0 * sin(theta0));
+    int d = walker.get_dimension();
+    for (int k = 2; k < d; k++)
+      walker.set_coord(k, 0.0);
+
+    // run
+    std::vector<double> last_pos = walker.get_pos();
+    while (walker.get_angle() >= 0 && walker.get_angle() <= theta) {
+      walker.move();
+      // if we step outside the cone we cancel the move
+      if (walker.get_radial_dist() > R) {
+        int dimension = walker.get_dimension();
+        for (int i = 0.; i < dimension; i++) {
+          walker.set_coord(i, last_pos[i]);
+        }
+      }
+    }
+    double angle = walker.get_angle();
+    // This is not exact, there are some cases where we are not able to say
+    // which side the cone was exited from, but it should be decent enough
+    // We might actually encounter some problems with this so maybe we will be
+    // for careful next time
+    run += (int)(angle > theta);
+  }
+  return (run / ((double)n));
+}
+
+double split_prob_disk_escape(const double R, const double theta1,
+                              const double theta2, GaussianWalker &walker,
+                              const int n) {
+
+  vector<int> result_tmp(n);
+  double run = 0;
+  for (int i = 0; i < n; i++) {
+    // prepare for the run
+    walker.set_lifetime(0);
+    walker.set_coord(0, -R);
+    int d = walker.get_dimension();
+    for (int k = 1; k < d; k++)
+      walker.set_coord(k, 0.0);
+
+    // run
+    std::vector<double> last_pos = walker.get_pos();
+    while (walker.get_radial_dist() <= R) {
+      walker.move();
+    }
+    // Once we step outside we look at our angle (in the 0,2pi range)
+    double angle = MOD(walker.get_angle());
+    run += (int)(angle > theta1 && angle < theta2);
   }
   return (run / ((double)n));
 }

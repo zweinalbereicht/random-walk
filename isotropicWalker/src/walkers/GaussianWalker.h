@@ -8,6 +8,7 @@
 #include <gsl/gsl_randist.h>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <vector>
 
 
 class GaussianWalker
@@ -42,6 +43,7 @@ class GaussianWalker
     std::vector<double> get_direction() const;
     double get_max() const ;
     double get_lifetime() const ;
+    double get_radial_dist();
     int get_seed() const ;
     int get_dimension() const ;
 
@@ -52,6 +54,7 @@ class GaussianWalker
     void set_lifetime(double lifetime);
     void set_seed(int seed);
     void set_coord(int c,double x); //change the value in one coordinate (useful for in C code)
+                                    
 
     //other setter functions
     void set_random_pos(const pybind11::list &dimensions); //uniform inital pos in the box

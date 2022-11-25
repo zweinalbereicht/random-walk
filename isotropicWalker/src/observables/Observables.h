@@ -27,6 +27,14 @@ split_prob_hyperplane(const double x0, const double x, GaussianWalker &walker, c
 double 
 split_prob_cone(const double r0, const double theta0, const double theta, GaussianWalker &walker, const int n);
 
+// returns the probability to escape via one side of the cone rather than the otherside (by default we put one side of the cone on the x-axis), and we have reflection on the r=R arc.
+double 
+split_prob_reflecting_cone(const double r0, const double theta0, const double theta, const double R, GaussianWalker &walker, const int n);
+
+//returns the probability to escape the disk of radius R, centered at 0 and to be located in the arc [theta1, theta2]. For simplicity, the walker always starts at r=R and theta=PI
+double 
+split_prob_disk_escape(const double R, const double theta1,const double theta2, GaussianWalker &walker, const int n);
+
 // returns a distribution of radial distances when crossing an hyperplane, with respect
 // to the projection of the initial distance.
 py::list

@@ -11,7 +11,7 @@
 
 // useful shorthands
 #define LOG(x) cout << x << endl
-#define MOD(x, b) (x % b + b) % b
+#define MOD(x) fmod(x + 2.0 * M_PI, 2.0 * M_PI)
 
 #include "GaussianWalker.h"
 using namespace std;
@@ -70,6 +70,8 @@ double GaussianWalker::get_lifetime() const { return m_lifetime; }
 int GaussianWalker::get_seed() const { return m_seed; }
 
 int GaussianWalker::get_dimension() const { return m_d; }
+
+double GaussianWalker::get_radial_dist() { return (euclidian_distance(m_pos)); }
 
 // setters
 void GaussianWalker::set_pos(const pybind11::list &pos) {
@@ -188,7 +190,11 @@ void GaussianWalker::move_fixed_time(
 
 // user function to find angle, only relevant in d=2 for now (otherwise it's a
 // projection) --> the atan2 func gives somehing back between -pi and pi.
-double GaussianWalker::get_angle() { return (atan2(m_pos[1], m_pos[0])); }
+// --> the MOD gives something between 0 and 2*pi
+double GaussianWalker::get_angle() {
+  // return MOD(atan2(m_pos[1], m_pos[0]));
+  return (atan2(m_pos[1], m_pos[0]));
+}
 
 // useful functions
 double euclidian_distance(const std::vector<double> &a,
