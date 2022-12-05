@@ -132,6 +132,30 @@ double split_prob_disk_escape(const double R, const double theta1,
   return (run / ((double)n));
 }
 
+// returns the probability to survive n steps in a disk of radiius R
+double survival_disk(const double R, const int nbsteps, GaussianWalker &walker,
+                     const int n) {
+  double run = 0;
+  for (int i = 0; i < n; i++) {
+    // prepare for the run
+    int counter = 0;
+    walker.set_lifetime(0);
+    walker.set_coord(0, -R);
+    int d = walker.get_dimension();
+    for (int k = 1; k < d; k++)
+      walker.set_coord(k, 0.0);
+
+    // run
+    while ((walker.get_radial_dist() <= R) && (counter < nbsteps)) {
+      walker.move();
+      counter++;
+    }
+    double rad = walker.get_radial_dist();
+    run += (double)(rad <= R);
+  }
+  return (run / ((double)n));
+}
+
 py::list radial_distance_when_crossing_hyperplan_distribution(
     const double x0, const double x, GaussianWalker &walker, const int n) {
   vector<float> distances(n);

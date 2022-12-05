@@ -199,14 +199,14 @@ double GaussianWalker::get_angle() {
 // useful functions
 double euclidian_distance(const std::vector<double> &a,
                           const std::vector<double> &b) {
-  double result;
+  double result = 0.0;
   for (int i = 0; i < a.size(); i++)
     result += pow(a[i] - b[i], 2);
   return sqrt(result);
 }
 
 double euclidian_distance(const std::vector<double> &a) {
-  double result;
+  double result = 0.0;
   for (int i = 0; i < a.size(); i++) {
     result += pow(a[i], 2);
   }

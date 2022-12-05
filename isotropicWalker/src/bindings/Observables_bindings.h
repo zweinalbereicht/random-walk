@@ -45,3 +45,11 @@ handle.def("split_prob_disk_escape"
         ,py::arg("walker")
         ,py::arg("n")
         , "returns the probability to escape the disk of radius R, centered at 0 and to be located in the arc [theta1, theta2]. For simplicity, the walker always starts at r=R and theta=PI");
+
+handle.def("survival_disk"
+        ,&survival_disk
+        ,py::arg("R")
+        ,py::arg("nbsteps")
+        ,py::arg("walker")
+        ,py::arg("n")
+        , "returns the probability to survive nbsteps steps in a disk of radiius R");
