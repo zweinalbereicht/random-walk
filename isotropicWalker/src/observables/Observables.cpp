@@ -132,6 +132,31 @@ double split_prob_disk_escape(const double R, const double theta1,
   return (run / ((double)n));
 }
 
+double split_prob_concentric_disk(const double R_int, const double R_out,
+                                  GaussianWalker &walker, const int n) {
+
+  vector<int> result_tmp(n);
+  double run = 0;
+  for (int i = 0; i < n; i++) {
+    // prepare for the run
+    walker.set_lifetime(0);
+    walker.set_coord(0, R_int);
+    int d = walker.get_dimension();
+    for (int k = 1; k < d; k++)
+      walker.set_coord(k, 0.0);
+
+    // run
+    std::vector<double> last_pos = walker.get_pos();
+    while (walker.get_radial_dist() >= R_int &&
+           walker.get_radial_dist() <= R_out) {
+      walker.move();
+    }
+
+    run += (int)(walker.get_radial_dist() >= R_out);
+  }
+  return (run / ((double)n));
+}
+
 // returns the probability to survive n steps in a disk of radiius R
 double survival_disk(const double R, const int nbsteps, GaussianWalker &walker,
                      const int n) {

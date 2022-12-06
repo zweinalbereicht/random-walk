@@ -35,6 +35,10 @@ split_prob_reflecting_cone(const double r0, const double theta0, const double th
 double 
 split_prob_disk_escape(const double R, const double theta1,const double theta2, GaussianWalker &walker, const int n);
 
+// returns the probability to escape concentric discs via the farthest one.
+double 
+split_prob_concentric_disk(const double R_int,const double R_out, GaussianWalker &walker, const int n);
+
 //returns the probability to survive n steps in a disk of radiius R
 double 
 survival_disk(const double R, const int nbsteps, GaussianWalker &walker, const int n);
