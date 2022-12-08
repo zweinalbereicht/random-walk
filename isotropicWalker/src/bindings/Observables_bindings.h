@@ -54,6 +54,16 @@ handle.def("split_prob_concentric_disk"
         ,py::arg("n")
         , "returns the probability to escape concentric discs via the farthest one." );
 
+handle.def("split_prob_eccentric_disk"
+        ,&split_prob_eccentric_disk
+        ,py::arg("inner_radius")
+        ,py::arg("outer_radius")
+        ,py::arg("inner_location")
+        ,py::arg("staring angle")
+        ,py::arg("walker")
+        ,py::arg("n")
+        , "returns the probability to escape eccentric discs via the farthest one. We start on the smallest radius whose center is offsetted and with an angle theta0 wrt to the center of the inner circle" );
+
 handle.def("survival_disk"
         ,&survival_disk
         ,py::arg("R")

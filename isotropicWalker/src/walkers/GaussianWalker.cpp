@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <gsl/gsl_randist.h>
 #include <gsl/gsl_rng.h>
 #include <iostream>
@@ -200,8 +201,10 @@ double GaussianWalker::get_angle() {
 double euclidian_distance(const std::vector<double> &a,
                           const std::vector<double> &b) {
   double result = 0.0;
-  for (int i = 0; i < a.size(); i++)
+  for (int i = 0; i < a.size(); i++) {
+    // cout << a[i] << ',' << b[i] << endl;
     result += pow(a[i] - b[i], 2);
+  }
   return sqrt(result);
 }
 

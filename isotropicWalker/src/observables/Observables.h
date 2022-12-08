@@ -39,6 +39,11 @@ split_prob_disk_escape(const double R, const double theta1,const double theta2, 
 double 
 split_prob_concentric_disk(const double R_int,const double R_out, GaussianWalker &walker, const int n);
 
+// returns the probability to escape eccentric discs via the farthest one. We start on the smallest radius whose center is offsetted and with an angle theta0
+// wrt to the center of the inner circle
+double 
+split_prob_eccentric_disk(const double R_int,const double R_out, double const offset, double const theta0, GaussianWalker &walker, const int n);
+
 //returns the probability to survive n steps in a disk of radiius R
 double 
 survival_disk(const double R, const int nbsteps, GaussianWalker &walker, const int n);
