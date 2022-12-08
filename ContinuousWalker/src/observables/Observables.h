@@ -24,6 +24,10 @@ survival_probability(const double x0,const long n, ContinuousWalker &walker, con
 double
 survival_probability_bounded(const double x0, const double x, const long n, ContinuousWalker &walker, const long N);
 
+//returns the mean exit time, (crossing convention), in the interval [0,x],averaged over N trials.
+double
+mfpt_bounded(const double x0, const double x,  ContinuousWalker &walker, const long N);
+
 //renvoie la probability de traverser x avant 0, partant de x0. On attend avant d'avoir N valeurs... -> ça peut prendre du temps
 double
 splitting_probability(const double x0,const double x, ContinuousWalker &walker, const long N);

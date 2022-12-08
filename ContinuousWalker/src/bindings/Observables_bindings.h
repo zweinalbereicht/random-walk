@@ -43,6 +43,14 @@ handle.def("survival_probability_bounded"
         ,py::arg("N")
         ,"returns the survival probability after n steps, (crossing convention), in the interval [0,x],averaged over N trials.");
 
+handle.def("mfpt_bounded"
+        ,&mfpt_bounded
+        ,py::arg("x0")
+        ,py::arg("x")
+        ,py::arg("walker")
+        ,py::arg("N")
+        ,"returns the mean exit time, (crossing convention), in the interval [0,x],averaged over N trials.");
+
 handle.def("conditional_fpt_distribution"
         ,&conditional_fpt_distribution
         ,py::arg("x0")

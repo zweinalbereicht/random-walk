@@ -52,6 +52,22 @@ double survival_probability_bounded(const double x0, const double x,
   return probability / ((double)N);
 }
 
+// returns the mean exit time, (crossing convention), in the interval
+// [0,x],averaged over N trials.
+double mfpt_bounded(const double x0, const double x, ContinuousWalker &walker,
+                    const long N) {
+  double mfpt = 0.0;
+  for (int i = 0; i < N; i++) {
+    walker.set_lifetime(0);
+    walker.set_pos(x0);
+    while (walker.isAlive() && walker.get_pos() <= x) {
+      walker.move();
+    }
+    mfpt += walker.get_lifetime();
+  }
+  return mfpt / ((double)N);
+}
+
 double splitting_probability(const double x0, const double x,
                              ContinuousWalker &walker, const long N) {
   double probability = 0.0;
