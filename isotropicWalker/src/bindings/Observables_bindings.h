@@ -54,6 +54,15 @@ handle.def("split_prob_concentric_disk"
         ,py::arg("n")
         , "returns the probability to escape concentric discs via the farthest one." );
 
+handle.def("mfpt_2d_disk_outer_reflecting"
+        ,&mfpt_2d_disk_outer_reflecting
+        ,py::arg("inner_radius")
+        ,py::arg("outer_radius")
+        ,py::arg("walker")
+        ,py::arg("n")
+        , "returns the mean fpt to inner disk with outer disk reflecting, averaged over n trials" );
+
+
 handle.def("split_prob_eccentric_disk"
         ,&split_prob_eccentric_disk
         ,py::arg("inner_radius")

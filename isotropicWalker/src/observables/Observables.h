@@ -48,6 +48,10 @@ split_prob_eccentric_disk(const double R_int,const double R_out, double const of
 double 
 survival_disk(const double R, const int nbsteps, GaussianWalker &walker, const int n);
 
+//returns the mean fpt to inner disk with outer disk reflecting
+double 
+mfpt_2d_disk_outer_reflecting(const double R_int,const double R_out, GaussianWalker &walker, const int n);
+
 // returns a distribution of radial distances when crossing an hyperplane, with respect
 // to the projection of the initial distance.
 py::list
