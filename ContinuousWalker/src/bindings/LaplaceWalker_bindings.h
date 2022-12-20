@@ -21,6 +21,5 @@ py::class_<LaplaceWalker,ContinuousWalker>(handle, "LaplaceWalker")
             "a setter function for the  walker's a parameter")
 
     .def("move",&LaplaceWalker::move,"a function that makes the walker perform a single step",py::arg("verbose")=0)
-
 ;
 
