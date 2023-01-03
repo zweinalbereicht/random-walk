@@ -11,6 +11,7 @@ handle.def("split_prob_hyperplane"
 
 handle.def("split_prob_cone"
         ,&split_prob_cone
+        ,py::call_guard<py::scoped_ostream_redirect>()
         ,py::arg("r0")
         ,py::arg("theta0")
         ,py::arg("theta")

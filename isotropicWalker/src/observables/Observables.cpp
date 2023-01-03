@@ -1,3 +1,4 @@
+#include <cmath>
 #include <gsl/gsl_rng.h>
 #include <iostream>
 #include <pybind11/iostream.h>
@@ -21,6 +22,12 @@
 
 using namespace std;
 namespace py = pybind11;
+
+void print_vec(std::vector<double> vec) {
+  for (auto el : vec) {
+    std::cout << el << std::endl;
+  }
+}
 
 double split_prob_hyperplane(const double x0, const double x,
                              GaussianWalker &walker, const int n) {
@@ -47,6 +54,7 @@ double split_prob_hyperplane(const double x0, const double x,
 double split_prob_cone(const double r0, const double theta0, const double theta,
                        GaussianWalker &walker, const int n) {
   vector<int> result_tmp(n);
+  vector<double> last_pos;
   double run = 0;
   for (int i = 0; i < n; i++) {
     // prepare for the run
@@ -58,13 +66,33 @@ double split_prob_cone(const double r0, const double theta0, const double theta,
       walker.set_coord(k, 0.0);
 
     // run
-    while (walker.get_angle() >= 0 && walker.get_angle() <= theta) {
-      walker.move();
-    }
     double angle = walker.get_angle();
+    while (angle >= 0 && angle <= theta) {
+      last_pos = walker.get_pos();
+      walker.move();
+      // this should copy alright
+      angle = walker.get_angle();
+    }
     // This is not exact, there are some cases where we are not able to say
     // which side the cone was exited from, but it should be decent enough
-    run += (int)(angle > theta);
+
+    // we now modify this to make it more exact (still not perfect I think,
+    // works for a cone smaller than pi/2 at least.)
+    if (-M_PI_2 <= angle && angle <= 0) {
+      run += 0;
+    } else if (theta <= angle && angle <= M_PI) {
+      run += 1;
+    } else { // this is the case where either crossing could happen
+      // this will only work in 2D, as we use scalar products
+      // print_vec(last_pos);
+      // print_vec(walker.get_pos());
+      // std::cout << last_pos[0] << "," << walker.get_pos()[0] << std::endl;
+      vector<double> curr_pos = walker.get_pos();
+      double scalar_product = -last_pos[1] * (curr_pos[0] - last_pos[0]) +
+                              last_pos[0] * (curr_pos[1] - last_pos[1]);
+      int score = (int)(scalar_product > 0);
+      run += score;
+    }
   }
   return (run / ((double)n));
 }
