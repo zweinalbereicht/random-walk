@@ -114,7 +114,9 @@ double split_prob_reflecting_cone(const double r0, const double theta0,
 
     // run
     std::vector<double> last_pos = walker.get_pos();
-    while (walker.get_angle() >= 0 && walker.get_angle() <= theta) {
+    double angle = walker.get_angle();
+    while (angle >= 0 && angle <= theta) {
+      last_pos = walker.get_pos();
       walker.move();
       // if we step outside the cone we cancel the move
       if (walker.get_radial_dist() > R) {
@@ -123,13 +125,20 @@ double split_prob_reflecting_cone(const double r0, const double theta0,
           walker.set_coord(i, last_pos[i]);
         }
       }
+      angle = walker.get_angle();
     }
-    double angle = walker.get_angle();
-    // This is not exact, there are some cases where we are not able to say
-    // which side the cone was exited from, but it should be decent enough
-    // We might actually encounter some problems with this so maybe we will be
-    // for careful next time
-    run += (int)(angle > theta);
+
+    if (-M_PI_2 <= angle && angle <= 0) {
+      run += 0;
+    } else if (theta <= angle && angle <= M_PI) {
+      run += 1;
+    } else { // this is the case where either crossing could happen
+      vector<double> curr_pos = walker.get_pos();
+      double scalar_product = -last_pos[1] * (curr_pos[0] - last_pos[0]) +
+                              last_pos[0] * (curr_pos[1] - last_pos[1]);
+      int score = (int)(scalar_product > 0);
+      run += score;
+    }
   }
   return (run / ((double)n));
 }

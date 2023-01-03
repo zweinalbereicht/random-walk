@@ -12,9 +12,10 @@ walker.set_seed(np.random.randint(int(1e6)))
 # R_int =20
 # offset  = 90
 # R_out = 23
-r0=1000
-theta=np.pi/2
+r0=100
+theta=2*np.pi/2
 theta0=np.pi/4
-nbsimus=1000
-print(md.split_prob_cone(r0,theta0,theta,walker,int(nbsimus)))
+nbsimus=100000
+R=1e3
+print(md.split_prob_reflecting_cone(r0,theta0,theta,R,walker,int(nbsimus)))
 # print(md.split_prob_concentric_disk(R_int,R_out,walker,int(10000)))
