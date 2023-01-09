@@ -14,9 +14,10 @@ offset  = 10
 R_out = 100
 # r0=100
 # theta=2*np.pi/2
-theta0=np.pi/4
-nbsimus=int(1e5)
+r0=-50
+theta0=0
+nbsimus=int(1e0)
 R=1e3
-a=md.fpt_distribution_eccentric_inner_disk_outer_reflecting(R_int,R_out,offset,theta0,walker,int(nbsimus))
+a=md.fpt_distribution_eccentric_inner_disk_outer_reflecting_any_position(R_int,R_out,offset,r0,theta0,walker,int(nbsimus))
 print(np.mean(a))
 # print(md.split_prob_concentric_disk(R_int,R_out,walker,int(10000)))

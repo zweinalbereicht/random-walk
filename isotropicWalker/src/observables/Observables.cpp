@@ -280,6 +280,49 @@ py::list fpt_distribution_eccentric_inner_disk_outer_reflecting(
   return ret;
 }
 
+// same as above but we start anywhere in the disk
+py::list fpt_distribution_eccentric_inner_disk_outer_reflecting_any_position(
+    const double R_int, const double R_out, double const offset,
+    double const r0, double const theta0, GaussianWalker &walker, const int n) {
+
+  vector<int> result_tmp(n);
+  for (int i = 0; i < n; i++) {
+
+    // prepare for the run
+
+    walker.set_lifetime(0);
+    walker.set_coord(0, r0 * cos(theta0));
+    walker.set_coord(1, r0 * sin(theta0));
+
+    // initialize vector center --> only works in 2D
+    vector<double> inner_centre(2);
+    inner_centre[0] = -offset;
+    inner_centre[1] = 0.0;
+    int d = walker.get_dimension();
+    for (int k = 2; k < d; k++) {
+      walker.set_coord(k, 0.0);
+    }
+
+    double counter = 0;
+
+    // run
+    // cout << euclidian_distance(walker.get_pos(), inner_centre) << endl;
+    while (euclidian_distance(walker.get_pos(), inner_centre) >= R_int) {
+      counter += 1;
+      walker.move();
+      double r = walker.get_radial_dist();
+      if (r > R_out) {
+        walker.set_coord(0, (2 * R_out - r) / r * walker.get_pos()[0]);
+        walker.set_coord(1, (2 * R_out - r) / r * walker.get_pos()[1]);
+      }
+    }
+    result_tmp[i] = counter;
+  }
+  // casting at the end
+  py::list ret = py::cast(result_tmp);
+  return ret;
+}
+
 // returns the mean fpt to inner disk with outer disk reflecting
 double mfpt_2d_disk_outer_reflecting(const double R_int, const double R_out,
                                      GaussianWalker &walker, const int n) {

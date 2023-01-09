@@ -48,6 +48,10 @@ split_prob_eccentric_disk(const double R_int,const double R_out, double const of
 py::list
 fpt_distribution_eccentric_inner_disk_outer_reflecting(const double R_int,const double R_out, double const offset, double const theta0, GaussianWalker &walker, const int n);
 
+// distribution of arrival times in offsetted inner target, with reflecting outer target.
+py::list
+fpt_distribution_eccentric_inner_disk_outer_reflecting_any_position(const double R_int,const double R_out, double const offset, double const r0,double const theta0, GaussianWalker &walker, const int n);
+//
 //returns the probability to survive n steps in a disk of radiius R
 double 
 survival_disk(const double R, const int nbsteps, GaussianWalker &walker, const int n);
