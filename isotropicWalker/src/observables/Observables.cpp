@@ -279,6 +279,65 @@ py::list fpt_distribution_eccentric_inner_disk_outer_reflecting(
   py::list ret = py::cast(result_tmp);
   return ret;
 }
+double kac_flux_eccentric_inner_disk_outer_reflecting(
+    const double R_int, const double R_out, double const offset,
+    GaussianWalker &walker, const int angle_subdivisions, const int n) {
+
+  double angle_increment = M_PI / ((double)angle_subdivisions);
+  double nb_simulations = n / angle_subdivisions;
+  double run = 0;
+  for (int k = 0; k < angle_subdivisions; k++) {
+    for (int i = 0; i < nb_simulations; i++) {
+      double theta0 = k * angle_increment;
+
+      // prepare for the run
+
+      walker.set_lifetime(0);
+      walker.set_coord(0, -offset + R_int * cos(theta0));
+      walker.set_coord(1, R_int * sin(theta0));
+
+      // initialize vector center --> only works in 2D
+      vector<double> inner_centre(2);
+      inner_centre[0] = -offset;
+      inner_centre[1] = 0.0;
+      int d = walker.get_dimension();
+      for (int k = 2; k < d; k++) {
+        walker.set_coord(k, 0.0);
+      }
+
+      double counter = 0;
+
+      // we need to compute the scaler product here, it's a bit verbose but
+      // should work.
+      vector<double> last_pos = walker.get_pos();
+      walker.move();
+      vector<double> cur_pos = walker.get_pos();
+      vector<double> pos_increment(2);
+      pos_increment[0] = cur_pos[0] - last_pos[0];
+      pos_increment[1] = cur_pos[1] - last_pos[1];
+      double norm = sqrt(pow(pos_increment[0], 2) + pow(pos_increment[1], 2));
+
+      double scalar_product = (pos_increment[0] * cos(theta0) +
+                               pos_increment[1] * sin(theta0) / norm);
+      // run
+      // cout << euclidian_distance(walker.get_pos(), inner_centre) << endl;
+      while (euclidian_distance(walker.get_pos(), inner_centre) >= R_int) {
+        counter += 1;
+        walker.move();
+        double r = walker.get_radial_dist();
+        if (r > R_out) {
+          walker.set_coord(0, (2 * R_out - r) / r * walker.get_pos()[0]);
+          walker.set_coord(1, (2 * R_out - r) / r * walker.get_pos()[1]);
+        }
+      }
+      // Here we ponderate the mfpt by the scaler produc, to match Kac's
+      // formula.
+      run += scalar_product * counter;
+    }
+  }
+  // casting at the end
+  return run / (angle_subdivisions * nb_simulations);
+}
 
 // same as above but we start anywhere in the disk
 py::list fpt_distribution_eccentric_inner_disk_outer_reflecting_any_position(

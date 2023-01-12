@@ -94,6 +94,17 @@ handle.def("fpt_distribution_eccentric_inner_disk_outer_reflecting_any_position"
         ,py::arg("walker")
         ,py::arg("n")
         , "returns a sample of arrival fpt to inner disk. We start anywhere in the big disk." );
+
+handle.def("kac_flux_eccentric_inner_disk_outer_reflecting"
+        ,&kac_flux_eccentric_inner_disk_outer_reflecting
+        ,py::arg("inner_radius")
+        ,py::arg("outer_radius")
+        ,py::arg("inner_location")
+        ,py::arg("walker")
+        ,py::arg("angle_subdivision")
+        ,py::arg("n")
+        , "returns the kac average to inner target." );
+
 handle.def("survival_disk"
         ,&survival_disk
         ,py::arg("R")
