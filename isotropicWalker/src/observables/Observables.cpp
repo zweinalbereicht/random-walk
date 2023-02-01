@@ -247,17 +247,19 @@ py::list fpt_distribution_eccentric_inner_disk_outer_reflecting(
 
     // prepare for the run
 
+    int d = walker.get_dimension();
     walker.set_lifetime(0);
     walker.set_coord(0, -offset + R_int * cos(theta0));
     walker.set_coord(1, R_int * sin(theta0));
-
-    // initialize vector center --> only works in 2D
-    vector<double> inner_centre(2);
-    inner_centre[0] = -offset;
-    inner_centre[1] = 0.0;
-    int d = walker.get_dimension();
     for (int k = 2; k < d; k++) {
       walker.set_coord(k, 0.0);
+    }
+
+    // initialize vector center
+    vector<double> inner_centre(d);
+    inner_centre[0] = -offset;
+    for (int k = 1; k < d; k++) {
+      inner_centre[k] = 0.0;
     }
 
     double counter = 0;
@@ -269,8 +271,9 @@ py::list fpt_distribution_eccentric_inner_disk_outer_reflecting(
       walker.move();
       double r = walker.get_radial_dist();
       if (r > R_out) {
-        walker.set_coord(0, (2 * R_out - r) / r * walker.get_pos()[0]);
-        walker.set_coord(1, (2 * R_out - r) / r * walker.get_pos()[1]);
+        for (int k = 0; k < d; k++) {
+          walker.set_coord(k, (2 * R_out - r) / r * walker.get_pos()[k]);
+        }
       }
     }
     result_tmp[i] = counter;
@@ -339,7 +342,7 @@ double kac_flux_eccentric_inner_disk_outer_reflecting(
   return run / (angle_subdivisions * nb_simulations);
 }
 
-// same as above but we start anywhere in the disk
+// same as above but we start anywhere in the disk -> only works in 2D for now
 py::list fpt_distribution_eccentric_inner_disk_outer_reflecting_any_position(
     const double R_int, const double R_out, double const offset,
     double const r0, double const theta0, GaussianWalker &walker, const int n) {
