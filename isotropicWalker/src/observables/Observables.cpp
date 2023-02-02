@@ -390,27 +390,27 @@ double mfpt_2d_disk_outer_reflecting(const double R_int, const double R_out,
                                      GaussianWalker &walker, const int n) {
 
   double run = 0;
+  int d = walker.get_dimension();
   for (int i = 0; i < n; i++) {
     // prepare for the run
     double counter = 0;
     walker.set_lifetime(0);
     walker.set_coord(0, R_int);
-    vector<double> inner_centre(2);
-    int d = walker.get_dimension();
+
     for (int k = 1; k < d; k++) {
       walker.set_coord(k, 0.0);
     }
 
     // run
     std::vector<double> last_pos = walker.get_pos();
-    // cout << euclidian_distance(walker.get_pos(), inner_centre) << endl;
     while (walker.get_radial_dist() >= R_int) {
       counter += 1;
       walker.move();
       double r = walker.get_radial_dist();
       if (r > R_out) {
-        walker.set_coord(0, (2 * R_out - r) / r * walker.get_pos()[0]);
-        walker.set_coord(1, (2 * R_out - r) / r * walker.get_pos()[1]);
+        for (int k = 0; k < d; k++) {
+          walker.set_coord(k, (2 * R_out - r) / r * walker.get_pos()[k]);
+        }
       }
       std::vector<double> last_pos = walker.get_pos();
     }
