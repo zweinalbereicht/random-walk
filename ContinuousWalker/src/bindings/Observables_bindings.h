@@ -1,5 +1,13 @@
 #pragma once
 
+handle.def("generate_trajectory"
+        ,&generate_trajectory
+        ,py::arg("x0")
+        ,py::arg("walker")
+        ,py::arg("nbsteps")
+        ,"returns a trajectory of nbsteps starting from x0.");
+
+
 handle.def("splitting_probability"
         ,&splitting_probability
         ,py::arg("x0")

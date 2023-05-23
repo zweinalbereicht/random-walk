@@ -18,6 +18,21 @@
 using namespace std;
 namespace py = pybind11;
 
+py::list generate_trajectory(const double x0, ContinuousWalker &walker,
+                             const long nbsteps) {
+
+  vector<double> traj(nbsteps);
+  walker.set_lifetime(0);
+  walker.set_pos(x0);
+  traj[0] = x0;
+  for (int k = 1; k < nbsteps; k++) {
+    walker.move();
+    traj[k] = walker.get_pos();
+  }
+  py::list ret = py::cast(traj);
+  return ret;
+}
+
 double survival_probability(const double x0, const long n,
                             ContinuousWalker &walker, const long N) {
   double probability = 0.0;

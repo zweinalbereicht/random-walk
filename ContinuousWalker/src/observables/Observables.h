@@ -16,6 +16,10 @@
 
 namespace py = pybind11;
 
+//renvoie la distribution du temps de passage conditinnel à travers target(0=0,1=x), entre x et 0 
+py::list
+generate_trajectory(const double x0, ContinuousWalker &walker, const long nbsteps);
+
 double
 //renvoie la probability d'etre toujours en vie après n pas
 survival_probability(const double x0,const long n, ContinuousWalker &walker, const long N);
