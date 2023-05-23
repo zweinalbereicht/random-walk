@@ -22,7 +22,7 @@ generate_trajectory(const double x0, ContinuousWalker &walker, const long nbstep
 
 double
 //renvoie la probability d'etre toujours en vie après n pas
-survival_probability(const double x0,const long n, ContinuousWalker &walker, const long N);
+survival_probability(const double x0,const long n, ContinuousWalker &walker, const long N,double drift=0.0);
 
 //renvoie la probability d'etre toujours en vie après n pas dans un intervalle
 double
@@ -34,7 +34,7 @@ mfpt_bounded(const double x0, const double x,  ContinuousWalker &walker, const l
 
 //renvoie la probability de traverser x avant 0, partant de x0. On attend avant d'avoir N valeurs... -> ça peut prendre du temps
 double
-splitting_probability(const double x0,const double x, ContinuousWalker &walker, const long N);
+splitting_probability(const double x0,const double x, ContinuousWalker &walker, const long N, double drift=0.0);
 
 //splitting probability when both boundaries are escaping, with signed speeds vleft and vright
 double

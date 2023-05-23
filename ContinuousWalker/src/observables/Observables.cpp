@@ -34,7 +34,8 @@ py::list generate_trajectory(const double x0, ContinuousWalker &walker,
 }
 
 double survival_probability(const double x0, const long n,
-                            ContinuousWalker &walker, const long N) {
+                            ContinuousWalker &walker, const long N,
+                            double drift) {
   double probability = 0.0;
 
   for (int i = 0; i < N; i++) {
@@ -42,6 +43,9 @@ double survival_probability(const double x0, const long n,
     walker.set_pos(x0);
     while (walker.isAlive() && walker.get_lifetime() < n) {
       walker.move();
+      // add the drift term
+      double pos_curr = walker.get_pos();
+      walker.set_pos(pos_curr + drift);
     }
     probability += walker.isAlive();
   }
@@ -84,7 +88,8 @@ double mfpt_bounded(const double x0, const double x, ContinuousWalker &walker,
 }
 
 double splitting_probability(const double x0, const double x,
-                             ContinuousWalker &walker, const long N) {
+                             ContinuousWalker &walker, const long N,
+                             double drift) {
   double probability = 0.0;
 
   for (int i = 0; i < N; i++) {
@@ -95,6 +100,9 @@ double splitting_probability(const double x0, const double x,
     // en convention crossing
     while (walker.get_pos() <= x && walker.get_pos() >= 0) {
       walker.move();
+      // add the potential drift term
+      double pos_curr = walker.get_pos();
+      walker.set_pos(pos_curr + drift);
     }
     probability += (walker.isAlive());
   }

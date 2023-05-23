@@ -14,6 +14,7 @@ handle.def("splitting_probability"
         ,py::arg("x")
         ,py::arg("walker")
         ,py::arg("N")
+        ,py::arg("drift")=0.0
         ,"returns the splitting probability to reach x before zero (crossing convention), averaged over N trials.");
 
 handle.def("splitting_probability_escaping_boundaries"
@@ -32,6 +33,7 @@ handle.def("survival_probability"
         ,py::arg("n")
         ,py::arg("walker")
         ,py::arg("N")
+        ,py::arg("drift")=0.0
         ,"returns the survival probability after n steps, (crossing convention), averaged over N trials.");
 
 handle.def("strip_probability"
