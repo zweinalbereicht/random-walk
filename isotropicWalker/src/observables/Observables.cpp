@@ -478,3 +478,55 @@ py::list radial_distance_when_crossing_hyperplan_distribution(
   py::list ret = py::cast(distances);
   return ret;
 }
+
+// distribution of convex hulls up to some number of steps
+py::list cvx_hull_distribution_free_space(GaussianWalker &walker,
+                                          const int nbsteps,
+                                          const int nbsimus) {
+  vector<float> distances(nbsimus);
+  py::list ret = py::cast(distances);
+  return ret;
+}
+
+// mean convex hulls up to some number of steps
+double mean_cvx_hull_free_space(GaussianWalker &walker, const int nbsteps,
+                                const int nbsimus) {
+  return 0.0;
+}
+
+// distribution of convex hulls up to escaping a disk of radius R
+py::list cvx_hull_distribution_before_FPT_to_rim(const double R,
+                                                 const double r0,
+                                                 GaussianWalker &walker,
+                                                 const int nbsimus) {
+  vector<float> distances(nbsimus);
+  py::list ret = py::cast(distances);
+  return ret;
+}
+
+// mean convex hulls up to escaping a disk of radius R
+double mean_cvx_hull_before_FPT_to_rim(const double R, const double r0,
+                                       GaussianWalker &walker,
+                                       const int nbsimus) {
+
+  return 0.0;
+}
+
+// distribution of convex hulls up to entering an inner target in a confining
+// disk
+py::list cvx_hull_distribution_before_FPT_to_inner_target(
+    const double rint, const double zint, const double R, const double r0,
+    const double theta0, GaussianWalker &walker, const int nbsimus) {
+  vector<float> distances(nbsimus);
+  py::list ret = py::cast(distances);
+  return ret;
+}
+
+// distribution of convex hulls up to entering an inner target in a confining
+// disk
+double mean_cvx_hull_before_FPT_to_inner_target(
+    const double rint, const double zint, const double R, const double r0,
+    const double theta0, GaussianWalker &walker, const int nbsimus) {
+
+  return 0.0;
+}
