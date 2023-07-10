@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: isotropicWalker
+Version: 0.0.1
+Summary: isotropic random walkers made with pybind11
+Author: Jeremie Klinger
+Author-email: jeremie.klinger@polytechnique.org
+Requires-Python: >=3.9
+Provides-Extra: test

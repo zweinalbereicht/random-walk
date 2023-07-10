@@ -69,6 +69,10 @@ mfpt_2d_disk_outer_reflecting(const double R_int,const double R_out, GaussianWal
 py::list
 radial_distance_when_crossing_hyperplan_distribution(const double x0, const double x, GaussianWalker &walker, const int n);
 
+//  Return a trajectory of n steps starting from z0 on the x-axis
+py::list
+trajectory(const double z0, GaussianWalker &walker, const int nbsteps);
+
 
 // distribution of convex hulls up to some number of steps
 py::list

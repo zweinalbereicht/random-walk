@@ -1,0 +1,13 @@
+pyproject.toml
+setup.py
+isotropicWalker.egg-info/PKG-INFO
+isotropicWalker.egg-info/SOURCES.txt
+isotropicWalker.egg-info/dependency_links.txt
+isotropicWalker.egg-info/not-zip-safe
+isotropicWalker.egg-info/requires.txt
+isotropicWalker.egg-info/top_level.txt
+src/bindings/Bindings.cpp
+src/observables/Observables.cpp
+src/walkers/GaussianWalker.cpp
+src/walkers/LevyWalker.cpp
+src/walkers/RTLWalker.cpp

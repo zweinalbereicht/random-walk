@@ -112,3 +112,10 @@ handle.def("survival_disk"
         ,py::arg("walker")
         ,py::arg("n")
         , "returns the probability to survive nbsteps steps in a disk of radiius R");
+
+handle.def("trajectory"
+        ,&trajectory
+        ,py::arg("z0")
+        ,py::arg("walker")
+        ,py::arg("nbsteps")
+        , "returns a trajctory of nbsteps, starting from z0 on the x-axis");

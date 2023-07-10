@@ -530,3 +530,20 @@ double mean_cvx_hull_before_FPT_to_inner_target(
 
   return 0.0;
 }
+
+//  Return a trajectory of n steps starting from z0 on the x-axis
+py::list trajectory(const double z0, GaussianWalker &walker,
+                    const int nbsteps) {
+  int dim = walker.get_dimension();
+  vector<vector<double>> positions(nbsteps, vector<double>(dim, 0.0));
+  walker.set_coord(0, z0);
+  vector<double> curr_pos = walker.get_pos();
+  positions[0] = curr_pos;
+  for (int k = 1; k < nbsteps; k++) {
+    walker.move();
+    vector<double> curr_pos = walker.get_pos();
+    positions[k] = curr_pos;
+  }
+  py::list ret = py::cast(positions);
+  return ret;
+}
