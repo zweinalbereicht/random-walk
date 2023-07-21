@@ -60,7 +60,7 @@ void GaussianWalker::print_details() const {
 
 // getters
 
-vector<double> GaussianWalker::get_pos() const { return m_pos; }
+vector<double> GaussianWalker::get_pos() const { return m_pos; };
 
 vector<double> GaussianWalker::get_direction() const { return m_direction; }
 

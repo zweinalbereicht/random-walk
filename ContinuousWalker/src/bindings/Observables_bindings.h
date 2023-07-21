@@ -42,7 +42,8 @@ handle.def("strip_probability"
         ,py::arg("walker")
         ,py::arg("nbSteps")
         ,py::arg("nbSimus")
-        ,"returns the probability to observe a nbSteps long strip trajectory, whose max is greater than x, starting from 0.");
+        ,py::arg("x0")=0.0
+        ,"returns the probability to observe a nbSteps long strip trajectory, whose max is greater than x, starting from x0.");
 
 handle.def("survival_probability_bounded"
         ,&survival_probability_bounded

@@ -139,13 +139,13 @@ double splitting_probability_escaping_boundaries(
 // renvoie la probabilité d'observer une trajectoire de type strip, dont le max
 // est plus grand que x
 double strip_probability(double x, ContinuousWalker &walker, const long nbSteps,
-                         const long nbSimus) {
+                         const long nbSimus, double x0) {
 
   double probability = 0.0;
 
   for (int i = 0; i < nbSimus; i++) {
     walker.set_lifetime(0);
-    walker.set_pos(0);
+    walker.set_pos(x0);
     walker.set_max(0);
     walker.set_min(0);
     // encore une fois attention aux inegalités

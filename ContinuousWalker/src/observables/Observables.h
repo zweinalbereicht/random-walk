@@ -42,7 +42,7 @@ splitting_probability_escaping_boundaries(const double x0,const double x,const d
 
 //renvoie la probabilité d'obaserver une trajectoire de type strip, dont le max est plus grand que x
 double
-strip_probability(double x, ContinuousWalker &walker, const long nbSteps, const long nbSimus);
+strip_probability(double x, ContinuousWalker &walker, const long nbSteps, const long nbSimus, double x0=0.0);
 
 //renvoie la distribution du temps de passage conditinnel à travers target(0=0,1=x), entre x et 0 
 py::list
