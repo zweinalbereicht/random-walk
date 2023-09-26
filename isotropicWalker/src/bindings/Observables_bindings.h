@@ -63,6 +63,14 @@ handle.def("mfpt_2d_disk_outer_reflecting"
         ,py::arg("n")
         , "returns the mean fpt to inner disk with outer disk reflecting, averaged over n trials" );
 
+handle.def("mfpt_2d_disk_outer_absorbing"
+        ,&mfpt_2d_disk_outer_absorbing
+        ,py::arg("starting position")
+        ,py::arg("outer_radius")
+        ,py::arg("walker")
+        ,py::arg("n")
+        , "returns the mean fpt to outer absorbing disk, averaged over n trials" );
+
 
 handle.def("split_prob_eccentric_disk"
         ,&split_prob_eccentric_disk

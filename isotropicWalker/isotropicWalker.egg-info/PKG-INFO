@@ -6,3 +6,4 @@ Author: Jeremie Klinger
 Author-email: jeremie.klinger@polytechnique.org
 Requires-Python: >=3.9
 Provides-Extra: test
+Requires-Dist: pytest; extra == "test"

@@ -423,6 +423,41 @@ double mfpt_2d_disk_outer_reflecting(const double R_int, const double R_out,
   return (run / ((double)n));
 }
 
+//returns the mean fpt to absorbing outer disk
+double 
+mfpt_2d_disk_outer_absorbing(const double r_0,const double R_out, GaussianWalker &walker, const int n){
+
+
+    double run = 0;
+    int d = walker.get_dimension();
+    for (int i = 0; i < n; i++) {
+        // prepare for the run
+        double counter = 0;
+        walker.set_lifetime(0);
+        walker.set_coord(0, r_0);
+
+        for (int k = 1; k < d; k++) {
+            walker.set_coord(k, 0.0);
+        }
+
+        // run
+        std::vector<double> last_pos = walker.get_pos();
+        while (walker.get_radial_dist() <= R_out) {
+            counter += 1;
+            walker.move();
+            double r = walker.get_radial_dist();
+            if (r > R_out) {
+                for (int k = 0; k < d; k++) {
+                    walker.set_coord(k, (2 * R_out - r) / r * walker.get_pos()[k]);
+                }
+            }
+            std::vector<double> last_pos = walker.get_pos();
+        }
+        run += counter;
+    }
+    return (run / ((double)n));
+}
+
 // returns the probability to survive n steps in a disk of radiius R
 double survival_disk(const double R, const int nbsteps, GaussianWalker &walker,
                      const int n) {

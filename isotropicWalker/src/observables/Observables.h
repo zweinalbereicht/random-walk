@@ -64,6 +64,11 @@ survival_disk(const double R, const int nbsteps, GaussianWalker &walker, const i
 double 
 mfpt_2d_disk_outer_reflecting(const double R_int,const double R_out, GaussianWalker &walker, const int n);
 
+
+//returns the mean fpt to absorbing outer disk
+double 
+mfpt_2d_disk_outer_absorbing(const double r_0,const double R_out, GaussianWalker &walker, const int n);
+
 // returns a distribution of radial distances when crossing an hyperplane, with respect
 // to the projection of the initial distance.
 py::list
