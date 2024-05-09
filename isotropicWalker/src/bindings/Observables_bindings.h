@@ -82,6 +82,17 @@ handle.def("split_prob_eccentric_disk"
         ,py::arg("n")
         , "returns the probability to escape eccentric discs via the farthest one. We start on the smallest radius whose center is offsetted and with an angle theta0 wrt to the center of the inner circle" );
 
+handle.def("split_prob_eccentric_disk_choose_start"
+        ,&split_prob_eccentric_disk_choose_start
+        ,py::arg("inner_radius")
+        ,py::arg("outer_radius")
+        ,py::arg("inner_location")
+        ,py::arg("staring angle")
+        ,py::arg("staring radius")
+        ,py::arg("walker")
+        ,py::arg("n")
+        , "returns the probability to escape eccentric discs via the farthest one, starting at r0 exp (i theta 0)." );
+
 handle.def("fpt_distribution_eccentric_inner_disk_outer_reflecting"
         ,&fpt_distribution_eccentric_inner_disk_outer_reflecting
         ,py::arg("inner_radius")

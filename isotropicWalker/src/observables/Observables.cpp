@@ -235,6 +235,42 @@ double split_prob_eccentric_disk(const double R_int, const double R_out,
   return (run / ((double)n));
 }
 
+// same as previous function but allows for a tunable starting position with parameters r0 and theta 0
+double split_prob_eccentric_disk_choose_start(const double R_int,const double R_out,
+                                 double const offset, double const theta0, double const r0,
+                                 GaussianWalker &walker, const int n) {
+
+  vector<int> result_tmp(n);
+  double run = 0;
+  for (int i = 0; i < n; i++) {
+    // prepare for the run
+    walker.set_lifetime(0);
+    walker.set_coord(0, r0 * cos(theta0));
+    walker.set_coord(1, r0 * sin(theta0));
+
+    // initialize vector center --> only works in 2D
+    vector<double> inner_centre(2);
+    inner_centre[0] = -offset;
+    inner_centre[1] = 0.0;
+    int d = walker.get_dimension();
+    for (int k = 2; k < d; k++) {
+      walker.set_coord(k, 0.0);
+    }
+
+    // run
+    std::vector<double> last_pos = walker.get_pos();
+    // cout << euclidian_distance(walker.get_pos(), inner_centre) << endl;
+    while (euclidian_distance(walker.get_pos(), inner_centre) >= R_int &&
+           walker.get_radial_dist() <= R_out) {
+      // cout << euclidian_distance(walker.get_pos(), inner_centre) << endl;
+      walker.move();
+    }
+
+    run += (int)(walker.get_radial_dist() >= R_out);
+  }
+  return (run / ((double)n));
+}
+
 // returns the probability to escape eccentric discs via the farthest one. We
 // start on the smallest radius whose center is offsetted and with an angle
 // theta0 wrt to the center of the inner circle
@@ -424,7 +460,7 @@ double mfpt_2d_disk_outer_reflecting(const double R_int, const double R_out,
 }
 
 //returns the mean fpt to absorbing outer disk
-double 
+double
 mfpt_2d_disk_outer_absorbing(const double r_0,const double R_out, GaussianWalker &walker, const int n){
 
 
